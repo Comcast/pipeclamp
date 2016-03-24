@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Schema Viewer</title>
+  <!-- 2 load the theme CSS file -->
+  <link rel="stylesheet" href="dist/themes/default/style.min.css" />
+</head>
+<body>
+
+<script>
+    var datatypes = {
+           	"default":			{"icon" : "Black-dot.png"	},
+           	"RECORD":			{"icon" : "Black-dot.png"	},
+           	"RECORD-OR-NULL":	{"icon" : "Black-dot-hole.png"	},
+           	"ARRAY":			{"icon" : "Four-blue-boxes.png"	},
+           	"BOOLEAN":			{"icon" : "Orange-dot.png"	},
+           	"BOOLEAN-OR-NULL":	{"icon" : "Orange-dot-hole.png"	},
+        	"ENUM":				{"icon" : "Red-dot.png"	},
+        	"ENUM-OR-NULL":		{"icon" : "Red-dot-hole.png"	},
+           	"INT":				{"icon" : "Green-dot.png"	},
+           	"INT-OR-NULL":		{"icon" : "Green-dot-hole.png"	},
+           	"LONG":				{"icon" : "Yellow-dot.png" 	},
+           	"LONG-OR-NULL":		{"icon" : "Yellow-dot-hole.png" },
+	       	"FLOAT":			{"icon" : "Gray-dot.png" 	},
+	       	"FLOAT-OR-NULL":	{"icon" : "Gray-dot-hope.png" 	},
+	    	"DOUBLE":			{"icon" : "Blue-dot.png" 	},
+	    	"DOUBLE-OR-NULL":	{"icon" : "Blue-dot-hole.png" 	},
+	        "STRING":			{"icon" : "Rose-red-dot.png"  },
+	        "STRING-OR-NULL":	{"icon" : "Rose-red-dot-hole.png"  },
+	        // TODO need FIXED & FIXED-OR-NULL
+	        
+	        "METRIC":		{"icon" : "triangle-ruler.png"  },
+	        "CONSTRAINT":	{"icon" : "circle-with-slash.png"  },
+	        "PARAMETER":	{"icon" : "small-pencil.png"  }
+        	};
+    
+    var gridConfig = {
+            	columns: [ 
+  	            	{width: 25, header: "Node"},  
+  	            	{width: 3,  header: "Size", value: "size"}, 
+  	            	{width: 10, header: "Default", value: "default"},
+  	            	{width: 62, header: "Details", value: "doc"}  
+  	            	],
+  	        	resizable: "true"
+  	        	};
+    	
+    var treeSocket;
+    if (window.WebSocket) {
+    	treeSocket = new WebSocket("ws://localhost:8080/myapp");
+    	treeSocket.onmessage = function (event) {
+      
+        	var newData = JSON.parse(event.data);
+        	$('#jstree').jstree('destroy').jstree({
+        		'plugins': [ "grid", "types", "contextmenu", "wholerow" ],
+        	    'core' : { 'data' : newData },
+        	   	'grid' : gridConfig,
+        	    'types': datatypes,
+                'contextmenu' : { items: customMenu }
+        	    })
+        };
+    } else {
+        alert("Your browser does not support Websockets. (Use Chrome)");
+    }
+
+    function customMenu(node) {
+
+        switch (node.type) {
+	        case "RECORD" :  case "RECORD-OR-NULL" :  return recordMenuItems(node);
+	        case "ARRAY" :   return arrayMenuItems(node);
+	        case "ENUM" :     case "ENUM-OR-NULL" : return enumMenuItems(node);
+	        case "INT" :      case "INT-OR-NULL" :
+	        case "LONG" :     case "LONG-OR-NULL" : 
+	        case "FLOAT" :    case "FLOAT-OR-NULL" :
+	        case "DOUBLE" :   case "DOUBLE-OR-NULL" : return numericMenuItems(node);
+	        case "STRING" :   case "STRING-OR-NULL" : return stringMenuItems(node);
+	        
+	        case "METRIC" 	  :	return qaMenuItems(node);
+	        case "CONSTRAINT" : return qaMenuItems(node);
+	        case "PARAMETER"  : return parameterMenuItems(node);
+	        
+	        case "default" : return defaultMenuItems(node);
+	        }
+
+        return null;
+    }
+    
+    function defaultMenuItems(node) {
+    	
+	   	 return {
+	   	      xxItem:		{ label: "XX", action: function () { }  },
+	   	      yyItem:		{ label: "YY", action: function () { }  }
+	   	      };
+	   }
+    
+    function qaMenuItems(node) {
+    	
+	   	 return {
+	   	      renameItem:		{ label: "rename", icon: 'small-pencil.png', action: function () { }  },
+	   	      deleteItem:		{ label: "delete",  icon: 'delete.png', action: function () { }  }
+	   	      };
+	   }
+    
+    function parameterMenuItems(node) {
+    	
+	   	 return {
+	   	      editItem:		{ label: "edit", icon: 'small-pencil.png', action: function () { }  },
+	   	      deleteItem:	{ label: "delete",  icon: 'delete.png', action: function () { }  }
+	   	      };
+	   }
+    
+    function enumMenuItems(node) {
+    	
+	   	 return {
+	   	      histogramItem:	{ label: "histogram", action: function () { }  }
+	   	      };
+	   }
+    
+    function recordMenuItems(node) {
+    	
+    	 return {
+    		 addConstItem:	{ label: "Add constraint",  "icon" : "circle-with-slash.png",
+	                submenu: {
+		    	      noNullItem:	{ label: "No nulls", 		action: function () { toggle(node, "minmax");  }  }
+			          }
+ 				},
+    		 addMetricItem:	{ label: "Add metric",  "icon" : "triangle-ruler.png",
+	                submenu: {
+		    	      nullsItem:	{ label: "Nulls",  		action: function () { toggle(node, "nulls"); }  },
+		    	      nonNullsItem:	{ label: "Non-nulls", 	action: function () { toggle(node, "nonNulls");  }  },
+		    	      countItem:	{ label: "Count...",  	action: function () { toggle(node, "count");  }  }
+			          }
+    				},
+    	 	  clearAllItem:	{ label: "Clear all",  icon: 'delete.png', action: function () { },  "separator_before"  : true,   }
+    	   };
+	   }
+   
+    function numericMenuItems(node) {
+    	
+    	 return {
+    		 addConstItem:	{ label: "Add constraint",  "icon" : "circle-with-slash.png",
+	                submenu: {
+		    	      minmaxItem:	{ label: "Min/max...", 		action: function () { toggle(node, "minmax");  }  }
+			          }
+ 				},
+    		 addMetricItem:	{ label: "Add metric",  "icon" : "triangle-ruler.png",
+	                submenu: {
+		    	      sumItem:		{ label: "Sum",  			action: function () { toggle(node, "sum"); }  },
+		    	      minmaxItem:	{ label: "Min/max", 		action: function () { toggle(node, "minmax");  }  },
+		    	      averageItem:	{ label: "Average", 		action: function () { toggle(node, "avg");  }  },
+		    	      meanItem:		{ label: "Std deviation",  	action: function () { toggle(node, "stdDev");  }  },
+		    	      countItem:	{ label: "Count...",  		action: function () { toggle(node, "count");  }  }
+			          }
+    				},
+ 			clearAllItem:	{ label: "Clear all",  icon: 'delete.png', action: function () { },  "separator_before"  : true,   }
+    	    };
+    }
+    
+    function arrayMenuItems(node) {
+    	
+    	 return {
+    		 addConstItem:	{ label: "Add constraint",  "icon" : "circle-with-slash.png",
+	                submenu: {
+		    	      minmaxItem:	{ label: "Min/max size...", 		action: function () { toggle(node, "minmax");  }  }
+			          }
+ 				},
+    		 addMetricItem:	{ label: "Add metric",  "icon" : "triangle-ruler.png",
+	                submenu: {
+		    	      sumItem:		{ label: "Avg size",  		action: function () { toggle(node, "sum"); }  },
+		    	      minmaxItem:	{ label: "Min/max size", 	action: function () { toggle(node, "minmax");  }  },
+		    	      countItem:	{ label: "Count...",  		action: function () { toggle(node, "count");  }  }
+			          }
+    				},
+    	 	  clearAllItem:	{ label: "Clear all",  icon: 'delete.png', action: function () { },  "separator_before"  : true,   }
+    	   };
+   }
+    
+    function stringMenuItems(node) {
+    	
+    	return {
+	   		 addConstItem:	{ label: "Add constraint",  "icon" : "circle-with-slash.png",
+		                submenu: {
+			    	      minmaxItem:	{ label: "Min/max length...", 	action: function () { toggle(node, "minmax");  }  },
+			    	      regexItem:	{ label: "Regex...", 			action: function () { toggle(node, "minmax");  }  }
+				          }
+					},
+	   		 addMetricItem:	{ label: "Add metric", "icon" : "triangle-ruler.png",
+		                submenu: {
+			    	      sumItem:		{ label: "Avg length",  		action: function () { toggle(node, "avgLength"); }  },
+			    	      minmaxItem:	{ label: "Min/max length", 		action: function () { toggle(node, "minmaxLength");  }  },
+			    	      regexesItem:	{ label: "Regex matches...",  	action: function () { toggle(node, "regexMatches");  }  }
+				          }
+	   				},
+	   	 	  clearAllItem:	{ label: "Clear all",  icon: 'delete.png', action: function () { },  "separator_before"  : true,   }
+	   	   };
+
+  }
+    
+    function toggle(node, operation) {
+    	send(node.id + "  " + operation);
+    }
+    
+    function send(socket, message) {
+    	
+        if (!window.WebSocket) {
+            return false;
+        }
+        if (socket.readyState == WebSocket.OPEN) {
+        	socket.send(message);
+        } else {
+            alert("The socket is not open.");
+        }
+        return false;
+    }
+</script>
+
+  <!-- 3 setup a container element -->
+  <div id="jstree">  </div>
+
+   <form onsubmit="return false;" class="chatform" action="">
+      
+        <label for="msg">Schema</label>
+
+		<select name="schemaList" onChange="send(treeSocket, this.form.schemaList.value);">
+			  <option>session-event.avsc</option>  
+			  <option>person.avsc</option>
+			  <option>compass-ip-linear-stream-event.avsc</option>
+			  <option>playback-session-event.avsc</option>
+			  <option>test.avsc</option>
+			  <option>recursive_example.avsc</option>
+			  <option>example_with_messages.avsc</option>
+		</select>
+       <br/>
+    <!--        <label for="msg">Message</label>
+            <input type="text" name="message" id="msg"  onkeypress="if(event.keyCode==13) { send(this.form.message.value); this.value='' } " />
+    --> 
+    </form>
+ 
+  <!-- 4 include the jQuery library -->
+  <script src="jquery.js"></script>
+  <!-- 5 include the minified jstree source -->
+  <script src="jstree.js"></script>
+  <script src="jstreegrid.js"></script>
+
+  <script>
+//  $(function () {
+    // 6 create an instance when the DOM is ready
+//    $('#jstree').jstree({
+//        'core': {
+//            'data': arrayCollection
+//        }
+//    });
+    // 7 bind to events triggered on the tree
+    $('#jstree').on("changed.jstree", function (e, data) {
+      console.log(data.selected);
+    });
+    // 8 interact with the tree - either way is OK
+//    $('button').on('click', function () {
+//      $('#jstree').jstree(true).select_node('child_node_1');
+//      $('#jstree').jstree('select_node', 'child_node_1');
+ //     $.jstree.reference('#jstree').select_node('child_node_1');
+ //    });
+    
+  });
+  </script>
+</body>
+</html>

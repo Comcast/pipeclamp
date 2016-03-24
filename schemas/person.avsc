@@ -1,0 +1,130 @@
+
+{
+	"namespace": "com.comcast.xbi.test",
+	"type": "record",
+	"name": "Person",
+	"doc": "Common fields related to human beings",
+	"fields": [
+		{
+			"name": "nicknames",
+			"type": {
+				"type": "array", "items": "string",
+				"constraints": ["minLength=3"]
+			},
+			"doc": "aliases used",
+			"constraints" : [	
+								{  "function" : "size", "args" : [ 	{ "name" : "min", "value" : "2"},	{ "name" : "max", "value" : "4"} ] }
+				      		]
+		},
+		{
+			"name": "passports",
+			"type": {
+				"type": "array", 
+				"items": {
+			          "type": "record",
+			          "name": "Passport",
+			          "doc": "A functional passport",
+			          "fields": [
+			            {
+			              "name": "number",  "type": "string",  "doc": "unique identifier",
+			              "constraints" : [	
+								{   "function" : "size", "args" : [ { "name" : "min", "value" : "1"},	{ "name" : "max", "value" : "3"} ] }
+				      			]
+			            },
+			            {
+			              "name": "country",  "type": {
+						        "type": "enum",  "name": "Country",   "symbols": [ "CAN", "USA" ]
+						      	},
+			              "doc": "issuing country"
+			            },
+			            {
+			              "name": "expiryDate", "type": "long",       "doc": "expiration date in Unix time."
+			            },
+			            {
+			              "name" : "pages", "type" : {
+			              	"type" : "array",
+			              	"items" : {
+			              		"type" : "record", 	"name" : "Page",
+			              		"fields" : [
+			              			{
+			              			"name" : "index", 	"type" : "int", "doc" : "page number",
+			              			"constraints" : [	
+											{  "function" : "range",   "args" : [ { "name" : "min", "value" : "1"},  { "name" : "max", "value" : "100"} ] }
+					      				]
+			              			},
+			              			{
+			              			"name" : "contents", "type" : "string", "doc" : "page contents"
+			              			}
+			              		]
+			              	}
+			              }
+			            }
+			          ]
+			        }
+			},
+			"doc": "passports used",
+			"constraints" : [	
+								{ "function" : "size", "args" : [ { "name" : "min", "value" : "1"}, { "name" : "max", "value" : "4"} ] }
+				      		]
+		},
+		{
+			"name": "birthdate",	"type": ["null", "long"],	"default": null
+		},
+		{
+			"name": "deathdate",	"type": ["null", "long"],	"default": null
+		},
+		{
+			"name": "bellybuttons",	"type": "int",	"default": 1,  "metrics" : [   { "function" : "average", "id" : "bellybuttonAvg" }  ]
+		},
+		{
+			"name": "firstname",	"type": "string",
+			"doc": "Person's first name",
+			"constraints" : [	
+								{ "function" : "length", "args" : [ { "name" : "min", "value" : "2"}, { "name" : "max", "value" : "30"} ] }
+				      		]
+		},
+		{
+			"name": "lastname",	"type": "string",
+			"doc": "",
+			"constraints" : [	
+								{ "function" : "length", "args" : [ { "name" : "min", "value" : "2"}, { "name" : "max", "value" : "30"} ] }
+				      		]
+		},
+		{
+			"name": "latitude",		"type": ["null", "double"],		"default": null,
+			"doc": "last known location (latitude)",
+			"constraints" : [	
+								{ "function" : "range", "args" : [ { "name" : "rangeId", "value" : "geoLatitude"} ] }
+				      		]
+			
+		},
+		{
+			"name": "longitude",	"type": ["null", "double"],		"default": null,
+			"doc": "last known location (longitude)",
+			"constraints" : [	
+								{ "function" : "range", "args" : [ { "name" : "rangeId", "value" : "geoLongitude"} ] }
+				      		]
+		},
+		{
+			"name": "weight",		"type": "float",
+			"doc": "body weight",
+			"constraints" : [	
+								{ "function" : "range", "args" : [ { "name" : "min", "value" : "0.5"}, { "name" : "max", "value" : "330.5"} ] }
+				      		]
+		},
+		{
+			"name": "email",		"type": ["null", "string"],		"default" : null,
+			"doc": "contact email address",
+			"constraints" : [	
+								{ "function" : "regex", "args" : [ { "name" : "patternId", "value" : "emailAddress"} ] }
+				      		]
+		},
+		{
+			"name": "bonesBroken",	"type": "int",		"default": 0,
+            "doc": "Number of bones broken since birth",
+            "constraints" : [	
+								{ "function" : "range", "args" : [ { "name" : "min", "value" : "0"}, { "name" : "max", "value" : "100"} ] }
+				      		]
+		}
+	]
+}
