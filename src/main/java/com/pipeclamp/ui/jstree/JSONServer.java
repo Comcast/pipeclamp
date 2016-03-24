@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 
-package com.br.jstree;
+package com.pipeclamp.ui.jstree;
 
 import static io.undertow.Handlers.path;
 import static io.undertow.Handlers.resource;

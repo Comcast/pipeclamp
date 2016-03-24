@@ -1,4 +1,4 @@
-package com.br.jstree;
+package com.pipeclamp.ui.jstree;
 
 import com.pipeclamp.util.FileUtil;
 

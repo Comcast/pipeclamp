@@ -1,4 +1,4 @@
-package com.br.jstree;
+package com.pipeclamp.ui.jstree;
 
 import static com.pipeclamp.avro.AvroUtil.childIntNodeAsString;
 import static com.pipeclamp.avro.AvroUtil.defaultFor;
