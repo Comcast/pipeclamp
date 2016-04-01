@@ -15,13 +15,17 @@ public class NumberParameter extends AbstractParameter<Number> {
 	@Override
 	public Number valueIn(String text, Type type) {
 
-		switch (type) {
-			case INT : return Integer.parseInt(text);
-			case LONG : return Long.parseLong(text);
-			case FLOAT : return Float.parseFloat(text);
-			case DOUBLE : return Double.parseDouble(text);
-			default: return null;
-			}
+		try {
+			switch (type) {
+				case INT : return Integer.parseInt(text);
+				case LONG : return Long.parseLong(text);
+				case FLOAT : return Float.parseFloat(text);
+				case DOUBLE : return Double.parseDouble(text);
+				default: return null;
+				}
+		} catch (NumberFormatException nfe) {
+			return null;
+		}
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.pipeclamp.api;
 
 /**
+ * Denotes an operation that returns a result when presented with the contents of a
+ * collector.
  *
  * @author Brian Remedios
  */

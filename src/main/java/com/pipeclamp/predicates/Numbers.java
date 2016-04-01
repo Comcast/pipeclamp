@@ -10,7 +10,31 @@ public class Numbers {
 
 	public static final Predicate<Number> IsZero = new Predicate<Number>() {
 		public boolean apply(Number number) {
-			return number != null && number.toString().equals("0");
+			return number != null && "0".equals(number.toString());
+			}
+	};
+	
+	public static final Predicate<Number> IsPositive = new Predicate<Number>() {
+		public boolean apply(Number number) {
+			return number != null && number.longValue() > 0;
+			}
+	};
+	
+	public static final Predicate<Number> IsNegative = new Predicate<Number>() {
+		public boolean apply(Number number) {
+			return number != null && number.longValue() < 0;
+			}
+	};
+	
+	public static final Predicate<Number> IsEven = new Predicate<Number>() {
+		public boolean apply(Number number) {
+			return number != null && number.longValue() % 2 == 0;
+			}
+	};
+	
+	public static final Predicate<Number> IsOdd = new Predicate<Number>() {
+		public boolean apply(Number number) {
+			return number != null && number.longValue() % 2 == 1;
 			}
 	};
 

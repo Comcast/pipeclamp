@@ -2,8 +2,10 @@ package com.pipeclamp.metrics.functions;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
 import com.pipeclamp.api.Collector;
@@ -82,7 +84,14 @@ public class MinMax<I extends Comparable<?>> extends AbstractCollectionFunction<
 				count = 0;
 				min = null;
 				max = null;
-			}};
+			}
+
+			@Override
+			public Set<String> classifications() { return Collections.emptySet(); }
+
+			@Override
+			public int countsOf(String classification) { return 0; }
+			};
 	}
 
 	public Comparable<?>[] compute(Collector<I> collector) {

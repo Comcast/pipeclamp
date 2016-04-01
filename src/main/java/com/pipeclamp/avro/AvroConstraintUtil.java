@@ -82,21 +82,6 @@ public class AvroConstraintUtil extends QAUtil {
 	 * @param issuesByPath
 	 * @param out
 	 */
-	public static void showIssues(Map<String[], Collection<Violation>> issuesByPath, PrintStream out) {
-
-		for (Entry<String[], Collection<Violation>> entry : issuesByPath.entrySet()) {
-			out.println(StringUtil.render(entry.getKey(), "->"));
-			for (Violation v : entry.getValue()) {
-				out.println("\t" + v);
-			}
-		}
-	}
-
-	/**
-	 *
-	 * @param issuesByPath
-	 * @param out
-	 */
 	public static void showIssues2(Map<Path<GenericRecord,?>, Collection<Violation>> issuesByPath, PrintStream out) {
 
 		for (Entry<Path<GenericRecord,?>, Collection<Violation>> entry : issuesByPath.entrySet()) {

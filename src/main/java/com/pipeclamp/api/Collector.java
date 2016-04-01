@@ -1,6 +1,7 @@
 package com.pipeclamp.api;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
@@ -57,4 +58,17 @@ public interface Collector<I extends Object> {
 	 * Removes any collected items and resets associated metrics.
 	 */
 	void clear();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Set<String> classifications();
+	
+	/**
+	 * 
+	 * @param classification
+	 * @return
+	 */
+	int countsOf(String classification);
 }

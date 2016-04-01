@@ -11,9 +11,10 @@ import org.testng.annotations.Test;
 
 import com.pipeclamp.PeopleBuilder;
 import com.pipeclamp.api.Aggregator;
-import com.pipeclamp.metrics.aggregator.BasicAggregator;
+import com.pipeclamp.classifiers.Numbers;
 import com.pipeclamp.metrics.functions.Averager;
 import com.pipeclamp.metrics.functions.Counter;
+import com.pipeclamp.metrics.functions.GroupingHistogram;
 import com.pipeclamp.metrics.functions.MinMax;
 import com.pipeclamp.metrics.functions.Summer;
 import com.pipeclamp.path.SimpleAvroPath;
@@ -36,6 +37,8 @@ public class AggregatorTest {
 		agg.register(new SimpleAvroPath<Integer>("bellybuttons"), MinMax.Integer, "min/max bellybuttons", null);
 
 		agg.register(new SimpleAvroPath<String>("email"), new Counter<Object>(Nulls.NotNull), "non-null emails", null);
+		
+		agg.register(new SimpleAvroPath<Integer>("bellybuttons"), new GroupingHistogram<Number>(Numbers.OddEven), "bellybuttons odd/even", null);
 	}
 
 	@Test
@@ -63,13 +66,17 @@ public class AggregatorTest {
 
 		Map<String, Object> resultsByFunction = agg.compute(System.out);
 
-		Assert.assertEquals(7, resultsByFunction.size());
+		Assert.assertEquals(8, resultsByFunction.size());
 
 		long count = (Integer)resultsByFunction.get("bellybuttonCount");
 		Assert.assertEquals(10, count);
 
 		count = (Integer)resultsByFunction.get("non-null emails");
 		Assert.assertEquals(5, count);
+		
+		Map<String, Integer> counts = (Map<String, Integer>)resultsByFunction.get("bellybuttons odd/even");
+		Assert.assertNull(counts.get("even"));
+		Assert.assertEquals(10, ((Integer)counts.get("odd")).intValue());
 	}
 
 

@@ -1,6 +1,8 @@
 package com.pipeclamp.metrics.collectors;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 import com.google.common.base.Predicate;
 import com.pipeclamp.api.Collector;
@@ -12,7 +14,6 @@ import com.pipeclamp.api.Collector;
  * @param <I>
  */
 public abstract class AbstractCollector<I extends Object> implements Collector<I> {
-
 
 	private int collected;
 	private final Predicate<I> predicate;
@@ -33,6 +34,8 @@ public abstract class AbstractCollector<I extends Object> implements Collector<I
 			public int collected() { return items.size(); }
 			public int instancesOf(I item) { return -1; }
 			public void clear() { }
+			public Set<String> classifications() { return Collections.emptySet(); }
+			public int countsOf(String classification) { return 0; }
 		};
 	}
 
@@ -66,4 +69,9 @@ public abstract class AbstractCollector<I extends Object> implements Collector<I
 	@Override
 	public void clear() { collected = 0; }
 
+	@Override
+	public Set<String> classifications() {	return Collections.emptySet(); }
+	
+	@Override
+	public int countsOf(String classification) { return 0; }
 }

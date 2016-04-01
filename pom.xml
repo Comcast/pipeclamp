@@ -18,7 +18,6 @@
     </developers>
     
     <properties>
- <!--   <git.url>git@github.comcast.com:XBI-CA/pipeclamp.git</git.url>   --> 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <avro.version>1.7.7</avro.version>
         <undertow.version>1.3.12.Final</undertow.version>

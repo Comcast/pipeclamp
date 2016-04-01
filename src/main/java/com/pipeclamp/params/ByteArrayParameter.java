@@ -2,6 +2,8 @@ package com.pipeclamp.params;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.util.StringUtil;
+
 /**
  *
  * @author Brian Remedios
@@ -9,10 +11,6 @@ import org.apache.avro.Schema.Type;
 public class ByteArrayParameter extends AbstractParameter<byte[][]> {
 
 	private final String regexSplitter;	// could be just " "
-
-	private static byte[] asByteArray(String hexValues) {
-		return null;	// TODO
-	}
 
 	public ByteArrayParameter(String theId, String theDescription, String theRegexSplitter) {
 		super(theId, theDescription);
@@ -31,7 +29,8 @@ public class ByteArrayParameter extends AbstractParameter<byte[][]> {
 		byte[][] arrays = new byte[values.length][];
 
 		for (int i=0; i<values.length; i++) {
-			arrays[i] = asByteArray(values[i]);
+			arrays[i] = StringUtil.asByteArray(values[i]);
+			if (arrays[i] == null) return null;
 		}
 
 		return arrays;

@@ -3,9 +3,10 @@ package com.pipeclamp.metrics.collectors;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.base.Predicate;
-import com.pipeclamp.metrics.functions.Classifier;
+import com.pipeclamp.api.Classifier;
 
 /**
  *
@@ -15,25 +16,25 @@ import com.pipeclamp.metrics.functions.Classifier;
  */
 public class ClassifyingHistogramCollector<I extends Object> extends AbstractCollector<I> {
 
-	private Classifier classifier;
+	private final Classifier<I> classifier;
 	
 	protected Map<String, Integer> countsPerClass = new HashMap<>();
 
-	public ClassifyingHistogramCollector(Predicate<I> aPredicate) {
+	public ClassifyingHistogramCollector(Predicate<I> aPredicate, Classifier<I> theClassifier) {
 		super(aPredicate);
+		
+		 classifier = theClassifier; 
 	}
 
-	public void classifier(Classifier theClassifier) { classifier = theClassifier; }
-	
 	@Override
 	public boolean add(I item) {
 		if (!super.add(item)) return false;
 
-		String theClass = classifier.classify(item);
+		String classification = classifier.classify(item);
 		
-		Integer count = countsPerClass.get(item);
+		Integer count = countsPerClass.get(classification);
 		if (count == null) count = Integer.valueOf(0);
-		countsPerClass.put(theClass, count+1);
+		countsPerClass.put(classification, count+1);
 		return true;
 	}
 
@@ -46,10 +47,18 @@ public class ClassifyingHistogramCollector<I extends Object> extends AbstractCol
 
 	@Override
 	public int instancesOf(I item) {
-		Integer count = countsPerClass.get(item);
-		return count == null ? 0 : count;
+		return 0;	// not recorded like that
 	}
 
+	@Override
+	public Set<String> classifications() { return countsPerClass.keySet(); }
+	
+	@Override
+	public int countsOf(String classification) {
+		Integer count = countsPerClass.get(classification);
+		return count == null ? 0 : count;
+	}
+	
 	@Override
 	public void clear() {
 		super.clear();

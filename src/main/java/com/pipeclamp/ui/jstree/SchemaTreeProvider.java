@@ -1,6 +1,8 @@
 package com.pipeclamp.ui.jstree;
 
-import com.pipeclamp.util.FileUtil;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import io.undertow.websockets.WebSocketConnectionCallback;
 import io.undertow.websockets.core.AbstractReceiveListener;
@@ -47,7 +49,13 @@ public class SchemaTreeProvider implements WebSocketConnectionCallback {
 		if (!messageData.endsWith(".avsc")) return null;
 		
 		String filePath = schemaPath + messageData;
-		String json = FileUtil.getFileContents(filePath);
+		String json = null;
+		
+		try {
+			json = new String(Files.readAllBytes(Paths.get(filePath)));
+			} catch (IOException ioe) {
+				return null;
+			}
 		
 		AvroSchemaTreeComposer comp = new AvroSchemaTreeComposer();
 		String jsonResult = comp.render(json);

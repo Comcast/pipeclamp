@@ -6,7 +6,7 @@ import org.apache.avro.Schema.Type;
  *
  * @author Brian Remedios
  */
-public interface Parameter<T extends Object> {
+public interface Parameter<T extends Object> extends DescriptiveItem {
 
 	/**
 	 * Expected to be unique among any of its siblings.
@@ -16,18 +16,13 @@ public interface Parameter<T extends Object> {
 	String id();
 
 	/**
-	 * Something anyone can reasonably make sense of.
-	 *
-	 * @return String
-	 */
-	String description();
-
-	/**
 	 *
 	 * @param text
 	 * @param type
 	 *
 	 * @return T
+	 * 
+	 * TODO  unwanted AVRO (Type) dependency breaks generic form
 	 */
 	T valueIn(String text, Type type);
 }

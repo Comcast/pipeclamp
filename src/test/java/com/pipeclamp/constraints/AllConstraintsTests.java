@@ -1,6 +1,6 @@
 package com.pipeclamp.constraints;
 
-import com.pipeclamp.validation.Validator;
+//import com.pipeclamp.validation.Validator;
 
 
 /**
@@ -9,7 +9,7 @@ import com.pipeclamp.validation.Validator;
  */
 public class AllConstraintsTests {
 
-	private Validator validator;
+//	private Validator validator;
 
 	public AllConstraintsTests() { }
 
