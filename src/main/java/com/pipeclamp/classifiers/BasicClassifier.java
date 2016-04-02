@@ -39,6 +39,8 @@ public class BasicClassifier<I extends Object> implements Classifier<I> {
 		if (other == null) return false;
 		if (other == this) return true;
 		
+		if (!(other instanceof BasicClassifier)) return false;
+		
 		BasicClassifier<?> bc = BasicClassifier.class.cast(other);
 		
 		return Objects.equal(id, bc.id) && 

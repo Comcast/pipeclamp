@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
+import com.pipeclamp.api.ByteSignatureMatcher;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -14,12 +15,13 @@ import com.pipeclamp.constraints.AbstractValueConstraint;
 import com.pipeclamp.params.ByteArrayParameter;
 
 /**
+ * A simple match that looks for known byte prefixes on binary data.
  *
  * @author Brian Remedios
  */
 public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 
-	private final byte[][] prefixes;
+	private final ByteSignatureMatcher[] matchers;
 
 	private static final String TypeTag = "prefixes";
 
@@ -36,17 +38,17 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 			if (prefixes == null) return null;
 
 			return Arrays.<ValueConstraint<?>>asList(
-					new BytePrefixConstraint("", nullsAllowed, prefixes)
+					new BytePrefixConstraint("", nullsAllowed, new SimplePrefixMatcher(prefixes))
 					);
 		}
 
 		public Parameter<?>[] parameters() { return new Parameter[] { PREFIXES };	}
 	};
-
-	protected BytePrefixConstraint(String theId, boolean nullAllowed, byte[][] thePrefixes) {
+	
+	protected BytePrefixConstraint(String theId, boolean nullAllowed, ByteSignatureMatcher... theMatchers) {
 		super(theId, nullAllowed);
 
-		prefixes = thePrefixes;
+		matchers = theMatchers;
 	}
 
 	@Override
@@ -57,11 +59,13 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 	@Override
 	public Violation typedErrorFor(byte[] values) {
 
-		// TODO
-		return null;
+		for (ByteSignatureMatcher matcher : matchers) {
+			if (matcher.matches(values)) return null;
+		}
+
+		return new Violation(this, "Unable to match existing prefixes");
 	}
 
 	@Override
 	public String typeTag() { return TypeTag; }
-
 }
