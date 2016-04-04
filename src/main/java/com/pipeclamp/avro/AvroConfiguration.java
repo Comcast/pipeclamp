@@ -7,6 +7,7 @@ import org.apache.avro.Schema;
 import com.google.common.collect.ImmutableMap;
 import com.pipeclamp.api.ConstraintFactory;
 import com.pipeclamp.constraints.BasicConstraintFactory;
+import com.pipeclamp.constraints.NotNullConstraint;
 import com.pipeclamp.constraints.bytes.BytePrefixConstraint;
 import com.pipeclamp.constraints.collections.CollectionContentConstraint;
 import com.pipeclamp.constraints.collections.CollectionSizeConstraint;
@@ -33,6 +34,7 @@ public class AvroConfiguration {
 		      put(Schema.Type.DOUBLE, Double.class).
 		      put(Schema.Type.BOOLEAN, Boolean.class).
 		      put(Schema.Type.BYTES, Byte[].class).		// TODO eval
+		      put(Schema.Type.RECORD, Object.class).	
 		      build();
 	
 	static {
@@ -50,6 +52,7 @@ public class AvroConfiguration {
 		ConstraintFactory.register(Schema.Type.DOUBLE,	NumericConstraint.Builder, MathConstraint.Builder );
 		ConstraintFactory.register(Schema.Type.ARRAY,	CollectionSizeConstraint.Builder, CollectionContentConstraint.Builder );
 		ConstraintFactory.register(Schema.Type.STRING,	StringLengthConstraint.Builder, RegexConstraint.Builder, WordSetConstraint.Builder );
+		ConstraintFactory.register(Schema.Type.RECORD, 	NotNullConstraint.Builder );
 	}
 	
 
