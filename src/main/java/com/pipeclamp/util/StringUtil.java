@@ -10,7 +10,21 @@ public class StringUtil {
 
 	private StringUtil() { }
 
-	public static byte[] asByteArray(String hexString) {
+	public static String withoutWhitespaces(String input) {
+		
+		StringBuilder sb = new StringBuilder(input.length());
+		for (int i=0; i<input.length(); i++) {
+			char ch = input.charAt(i);
+			if (Character.isWhitespace(ch)) continue;
+			sb.append(ch);
+		}
+		
+		return sb.toString();
+	}
+	
+	public static byte[] asByteArray(String rawHexString) {
+		
+		String hexString = withoutWhitespaces(rawHexString);
 		
 		int len = hexString.length();
 		if (len % 2 == 1) return null;	// must have even number of chars

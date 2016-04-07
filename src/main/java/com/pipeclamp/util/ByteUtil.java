@@ -11,6 +11,8 @@ public class ByteUtil {
 
 	public static boolean matchesStart(byte[] source, byte[] prefix) {
 		
+		if (source == null) return false;
+		
 		if (source.length < prefix.length) return false;
 		
 		for (int i=0; i<prefix.length; i++) {

@@ -1,15 +1,13 @@
 package com.pipeclamp.metrics.functions;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
 import com.pipeclamp.api.Collector;
 import com.pipeclamp.api.Function;
+import com.pipeclamp.metrics.collectors.MinMaxCollector;
 import com.pipeclamp.metrics.operators.Compare;
 
 /**
@@ -34,65 +32,62 @@ public class MinMax<I extends Comparable<?>> extends AbstractCollectionFunction<
 		comp = theComp;
 	}
 
-	@Override
-	public Collector<I> createCollector() {
-
-		return new Collector<I>() {
-
-			private I min;
-			private I max;
-			private int count = 0;
-
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			@Override
-			public boolean add(I item) {
-
-				if (!qualifies(item)) return false;
-
-				count++;
-
-				if (min == null) {
-					min = item;
-					max = item;
-					return true;
-				}
-
-				if (((Comparable)min).compareTo(item) > 0) min = item;
-				if (((Comparable)max).compareTo(item) < 0) max = item;
-
-				return true;
-			}
-
-			@Override
-			public Collection<I> all() { return null; }
-
-			@Override
-			public I get(String identifier) {
-				if (MinKey.equals(identifier)) return min;
-				if (MaxKey.equals(identifier)) return max;
-				return null;
-			}
-
-			@Override
-			public int collected() { return count; }
-
-			@Override
-			public int instancesOf(I item) { return -1; }
-
-			@Override
-			public void clear() {
-				count = 0;
-				min = null;
-				max = null;
-			}
-
-			@Override
-			public Set<String> classifications() { return Collections.emptySet(); }
-
-			@Override
-			public int countsOf(String classification) { return 0; }
-			};
-	}
+	public Collector<I> createCollector() { return new MinMaxCollector<I>(predicate()); }
+	
+//	@Override
+//	public Collector<I> createCollector() {
+//
+//		return new Collector<I>() {
+//
+//			private I min;
+//			private I max;
+//			private int count = 0;
+//
+//			@SuppressWarnings({ "unchecked", "rawtypes" })
+//			@Override
+//			public boolean add(I item) {
+//
+//				if (!qualifies(item)) return false;
+//
+//				count++;
+//
+//				if (min == null) {
+//					min = item;
+//					max = item;
+//					return true;
+//				}
+//
+//				if (((Comparable)min).compareTo(item) > 0) min = item;
+//				if (((Comparable)max).compareTo(item) < 0) max = item;
+//
+//				return true;
+//			}
+//
+//
+//			@Override
+//			public I get(String identifier) {
+//				if (MinKey.equals(identifier)) return min;
+//				if (MaxKey.equals(identifier)) return max;
+//				return null;
+//			}
+//
+//			@Override
+//			public int collected() { return count; }
+//
+//
+//			@Override
+//			public void clear() {
+//				count = 0;
+//				min = null;
+//				max = null;
+//			}
+//
+//			public int instancesOf(I item) { return -1; }
+//			public Collection<I> all() { return null; }
+//			public Set<String> classifications() { return Collections.emptySet(); }
+//			public int countsOf(String classification) { return 0; }
+//			};
+//	}
 
 	public Comparable<?>[] compute(Collector<I> collector) {
 

@@ -6,6 +6,10 @@ import java.util.List;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.params.StringParameter;
 
+/**
+ * 
+ * @author Brian Remedios
+ */
 public enum TimestampRestriction {
 
 	Future("futureOnly"),

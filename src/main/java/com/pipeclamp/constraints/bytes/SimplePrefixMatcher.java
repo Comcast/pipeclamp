@@ -23,7 +23,7 @@ public class SimplePrefixMatcher implements ByteSignatureMatcher {
 
 	@Override
 	public boolean matches(byte[] data) {
-		
+
 		for (byte[] prefix : prefixes) {
 			if (ByteUtil.matchesStart(data, prefix)) return true;
 		}

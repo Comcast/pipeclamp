@@ -34,7 +34,7 @@ public class Numbers {
 	
 	public static final Predicate<Number> IsOdd = new Predicate<Number>() {
 		public boolean apply(Number number) {
-			return number != null && number.longValue() % 2 == 1;
+			return number != null && Math.abs(number.longValue() % 2) == 1;
 			}
 	};
 
