@@ -1,5 +1,6 @@
 package com.pipeclamp.params;
 
+import com.pipeclamp.AbstractRegisteredItem;
 import com.pipeclamp.api.Parameter;
 
 /**
@@ -8,22 +9,11 @@ import com.pipeclamp.api.Parameter;
  *
  * @param <V>
  */
-public abstract class AbstractParameter<T extends Object> implements Parameter<T> {
-
-	public final String id;
-	public final String description;
+public abstract class AbstractParameter<T extends Object> extends AbstractRegisteredItem implements Parameter<T> {
 
 	protected AbstractParameter(String theId, String theDescription) {
-
-		id = theId;
-		description = theDescription;
+		super(theId, theDescription);
 	}
-
-	@Override
-	public String id() { return id; }
-
-	@Override
-	public String description() { return description; }
 
 	@Override
 	public String toString() {

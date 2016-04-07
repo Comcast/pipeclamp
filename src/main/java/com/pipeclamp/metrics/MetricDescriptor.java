@@ -2,20 +2,18 @@ package com.pipeclamp.metrics;
 
 import java.util.Objects;
 
-import com.pipeclamp.api.DescriptiveItem;
+import com.pipeclamp.AbstractRegisteredItem;
 import com.pipeclamp.api.Function;
 
 /**
  *
  * @author Brian Remedios
  */
-public class MetricDescriptor implements DescriptiveItem {
+public class MetricDescriptor extends AbstractRegisteredItem {
 
-	public final String id;
 	public final String label;
 	public final Function<? extends Object, ? extends Object> function;
 	public final String unitLabel;
-	public final String description;
 
 	/**
 	 *
@@ -25,37 +23,31 @@ public class MetricDescriptor implements DescriptiveItem {
 	 * @param theFunction
 	 * @param aUnitLabel
 	 */
-	public MetricDescriptor(String theId, String theLabel, Function<? extends Object, ? extends Object> theFunction, String aUnitLabel, String theDoc) {
-		id = theId;
+	public MetricDescriptor(String theId, String theLabel, Function<? extends Object, ? extends Object> theFunction, String aUnitLabel, String theDescription) {
+		super(theId, theDescription);
 		label = theLabel;
 		function = theFunction;
 		unitLabel = aUnitLabel;
-		description = theDoc;
 	}
-
-	@Override
-	public String description() { return description; }
 	
 	@Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (other == null) return false;
+		if (!super.equals(other)) return false;
 		
 		if (!(other instanceof MetricDescriptor)) return false;
 		
 		MetricDescriptor md = MetricDescriptor.class.cast(other);
 		
-		return Objects.deepEquals(id, md.id) &&
+		return 
 				Objects.deepEquals(label, md.label) &&
 				Objects.deepEquals(function, md.function) &&
-				Objects.deepEquals(unitLabel, md.unitLabel) &&
-				Objects.deepEquals(description, md.description);
+				Objects.deepEquals(unitLabel, md.unitLabel);
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, label, function, unitLabel, description);
+		return super.hashCode() + Objects.hash(label, function, unitLabel);
 	}
 
 	@Override

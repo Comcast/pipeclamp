@@ -18,7 +18,7 @@ import com.pipeclamp.metrics.functions.GroupingHistogram;
 import com.pipeclamp.metrics.functions.MinMax;
 import com.pipeclamp.metrics.functions.Summer;
 import com.pipeclamp.path.SimpleAvroPath;
-import com.pipeclamp.predicates.Nulls;
+import com.pipeclamp.predicates.Objects;
 import com.pipeclamp.test.Person;
 
 /**
@@ -36,7 +36,7 @@ public class AggregatorTest {
 		agg.register(new SimpleAvroPath<Integer>("weight"),	   	  Averager.FloatAvg, "avg weight", 		"kg");
 		agg.register(new SimpleAvroPath<Integer>("bellybuttons"), MinMax.Integer, "min/max bellybuttons", null);
 
-		agg.register(new SimpleAvroPath<String>("email"), new Counter<Object>(Nulls.NotNull), "non-null emails", null);
+		agg.register(new SimpleAvroPath<String>("email"), new Counter<Object>(Objects.NotNull), "non-null emails", null);
 		
 		agg.register(new SimpleAvroPath<Integer>("bellybuttons"), new GroupingHistogram<Number>(Numbers.OddEven), "bellybuttons odd/even", null);
 	}

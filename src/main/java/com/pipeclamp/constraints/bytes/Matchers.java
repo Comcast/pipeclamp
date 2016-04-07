@@ -14,8 +14,9 @@ public interface Matchers {
 	Map<String, ByteSignatureMatcher> ByteArrayMatchersById= ImmutableMap.<String, ByteSignatureMatcher>builder().
 		      put("GIF", SimplePrefixMatcher.GIF).
 		      put("PDF", SimplePrefixMatcher.PDF).
-		      put("javaClass", SimplePrefixMatcher.JavaClass).
 		      put("PNG", SimplePrefixMatcher.PNG).
+		      put("JPG", SimplePrefixMatcher.JPG).
+		      put("javaClass", SimplePrefixMatcher.JavaClass).
 		      build();
 	
 }

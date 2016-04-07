@@ -6,7 +6,7 @@ import com.google.common.base.Predicate;
  *
  * @author Brian Remedios
  */
-public interface Nulls {
+public interface Objects {
 
 	Predicate<Object> IsNull = new Predicate<Object>() {
 		public boolean apply(Object value) { return value == null; }

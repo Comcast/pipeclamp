@@ -5,11 +5,13 @@ import com.pipeclamp.util.ByteUtil;
 import com.pipeclamp.util.StringUtil;
 
 /**
- * 
+ * See http://www.filesignatures.net/
+ *
  * @author Brian Remedios
  */
 public class SimplePrefixMatcher implements ByteSignatureMatcher {
 
+	private final int offset;
 	private final byte[][] prefixes;
 	
 	public static final SimplePrefixMatcher PDF			= new SimplePrefixMatcher( "%PDF".getBytes() );
@@ -17,7 +19,16 @@ public class SimplePrefixMatcher implements ByteSignatureMatcher {
 	public static final SimplePrefixMatcher PNG			= new SimplePrefixMatcher( StringUtil.asByteArray("89 50 4E 47 0D 0A 1A 0A"));
 	public static final SimplePrefixMatcher JavaClass	= new SimplePrefixMatcher( StringUtil.asByteArray("CA FE BA BE"));
 	
+	public static final SimplePrefixMatcher JPG				= new SimplePrefixMatcher(StringUtil.asByteArray("FF D8 FF E0"));
+	public static final ByteSignatureMatcher JPG_WITH_EXIF	= JPG.and(new SimplePrefixMatcher(4, StringUtil.asByteArray("FF D8 FF E1")));
+	public static final SimplePrefixMatcher JPG2000			= new SimplePrefixMatcher(StringUtil.asByteArray("00 00 00 0C 6A 50 20 20 "));
+	
 	public SimplePrefixMatcher(byte[]... thePrefixes) {
+		this(0, thePrefixes);
+	}
+
+	public SimplePrefixMatcher(int theOffset, byte[]... thePrefixes) {
+		offset = theOffset;
 		prefixes = thePrefixes;
 	}
 
@@ -25,9 +36,26 @@ public class SimplePrefixMatcher implements ByteSignatureMatcher {
 	public boolean matches(byte[] data) {
 
 		for (byte[] prefix : prefixes) {
-			if (ByteUtil.matchesStart(data, prefix)) return true;
+			if (ByteUtil.matches(data, prefix, offset)) return true;
 		}
 		return false;
 	}
 
+	public ByteSignatureMatcher and(final SimplePrefixMatcher other) {
+		
+		return new ByteSignatureMatcher() {
+			public boolean matches(byte[] data) {
+				return this.matches(data) && other.matches(data);
+			}
+		};
+	}
+	
+	public ByteSignatureMatcher or(final SimplePrefixMatcher other) {
+		
+		return new ByteSignatureMatcher() {
+			public boolean matches(byte[] data) {
+				return this.matches(data) || other.matches(data);
+			}
+		};
+	}
 }

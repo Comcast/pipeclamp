@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.pipeclamp.AbstractRegisteredItem;
+
 /**
  * Characterizes a well-known datatype as a regular expression.
  *
  * @author Brian Remedios
  */
-public class RegexDescriptor {
+public class RegexDescriptor extends AbstractRegisteredItem {
 
-	public final String id;
 	public final String regex;
-	public final String description;
 	private final Pattern pattern;
 
 	public static final RegexDescriptor IPAddress 	 = new RegexDescriptor("ipAddress", "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", null);
@@ -36,11 +36,9 @@ public class RegexDescriptor {
 	}
 
 	private RegexDescriptor(String theId, String theRegex, String theDescription) {
-
-		id = theId;
+		super(theId, theDescription);
+	
 		regex = theRegex;
-		description = theDescription;
-
 		pattern = Pattern.compile(theRegex);
 	}
 
@@ -65,4 +63,5 @@ public class RegexDescriptor {
 		}
 
 	}
+
 }
