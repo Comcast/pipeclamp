@@ -12,11 +12,11 @@ public class MetricDescriptorTest {
     
 	  MetricDescriptor md = new MetricDescriptor("beatFrequency", "Beat frequency", null, "Hz", "The interference resulting from the union of two signals");
 	  
-	  assertEquals(md.id, "beatFrequency");
+	  assertEquals(md.id(), "beatFrequency");
 	  assertEquals(md.label, "Beat frequency");
 	  assertEquals(md.function, null);
 	  assertEquals(md.unitLabel, "Hz");
-	  assertEquals(md.description, "The interference resulting from the union of two signals");
+	  assertEquals(md.description(), "The interference resulting from the union of two signals");
   }
 
   @Test

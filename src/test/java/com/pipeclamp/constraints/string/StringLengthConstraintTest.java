@@ -18,19 +18,19 @@ public class StringLengthConstraintTest extends AbstractConstraintTest {
 	@Test
 	public void testBuilder() {
 
-		Map<String,String> paramsByKey = asParams("min=3");
+		Map<String,String> paramsByKey = asParams(StringLengthConstraint.MIN_LENGTH, 3);
 
 		Collection<ValueConstraint<?>> vc = StringLengthConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
 		Assert.assertNotNull(vc);
 		Assert.assertTrue(paramsByKey.isEmpty());
 
-		paramsByKey = asParams("minValue=3");
+		paramsByKey = asParams(StringLengthConstraint.MAX_LENGTH, 3);
 
 		vc = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
-		Assert.assertNull(vc);
-		Assert.assertEquals(1, paramsByKey.size());
+		Assert.assertNotNull(vc);
+		Assert.assertEquals(0, paramsByKey.size());
 	}
 
   @Test

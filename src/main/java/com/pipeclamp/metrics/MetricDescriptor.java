@@ -52,6 +52,6 @@ public class MetricDescriptor extends AbstractRegisteredItem {
 
 	@Override
 	public String toString() {
-		return id + "\t" + label + "\t" + unitLabel + "\t" + description;
+		return id() + "\t" + label + "\t" + unitLabel + "\t" + description();
 	}
 }

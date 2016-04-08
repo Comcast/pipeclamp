@@ -28,9 +28,9 @@ public class NumericConstraint extends AbstractNumericConstraint {
 
 	private static final String TypeTag = "range";
 
-	private static final NumberParameter MIN_VALUE	= new NumberParameter("min", "minimum value");
-	private static final NumberParameter MAX_VALUE	= new NumberParameter("max", "maximum value");
-	private static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
+	public static final NumberParameter MIN_VALUE	= new NumberParameter("min", "minimum value");
+	public static final NumberParameter MAX_VALUE	= new NumberParameter("max", "maximum value");
+	public static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
 
 	public static final ConstraintBuilder<Number> Builder = new ConstraintBuilder<Number>() {
 

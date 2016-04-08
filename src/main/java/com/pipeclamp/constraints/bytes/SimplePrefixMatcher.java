@@ -1,6 +1,6 @@
 package com.pipeclamp.constraints.bytes;
 
-import com.pipeclamp.api.ByteSignatureMatcher;
+import com.pipeclamp.api.SignatureMatcher;
 import com.pipeclamp.util.ByteUtil;
 import com.pipeclamp.util.StringUtil;
 
@@ -9,7 +9,7 @@ import com.pipeclamp.util.StringUtil;
  *
  * @author Brian Remedios
  */
-public class SimplePrefixMatcher implements ByteSignatureMatcher {
+public class SimplePrefixMatcher implements SignatureMatcher {
 
 	private final int offset;
 	private final byte[][] prefixes;
@@ -20,7 +20,7 @@ public class SimplePrefixMatcher implements ByteSignatureMatcher {
 	public static final SimplePrefixMatcher JavaClass	= new SimplePrefixMatcher( StringUtil.asByteArray("CA FE BA BE"));
 	
 	public static final SimplePrefixMatcher JPG				= new SimplePrefixMatcher(StringUtil.asByteArray("FF D8 FF E0"));
-	public static final ByteSignatureMatcher JPG_WITH_EXIF	= JPG.and(new SimplePrefixMatcher(4, StringUtil.asByteArray("FF D8 FF E1")));
+	public static final SignatureMatcher JPG_WITH_EXIF	= JPG.and(new SimplePrefixMatcher(4, StringUtil.asByteArray("FF D8 FF E1")));
 	public static final SimplePrefixMatcher JPG2000			= new SimplePrefixMatcher(StringUtil.asByteArray("00 00 00 0C 6A 50 20 20 "));
 	
 	public SimplePrefixMatcher(byte[]... thePrefixes) {
@@ -41,18 +41,18 @@ public class SimplePrefixMatcher implements ByteSignatureMatcher {
 		return false;
 	}
 
-	public ByteSignatureMatcher and(final SimplePrefixMatcher other) {
+	public SignatureMatcher and(final SimplePrefixMatcher other) {
 		
-		return new ByteSignatureMatcher() {
+		return new SignatureMatcher() {
 			public boolean matches(byte[] data) {
 				return this.matches(data) && other.matches(data);
 			}
 		};
 	}
 	
-	public ByteSignatureMatcher or(final SimplePrefixMatcher other) {
+	public SignatureMatcher or(final SimplePrefixMatcher other) {
 		
-		return new ByteSignatureMatcher() {
+		return new SignatureMatcher() {
 			public boolean matches(byte[] data) {
 				return this.matches(data) || other.matches(data);
 			}

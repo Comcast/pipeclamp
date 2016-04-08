@@ -10,26 +10,26 @@ import org.testng.annotations.Test;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
-import com.pipeclamp.constraints.number.NumericConstraint;
+import com.pipeclamp.constraints.string.StringLengthConstraint;
 
 public class NumericConstraintTest extends AbstractConstraintTest {
 
 	@Test
 	public void testBuilder() {
 
-		Map<String,String> paramsByKey = asParams("min=3");
+		Map<String,String> paramsByKey = asParams(NumericConstraint.MIN_VALUE, 3);
 
-		Collection<ValueConstraint<?>> vc = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
+		Collection<ValueConstraint<?>> vcs = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
-		Assert.assertNotNull(vc);
+		Assert.assertNotNull(vcs);
 		Assert.assertTrue(paramsByKey.isEmpty());
 
-		paramsByKey = asParams("minValue=3");
+		paramsByKey = asParams(NumericConstraint.MAX_VALUE, 37676);
 
-		vc = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
+		vcs = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
-		Assert.assertNull(vc);
-		Assert.assertEquals(1, paramsByKey.size());
+		Assert.assertFalse(vcs.isEmpty());
+		Assert.assertEquals(0, paramsByKey.size());
 	}
 
 	@Test

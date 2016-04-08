@@ -31,7 +31,7 @@ public class RegexDescriptor extends AbstractRegisteredItem {
 	public static Map<String, RegexDescriptor> asMap(RegexDescriptor ...theDescriptors) {
 
 		Map<String, RegexDescriptor> map = new HashMap<String, RegexDescriptor>();
-		for (RegexDescriptor rd : theDescriptors) map.put(rd.id, rd);
+		for (RegexDescriptor rd : theDescriptors) map.put(rd.id(), rd);
 		return Collections.unmodifiableMap(map);
 	}
 
@@ -52,7 +52,7 @@ public class RegexDescriptor extends AbstractRegisteredItem {
 		String text = args[1];
 
 		for (RegexDescriptor rd : ALL.values()) {
-			if (id.equals(rd.id)) {
+			if (id.equals(rd.id())) {
 				boolean matched = rd.matches(text);
 				if (matched) {
 					System.out.println("pattern " + id + " matches " + text) ;

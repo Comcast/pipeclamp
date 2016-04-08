@@ -1,10 +1,10 @@
 package com.pipeclamp.api;
 
 /**
- * 
+ *
  * @author Brian Remedios
  */
-public interface ByteSignatureMatcher {
+public interface SignatureMatcher {
 
 	/**
 	 * 

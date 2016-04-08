@@ -17,6 +17,14 @@ public enum TimestampRestriction {
 
 	public final String keyword;
 
+	public static TimestampRestriction fromKeyword(String word) {
+		
+		for (TimestampRestriction tr : values()) {
+			if (tr.keyword.equals(word)) return tr;
+		}
+		return null;
+	}
+	
 	public static Parameter<?>[] asParameters() {
 
 		List<Parameter<?>> params =  new ArrayList<Parameter<?>>();
@@ -31,4 +39,10 @@ public enum TimestampRestriction {
 	TimestampRestriction(String theKeyword) {
 		keyword = theKeyword;
 	}
+	
+	
+	
+	@Override
+	public String toString() { return keyword; }
+
 }

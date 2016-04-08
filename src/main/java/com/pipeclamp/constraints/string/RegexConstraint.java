@@ -48,7 +48,7 @@ public class RegexConstraint extends AbstractStringConstraint {
 				RegexDescriptor rd = RegexDescriptor.ALL.get(id);
 				if (rd == null) throw new IllegalArgumentException("Unknown pattern id: " + id);
 
-				return Arrays.<ValueConstraint<?>>asList(new RegexConstraint(rd.id, nullsAllowed, rd.regex));
+				return Arrays.<ValueConstraint<?>>asList(new RegexConstraint(rd.id(), nullsAllowed, rd.regex));
 			}
 
 			return null;
@@ -58,7 +58,7 @@ public class RegexConstraint extends AbstractStringConstraint {
 	};
 
 	public RegexConstraint(RegexDescriptor desc) {
-		this(desc.id, false, desc.regex);
+		this(desc.id(), false, desc.regex);
 	}
 
 	public RegexConstraint(String theId, boolean nullAllowed, String theRegex) {

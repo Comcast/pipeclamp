@@ -11,8 +11,8 @@ import com.pipeclamp.api.DescriptiveItem;
  */
 public abstract class AbstractRegisteredItem implements DescriptiveItem {
 
-	public final String id;
-	public final String description;
+	private final String id;
+	private String description;
 
 	protected AbstractRegisteredItem(String theId, String theDescription) {
 		super();
@@ -26,6 +26,8 @@ public abstract class AbstractRegisteredItem implements DescriptiveItem {
 	@Override
 	public String description() { return description; }
 
+	protected void description(String aDescription) { description = aDescription; }
+	
 	@Override
 	public boolean equals(Object other) {
 		
@@ -43,5 +45,10 @@ public abstract class AbstractRegisteredItem implements DescriptiveItem {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, description);
+	}
+	
+	@Override
+	public String toString() {
+		return id() + "\t" + description;
 	}
 }

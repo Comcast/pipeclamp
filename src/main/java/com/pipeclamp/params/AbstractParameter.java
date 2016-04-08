@@ -15,9 +15,4 @@ public abstract class AbstractParameter<T extends Object> extends AbstractRegist
 		super(theId, theDescription);
 	}
 
-	@Override
-	public String toString() {
-
-		return id + "\t" + description;
-	}
 }

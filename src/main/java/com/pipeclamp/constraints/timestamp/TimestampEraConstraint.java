@@ -11,6 +11,7 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
+import com.pipeclamp.params.StringParameter;
 import com.pipeclamp.util.TimeUtil;
 
 /**
@@ -23,25 +24,26 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 
 	public static final String TypeTag = "timestampEra";
 
+	public static final StringParameter Era = new StringParameter("era", "era");
+
 	public static final ConstraintBuilder<Long> Builder = new ConstraintBuilder<Long>() {
 
 		public String id() { return TypeTag; };
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			for (TimestampRestriction rest : TimestampRestriction.values()) {
-				String restrictionId = values.remove(rest.keyword);
-				if (restrictionId != null)
+			String restrictionId = values.remove(Era.id());
+			TimestampRestriction tr = TimestampRestriction.fromKeyword(restrictionId);
+			if (tr != null)
 					return Arrays.<ValueConstraint<?>>asList(
-							new TimestampEraConstraint("", nullsAllowed, TimestampRestriction.valueOf(restrictionId))
+							new TimestampEraConstraint("", nullsAllowed, tr)
 							);
-				}
 
 			return null;
 		}
 
 		@Override
-		public Parameter<?>[] parameters() { return TimestampRestriction.asParameters(); }
+		public Parameter<?>[] parameters() { return new Parameter<?>[] { Era  }; }
 	};
 
 	public TimestampEraConstraint(String theId, boolean nullAllowed, TimestampRestriction theRestriction) {
@@ -57,7 +59,7 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 	public Violation typedErrorFor(Long value) {
 
 		switch (restriction) {
-			case Future 	: return checkFugure(value);
+			case Future 	: return checkFuture(value);
 			case Historical : return checkHistorical(value);
 			}
 		return null;
@@ -68,7 +70,7 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 		return new Violation(this, "non-historical timestamp");
 	}
 
-	private Violation checkFugure(long timestamp) {
+	private Violation checkFuture(long timestamp) {
 		if (TimeUtil.isFuture(timestamp)) return null;
 		return new Violation(this, "non-future timestamp");
 	}

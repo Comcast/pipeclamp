@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.bytes;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -15,14 +14,14 @@ import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
 
-public class ByteArraySizeConstraintTest extends AbstractConstraintTest {
+public class BytePrefixConstraintTest extends AbstractConstraintTest {
 
 	@Test
 	public void testBuilder() {
 
-		Map<String,String> paramsByKey = asParams(ByteArraySizeConstraint.MIN_SIZE, 2, ByteArraySizeConstraint.MAX_SIZE, 4);
+		Map<String,String> paramsByKey = asParams(BytePrefixConstraint.MATCHER, "GIF");
 
-		Collection<ValueConstraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		Collection<ValueConstraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertEquals(1, vcs.size());
@@ -35,16 +34,18 @@ public class ByteArraySizeConstraintTest extends AbstractConstraintTest {
 	@Test
 	public void typedErrorFor() {
 
-		Map<String,String> paramsByKey = asParams(ByteArraySizeConstraint.MIN_SIZE, 2, ByteArraySizeConstraint.MAX_SIZE, 4);
+		Map<String,String> paramsByKey = asParams(BytePrefixConstraint.MATCHER, "GIF");
 
-		Collection<ValueConstraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		Collection<ValueConstraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
 
 		ValueConstraint<?> vc = vcs.iterator().next();
 
-		Violation v = vc.errorFor(new byte[] { 0,0,0,0} );
+		byte[] data = readResource("throbber.gif");
+		Violation v = vc.errorFor(data);
 		assertNull(v);
 
-		v = vc.errorFor(new byte[] { 0 } );
+		data = readResource("32px.png");
+		v = vc.errorFor(data);
 		assertNotNull(v);
 
 		v = vc.errorFor(new byte[] { 0, 1, 2, 3, 4 } );

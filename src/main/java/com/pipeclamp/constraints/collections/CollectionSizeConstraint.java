@@ -25,8 +25,8 @@ public class CollectionSizeConstraint extends AbstractCollectionConstraint {
 
 	public static final String TypeTag = "size";
 
-	private static final IntegerParameter MIN_ITEMS = new IntegerParameter("minItems", "minimum number of items");
-	private static final IntegerParameter MAX_ITEMS = new IntegerParameter("maxItems", "maximum number of items");
+	public static final IntegerParameter MIN_ITEMS = new IntegerParameter("minItems", "minimum number of items");
+	public static final IntegerParameter MAX_ITEMS = new IntegerParameter("maxItems", "maximum number of items");
 
 	public static final ConstraintBuilder<Object[]> Builder = new ConstraintBuilder<Object[]>() {
 

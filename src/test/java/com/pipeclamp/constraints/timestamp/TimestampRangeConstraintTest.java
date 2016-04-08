@@ -17,6 +17,7 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
+import com.pipeclamp.constraints.number.NumericConstraint;
 
 public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 
@@ -24,14 +25,16 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 	@Test
 	public void testBuilder() {
 
-		Map<String,String> paramsByKey = asParams("minTime=2016-02-01 00:00:00" ,  "maxTime=2016-03-01 00:00:00");
+		Map<String,String> paramsByKey = asParams(
+				TimestampRangeConstraint.MIN_TIMESTAMP, "2016-02-01 00:00:00",
+				TimestampRangeConstraint.MAX_TIMESTAMP, "2016-03-01 00:00:00");
 
 		Collection<ValueConstraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
 		assertFalse(vcs.isEmpty());
 		assertTrue(paramsByKey.isEmpty());	// they were consumed
 		assertTrue(vcs.iterator().next() instanceof TimestampRangeConstraint);
-		paramsByKey = asParams("minValue=3");
+		paramsByKey = asParams(NumericConstraint.MIN_VALUE, 3);
 
 		vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
@@ -42,7 +45,9 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 	@Test
 	public void parameters() {
 
-		Map<String,String> paramsByKey = asParams("minTime=2016-02-01 00:00:00" ,  "maxTime=2016-03-01 00:00:00");
+		Map<String,String> paramsByKey = asParams(
+				TimestampRangeConstraint.MIN_TIMESTAMP, "2016-02-01 00:00:00",
+				TimestampRangeConstraint.MAX_TIMESTAMP, "2016-03-01 00:00:00");
 
 		Collection<ValueConstraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
@@ -54,7 +59,9 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 	@Test
 	public void typedErrorFor() {
 
-		Map<String,String> paramsByKey = asParams("minTime=2016-02-01 00:00:00" ,  "maxTime=2016-03-01 00:00:00");
+		Map<String,String> paramsByKey = asParams(
+				TimestampRangeConstraint.MIN_TIMESTAMP, "2016-02-01 00:00:00",
+				TimestampRangeConstraint.MAX_TIMESTAMP, "2016-03-01 00:00:00");
 
 		Collection<ValueConstraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 

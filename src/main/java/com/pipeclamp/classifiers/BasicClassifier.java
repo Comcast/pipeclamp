@@ -19,9 +19,5 @@ public class BasicClassifier<I extends Object> extends AbstractRegisteredItem im
 	public String classify(I item) {
 		throw new RuntimeException("Classify method not implemented");
 	}
-	
-	@Override
-	public String toString() {
-		return id + "\t" + description;
-	}
+
 }

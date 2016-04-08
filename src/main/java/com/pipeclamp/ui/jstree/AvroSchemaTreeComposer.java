@@ -256,7 +256,7 @@ public class AvroSchemaTreeComposer extends AbstractJsTreeComposer {
 		appendIds(id, parentId);
 		append("type", "METRIC", true);
 		append("text", id, false);
-		if (desc.description != null) appendAsData("doc", desc.description);
+		if (desc.description() != null) appendAsData("doc", desc.description());
 		endLine();
 	}
 	

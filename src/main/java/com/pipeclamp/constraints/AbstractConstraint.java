@@ -3,6 +3,7 @@ package com.pipeclamp.constraints;
 import java.util.Collections;
 import java.util.Map;
 
+import com.pipeclamp.AbstractRegisteredItem;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.TaggedItem;
 import com.pipeclamp.avro.AvroConstraintUtil;
@@ -11,9 +12,8 @@ import com.pipeclamp.avro.AvroConstraintUtil;
  *
  * @author Brian Remedios
  */
-public abstract class AbstractConstraint implements TaggedItem {
+public abstract class AbstractConstraint extends AbstractRegisteredItem implements TaggedItem {
 
-	public final String id;
 	public final boolean nullsAllowed;
 
 	protected static String typeIn(Map<String, String> params) {
@@ -21,12 +21,10 @@ public abstract class AbstractConstraint implements TaggedItem {
 	}
 
 	protected AbstractConstraint(String theId, boolean nullsAllowedFlag) {
-		id = theId;
+		super(theId, null);
+	
 		nullsAllowed = nullsAllowedFlag;
 	}
-
-	@Override
-	public String id() { return id; }
 
 	public Map<Parameter<?>, Object> parameters() { return Collections.emptyMap(); }
 }

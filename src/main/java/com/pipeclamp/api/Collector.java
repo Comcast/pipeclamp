@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- *
+ * Used by aggregators on individual fields to collect values needed by specific functions.
+ * No function will use the all methods shown here.
+ * 
  * @author Brian Remedios
  *
  * @param <I>

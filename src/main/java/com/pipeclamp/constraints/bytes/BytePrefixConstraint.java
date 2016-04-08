@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.ByteSignatureMatcher;
+import com.pipeclamp.api.SignatureMatcher;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -21,31 +21,40 @@ import com.pipeclamp.params.ByteArrayParameter;
  */
 public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 
-	private final ByteSignatureMatcher[] matchers;
+	private final SignatureMatcher[] matchers;
 
 	private static final String TypeTag = "prefixes";
 
-	private static final ByteArrayParameter PREFIXES = new ByteArrayParameter("arrays", "legal prefixes", " ");
+	public static final ByteMatcherParameter MATCHER = new ByteMatcherParameter("matcher", "legal matcher");
 
+	private static SignatureMatcher[] matchersIn(Map<String, String> values, ByteMatcherParameter param) {
+		
+		String matcherId = values.remove(param.id());
+		return new SignatureMatcher[] {
+			param.valueIn(matcherId, null)
+			};
+		}
+
+	
 	public static final ConstraintBuilder<byte[]> Builder = new ConstraintBuilder<byte[]>() {
 
 		public String id() { return TypeTag; };
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			byte[][] prefixes = byteArrayValuesIn(values, PREFIXES);
+			SignatureMatcher[] matchers = matchersIn(values, MATCHER);
 
-			if (prefixes == null) return null;
+			if (matchers == null) return null;
 
 			return Arrays.<ValueConstraint<?>>asList(
-					new BytePrefixConstraint("", nullsAllowed, new SimplePrefixMatcher(prefixes))
+					new BytePrefixConstraint("", nullsAllowed, matchers)
 					);
 		}
 
-		public Parameter<?>[] parameters() { return new Parameter[] { PREFIXES };	}
+		public Parameter<?>[] parameters() { return new Parameter[] { MATCHER };	}
 	};
 	
-	protected BytePrefixConstraint(String theId, boolean nullAllowed, ByteSignatureMatcher... theMatchers) {
+	protected BytePrefixConstraint(String theId, boolean nullAllowed, SignatureMatcher... theMatchers) {
 		super(theId, nullAllowed);
 
 		matchers = theMatchers;
@@ -59,7 +68,7 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 	@Override
 	public Violation typedErrorFor(byte[] values) {
 
-		for (ByteSignatureMatcher matcher : matchers) {
+		for (SignatureMatcher matcher : matchers) {
 			if (matcher.matches(values)) return null;
 		}
 
