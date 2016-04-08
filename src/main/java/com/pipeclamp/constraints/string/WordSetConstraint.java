@@ -13,6 +13,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.params.StringArrayParameter;
 
 /**
  * Evaluates strings to ensure that they do or don't contain any of the specified words.
@@ -26,24 +27,28 @@ public class WordSetConstraint extends AbstractStringConstraint {
 
 	public static final String TypeTag = "wordSet";
 
+	public static final WordRestrictionParameter Function = new WordRestrictionParameter("function", "to do");	// TODO
+	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
+
 	public static final ConstraintBuilder<String> Builder = new ConstraintBuilder<String>() {
 
 		public String id() { return TypeTag; };
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
+			WordRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
+			String[] opts = Options.valueIn(values.remove(Options.id()), null);
+			if (restriction == null) return null;
+		
 			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>();
 
-			for (WordRestriction wr : WordRestriction.values()) {
-				String[] words = arrayValueIn(values, wr.operator);
-				if (words == null) continue;
-				constraints.add( new WordSetConstraint("", nullsAllowed, words, wr) );
-			}
+			constraints.add( new WordSetConstraint("", nullsAllowed, opts, restriction) );
+
 			return constraints.isEmpty() ? null : constraints;
 		}
 
 		@Override
-		public Parameter<?>[] parameters() { return WordRestriction.asParameters(); }
+		public Parameter<?>[] parameters() { return new Parameter<?>[] { Function, Options }; }
 	};
 
 	public WordSetConstraint(String theId, boolean nullAllowed, String[] theWords, WordRestriction theRestriction) {

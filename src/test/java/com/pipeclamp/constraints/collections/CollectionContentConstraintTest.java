@@ -1,5 +1,9 @@
 package com.pipeclamp.constraints.collections;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -24,8 +28,8 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 		Collection<ValueConstraint<?>> vc = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-		Assert.assertNotNull(vc);
-		Assert.assertTrue(paramsByKey.isEmpty());
+		assertNotNull(vc);
+		assertTrue(paramsByKey.isEmpty());
 	}
 
   @Test
@@ -40,13 +44,34 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 	  ValueConstraint<?> vc = vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("frank", "bob", "brian", "eddie") );
-	  Assert.assertNull(v);
+	  assertNull(v);
 
 	  v = vc.errorFor( Arrays.asList("frank", "sue") );
-	  Assert.assertNotNull(v);
+	  assertNotNull(v);
 
   }
 
+  @Test
+  public void errorForOneOf() {
+
+	  Map<String,String> paramsByKey = asParams(
+			  CollectionContentConstraint.Function, CollectionRestriction.OneOf, 
+			  CollectionContentConstraint.Options, "frank bob");
+
+	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+
+	  ValueConstraint<?> vc = vcs.iterator().next();
+
+	  Violation v = vc.errorFor( Arrays.asList("brian", "eddie") );
+	  assertNotNull(v);
+
+	  v = vc.errorFor( Arrays.asList("frank", "sue") );
+	  assertNull(v);
+	  
+	  v = vc.errorFor( Arrays.asList("frank", "bob", "sue", "bob") );
+	  Assert.assertNotNull(v);
+  }
+ 
   @Test
   public void errorForNoneOf() {
 
@@ -59,10 +84,10 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 	  ValueConstraint<?> vc = vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("brian", "eddie") );
-	  Assert.assertNull(v);
+	  assertNull(v);
 
 	  v = vc.errorFor( Arrays.asList("frank", "sue") );
-	  Assert.assertNotNull(v);
+	  assertNotNull(v);
   }
 
   @Test

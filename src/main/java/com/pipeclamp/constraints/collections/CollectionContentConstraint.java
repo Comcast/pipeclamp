@@ -27,8 +27,8 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 	public static final String TypeTag = "content";
 
-	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function","");
-	public static final StringArrayParameter Options = new StringArrayParameter("options","", " ");
+	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function", "to do");	// TODO
+	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
 	
 	public static final ConstraintBuilder<Object[]> Builder = new ConstraintBuilder<Object[]>() {
 
@@ -36,15 +36,15 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			CollectionRestriction cr = Function.valueIn(values.remove(Function.id()), null);
-			if (cr == null) return null;
+			CollectionRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
+			if (restriction == null) return null;
 			String[] opts = Options.valueIn(values.remove(Options.id()), null);
 			
 			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>(1);
 
 			Set<String> optSet = opts == null ? null : new HashSet<String>(Arrays.asList(opts));
 			constraints.add(
-					new CollectionContentConstraint("", nullsAllowed, cr, optSet)
+					new CollectionContentConstraint("", nullsAllowed, restriction, optSet)
 					);
 
 			return constraints.isEmpty() ? null : constraints;
@@ -125,15 +125,13 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 			case OneOf :	return checkOneOf(values);
 			case AllUnique:	return checkAllUnique(values);
 			case NoneOf:	return checkNoneOf(values);
-			default:
-				break;
+				   default: return null;
 			}
-
-		return null;
 	}
 
 	@Override
 	public String toString() {
-		return "ArrayContentConstraint  options: " + options;
+		return "CollectionContentConstraint restriction: " + restriction + " options: " + options;
+				
 	}
 }

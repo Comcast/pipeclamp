@@ -12,7 +12,6 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
-import com.pipeclamp.params.ByteArrayParameter;
 
 /**
  * A simple match that looks for known byte prefixes on binary data.

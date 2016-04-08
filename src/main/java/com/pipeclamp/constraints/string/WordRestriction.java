@@ -1,11 +1,5 @@
 package com.pipeclamp.constraints.string;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.pipeclamp.api.Parameter;
-import com.pipeclamp.params.StringParameter;
-
 /**
  *
  * @author Brian Remedios
@@ -19,19 +13,19 @@ public enum WordRestriction {
 	public final String operator;
 	public final String label;
 
-	public static Parameter<?>[] asParameters() {
-
-		List<Parameter<?>> params = new ArrayList<Parameter<?>>();
-
+	public static WordRestriction forKeyword(String word) {
+		
 		for (WordRestriction wr : values()) {
-			params.add( new StringParameter(wr.operator, wr.label));
+			if (wr.operator.equals(word)) return wr;
 		}
-
-		return params.toArray(new Parameter[params.size()]);
+		return null;
 	}
 
 	WordRestriction(String theOp, String theLabel) {
 		operator = theOp;
 		label = theLabel;
 	}
+	
+	@Override
+	public String toString() { return operator; }
 }

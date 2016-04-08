@@ -72,5 +72,12 @@ public class StringsTest {
 	  assertFalse(Strings.IsNumeric.apply("brian"));
 	  assertFalse(Strings.IsNumeric.apply("BRIAN"));
 	  assertFalse(Strings.IsNumeric.apply("ab"));
+	  
+	  
+	  assertTrue(Strings.HasBoundingWhitespace.apply(" brian"));  
+	  assertTrue(Strings.HasBoundingWhitespace.apply("brian\t"));  
+	  assertFalse(Strings.HasBoundingWhitespace.apply("null"));
+	  assertFalse(Strings.HasBoundingWhitespace.apply("brian"));
+	  assertFalse(Strings.HasBoundingWhitespace.apply("br ian"));
   }
 }

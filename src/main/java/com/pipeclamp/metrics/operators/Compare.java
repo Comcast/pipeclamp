@@ -37,8 +37,8 @@ public interface Compare<I extends Comparable<?>> {
     };
 
     Compare<BigDecimal> BigDecimalCompare = new Compare<BigDecimal>() {
-    	public BigDecimal min(BigDecimal lhs, BigDecimal rhs) { return lhs.compareTo(rhs) < 0 ? rhs : lhs; }
-		public BigDecimal max(BigDecimal lhs, BigDecimal rhs) { return lhs.compareTo(rhs) > 0 ? rhs : lhs; }
+    	public BigDecimal min(BigDecimal lhs, BigDecimal rhs) { return lhs.compareTo(rhs) > 0 ? rhs : lhs; }
+		public BigDecimal max(BigDecimal lhs, BigDecimal rhs) { return lhs.compareTo(rhs) < 0 ? rhs : lhs; }
     };
 
     Compare<Date> DateCompare = new Compare<Date>() {

@@ -3,6 +3,7 @@ package com.pipeclamp.predicates;
 import org.apache.commons.lang.StringUtils;
 
 import com.google.common.base.Predicate;
+import com.pipeclamp.util.StringUtil;
 
 /**
  *
@@ -39,6 +40,18 @@ public interface Strings {
 	Predicate<String> IsAlphanumeric = new Predicate<String>() {
 		public boolean apply(String value) {
 			return StringUtils.isAlphanumeric(value);
+			}
+	};
+	
+	Predicate<String> HasBoundingWhitespace = new Predicate<String>() {
+		public boolean apply(String value) {
+			return StringUtil.hasBoundingWhitespace(value);
+			}
+	};
+
+	Predicate<String> HasNewlineChar = new Predicate<String>() {
+		public boolean apply(String value) {
+			return value != null && value.contains("\n");
 			}
 	};
 }

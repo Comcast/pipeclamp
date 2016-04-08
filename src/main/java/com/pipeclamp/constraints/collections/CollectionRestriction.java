@@ -1,11 +1,5 @@
 package com.pipeclamp.constraints.collections;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.pipeclamp.api.Parameter;
-import com.pipeclamp.params.StringParameter;
-
 /**
  * Denotes the range of possible restrictions across the items in a collection.
  *
@@ -28,17 +22,6 @@ public enum CollectionRestriction {
 			if (cr.keyword.equals(word)) return cr;
 		}
 		return null;
-	}
-	
-	public static Parameter<?>[] asParameters() {
-
-		List<Parameter<?>> params =  new ArrayList<Parameter<?>>();
-
-		for (CollectionRestriction wr : values()) {
-			params.add( new StringParameter(wr.keyword, wr.description));
-		}
-
-		return params.toArray(new Parameter[params.size()]);
 	}
 
 	CollectionRestriction(String theKeyword, String theDesc) {

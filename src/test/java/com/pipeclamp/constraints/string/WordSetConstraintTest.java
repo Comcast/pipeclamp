@@ -1,18 +1,47 @@
 package com.pipeclamp.constraints.string;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collection;
+import java.util.Map;
+
+import org.apache.avro.Schema;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
-import com.pipeclamp.constraints.string.WordRestriction;
-import com.pipeclamp.constraints.string.WordSetConstraint;
+import com.pipeclamp.constraints.collections.CollectionContentConstraint;
 
 public class WordSetConstraintTest extends AbstractConstraintTest {
 
 	private static final String[] BadWords = new String[] { "jerk", "idiot" };
 
 	private static final String[] RequiredWords = new String[] { "red", "white", "blue" };
+
+	@Test
+	public void testBuilder() {
+
+		Map<String,String> paramsByKey = asParams(
+				  CollectionContentConstraint.Function, WordRestriction.CannotHave, 
+				  CollectionContentConstraint.Options, "jerk idiot");
+
+		Collection<ValueConstraint<?>> vcs = WordSetConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+
+		assertNotNull(vcs);
+		assertTrue(paramsByKey.isEmpty());
+		
+		paramsByKey = asParams(
+				  CollectionContentConstraint.Options, "jerk idiot");
+
+		vcs = WordSetConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+
+		assertNull(vcs);
+		assertTrue(paramsByKey.isEmpty());
+	}
 
 	@Test
 	public void typedErrorForCannotHave() {

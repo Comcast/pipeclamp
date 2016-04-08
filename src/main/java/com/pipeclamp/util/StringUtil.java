@@ -75,4 +75,12 @@ public class StringUtil {
 
 		return sb.toString();
 	}
+
+	public static boolean hasBoundingWhitespace(String value) {
+		
+		int len = value.length();
+		if (value == null || len == 0) return false;
+		
+		return value.trim().length() != value.length();
+	}
 }
