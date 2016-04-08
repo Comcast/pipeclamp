@@ -55,16 +55,6 @@ public abstract class AbstractConstraintTest {
 		}
 	}
 
-	protected static Map<String,String> asParams(String... keyValuePairs) {
-
-		Map<String,String> paramsByKey = new HashMap<String,String>(keyValuePairs.length);
-
-		for (String kvp : keyValuePairs) {
-			addTo(paramsByKey, kvp);
-		}
-		return paramsByKey;
-	}
-
 	protected static Map<String,String> asParams(Parameter<?> param, Object value) {
 
 		Map<String,String> paramsByKey = new HashMap<String,String>(1);

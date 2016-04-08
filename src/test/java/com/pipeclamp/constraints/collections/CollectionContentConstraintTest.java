@@ -18,7 +18,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 	@Test
 	public void testBuilder() {
 
-		Map<String,String> paramsByKey = asParams("required=frank|bob");
+		Map<String,String> paramsByKey = asParams(
+				  CollectionContentConstraint.Function, CollectionRestriction.Required, 
+				  CollectionContentConstraint.Options, "frank bob");
 
 		Collection<ValueConstraint<?>> vc = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -29,7 +31,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
   @Test
   public void errorForRequired() {
 
-	  Map<String,String> paramsByKey = asParams("required=frank|bob");
+	  Map<String,String> paramsByKey = asParams(
+			  CollectionContentConstraint.Function, CollectionRestriction.Required, 
+			  CollectionContentConstraint.Options, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -46,7 +50,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
   @Test
   public void errorForNoneOf() {
 
-	  Map<String,String> paramsByKey = asParams("noneOf=frank|bob");
+	  Map<String,String> paramsByKey = asParams(
+			  CollectionContentConstraint.Function, CollectionRestriction.NoneOf, 
+			  CollectionContentConstraint.Options, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -62,7 +68,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
   @Test
   public void errorForAllUnique() {
 
-	  Map<String,String> paramsByKey = asParams("allUnique");
+	  Map<String,String> paramsByKey = asParams(CollectionContentConstraint.Function, CollectionRestriction.AllUnique);
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -78,7 +84,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
   @Test
   public void errorForAnyOf() {
 
-	  Map<String,String> paramsByKey = asParams("anyOf=frank|bob");
+	  Map<String,String> paramsByKey = asParams(
+			  CollectionContentConstraint.Function, CollectionRestriction.AnyOf, 
+			  CollectionContentConstraint.Options, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 

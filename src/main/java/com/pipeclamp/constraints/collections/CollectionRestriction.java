@@ -22,6 +22,14 @@ public enum CollectionRestriction {
 	public final String keyword;
 	public final String description;
 
+	public static CollectionRestriction forKeyword(String word) {
+		
+		for (CollectionRestriction cr : values()) {
+			if (cr.keyword.equals(word)) return cr;
+		}
+		return null;
+	}
+	
 	public static Parameter<?>[] asParameters() {
 
 		List<Parameter<?>> params =  new ArrayList<Parameter<?>>();
@@ -37,4 +45,7 @@ public enum CollectionRestriction {
 		keyword = theKeyword;
 		description = theDesc;
 	}
+	
+	@Override
+	public String toString() { return keyword; }
 }

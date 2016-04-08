@@ -13,6 +13,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.params.StringArrayParameter;
 
 /**
  * Enforces one or more restrictions on the contents of a collection.
@@ -26,37 +27,30 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 	public static final String TypeTag = "content";
 
-	private static String[] arrayValueIn(Map<String, String> values, CollectionRestriction rest) {
-		if (values.containsKey(rest.keyword)) {
-			String value = values.remove(rest.keyword);
-			if (value == null) return new String[0];
-			return value.split(ArrayElementDelimiterRegex);
-		}
-		return null;
-	}
-
+	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function","");
+	public static final StringArrayParameter Options = new StringArrayParameter("options","", " ");
+	
 	public static final ConstraintBuilder<Object[]> Builder = new ConstraintBuilder<Object[]>() {
 
 		public String id() { return TypeTag; };
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>();
+			CollectionRestriction cr = Function.valueIn(values.remove(Function.id()), null);
+			if (cr == null) return null;
+			String[] opts = Options.valueIn(values.remove(Options.id()), null);
+			
+			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>(1);
 
-			for (CollectionRestriction rest : CollectionRestriction.values()) {
-				String[] opts = arrayValueIn(values, rest);
-				if (opts != null) {
-					Set<String> optSet = new HashSet<String>(Arrays.asList(opts));
-					constraints.add(
-							new CollectionContentConstraint("", nullsAllowed, rest, optSet)
-							);
-					}
-				}
+			Set<String> optSet = opts == null ? null : new HashSet<String>(Arrays.asList(opts));
+			constraints.add(
+					new CollectionContentConstraint("", nullsAllowed, cr, optSet)
+					);
 
 			return constraints.isEmpty() ? null : constraints;
 		}
 
-		public Parameter<?>[] parameters() { return CollectionRestriction.asParameters(); }
+		public Parameter<?>[] parameters() { return new Parameter<?>[] { Function, Options }; }
 
 	};
 
