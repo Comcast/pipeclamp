@@ -19,7 +19,7 @@ import com.pipeclamp.constraints.string.WordSetConstraint;
 import com.pipeclamp.constraints.timestamp.TimestampRangeConstraint;
 
 /**
- * 
+ *
  * @author Brian Remedios
  */
 public class AvroConfiguration {
@@ -34,16 +34,16 @@ public class AvroConfiguration {
 		      put(Schema.Type.DOUBLE, Double.class).
 		      put(Schema.Type.BOOLEAN, Boolean.class).
 		      put(Schema.Type.BYTES, Byte[].class).		// TODO eval
-		      put(Schema.Type.RECORD, Object.class).	
+		      put(Schema.Type.RECORD, Object.class).
 		      build();
-	
+
 	static {
 		setup();
 	}
-	
+
 	private AvroConfiguration() { }
 
-	
+
 	private static void setup() {
 		ConstraintFactory.register(Schema.Type.BYTES, 	BytePrefixConstraint.Builder );
 		ConstraintFactory.register(Schema.Type.INT,		NumericConstraint.Builder, MathConstraint.Builder );
@@ -54,7 +54,7 @@ public class AvroConfiguration {
 		ConstraintFactory.register(Schema.Type.STRING,	StringLengthConstraint.Builder, RegexConstraint.Builder, WordSetConstraint.Builder );
 		ConstraintFactory.register(Schema.Type.RECORD, 	NotNullConstraint.Builder );
 	}
-	
+
 
 	public static Class<?> javaTypeFor(Schema.Type type) { return JavaTypesBySchemaType.get(type); }
 }

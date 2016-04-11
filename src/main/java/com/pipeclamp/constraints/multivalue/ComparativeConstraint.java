@@ -44,7 +44,7 @@ public class ComparativeConstraint<T extends Object> extends AbstractMultivalueC
 		if (comparison.comp.check(a, b)) return null;
 
 	//	return new Violation(this, a + " is not " + comparison.label + " " + b);
-		
+
 		// TODO
 		return null;
 	}

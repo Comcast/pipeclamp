@@ -84,7 +84,7 @@ public class AvroConstraintsTests {
 		Assert.assertEquals(StringLengthConstraint.class, violations.iterator().next().constraint.getClass());
 
 		System.out.println("\nIssues:");
-		AvroConstraintUtil.showIssues2(issuesByPath, System.out);
+		AvroConstraintUtil.showIssues(issuesByPath, System.out);
 	}
 
 	private static void removeFrom(Map<Path<GenericRecord,?>, Collection<Violation>> fullSet, Map<Path<GenericRecord,?>, Collection<Violation>> subset) {
@@ -102,7 +102,7 @@ public class AvroConstraintsTests {
 
 		Map<Path<GenericRecord,?>, Collection<Violation>> issuesByPath = validator.validate(person);
 
-		AvroConstraintUtil.showIssues2(issuesByPath, System.out);
+		AvroConstraintUtil.showIssues(issuesByPath, System.out);
 
 		Assert.assertEquals(1, issuesByPath.size());
 
@@ -127,7 +127,7 @@ public class AvroConstraintsTests {
 		Assert.assertEquals(NumericConstraint.class, entry.getValue().iterator().next().constraint.getClass());
 
 		System.out.println("\nIssues:");
-		AvroConstraintUtil.showIssues2(issuesByPath, System.out);
+		AvroConstraintUtil.showIssues(issuesByPath, System.out);
 	}
 
 	public static void main(String[] args) {

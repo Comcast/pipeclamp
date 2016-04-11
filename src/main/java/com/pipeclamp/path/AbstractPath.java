@@ -24,11 +24,11 @@ public abstract class AbstractPath<T extends Object, V extends Object> implement
 	}
 
 	private static boolean denotesCollection(String[] parts) {
-		
+
 		String lastSegment = parts[parts.length-1];
 		return denotesLoop(lastSegment);
 	}
-	
+
 	private static boolean denotesLoop(String part) {
 		return loopBounds(part) != null;
 	}
@@ -111,7 +111,7 @@ public abstract class AbstractPath<T extends Object, V extends Object> implement
 
 	@Override
 	public boolean denotesCollection() { return denotesCollection; }
-	
+
 	@Override
 	public String toString() {
 

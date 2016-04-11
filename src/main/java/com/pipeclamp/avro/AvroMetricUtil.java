@@ -72,7 +72,7 @@ public class AvroMetricUtil extends QAUtil {
 		JsonNode kid = node.get(childId);
 		return kid == null ? null : kid.asText();
 	}
-	
+
 	private static Map<String, MetricDescriptor> metricsIn(JsonNode node, Type type, boolean allowsNulls) {
 
 		if (!node.has(MetricFunctionKey)) return null;

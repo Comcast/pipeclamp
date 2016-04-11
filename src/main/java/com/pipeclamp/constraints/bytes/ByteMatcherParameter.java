@@ -6,7 +6,7 @@ import com.pipeclamp.api.SignatureMatcher;
 import com.pipeclamp.params.AbstractParameter;
 
 /**
- * 
+ *
  * @author Brian Remedios
  */
 public class ByteMatcherParameter extends AbstractParameter<SignatureMatcher> {

@@ -17,13 +17,13 @@ import com.pipeclamp.api.Classifier;
 public class ClassifyingHistogramCollector<I extends Object> extends AbstractCollector<I> {
 
 	private final Classifier<I> classifier;
-	
+
 	protected Map<String, Integer> countsPerClass = new HashMap<>();
 
 	public ClassifyingHistogramCollector(Predicate<I> aPredicate, Classifier<I> theClassifier) {
 		super(aPredicate);
-		
-		 classifier = theClassifier; 
+
+		 classifier = theClassifier;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class ClassifyingHistogramCollector<I extends Object> extends AbstractCol
 		if (!super.add(item)) return false;
 
 		String classification = classifier.classify(item);
-		
+
 		Integer count = countsPerClass.get(classification);
 		if (count == null) count = Integer.valueOf(0);
 		countsPerClass.put(classification, count+1);
@@ -52,13 +52,13 @@ public class ClassifyingHistogramCollector<I extends Object> extends AbstractCol
 
 	@Override
 	public Set<String> classifications() { return countsPerClass.keySet(); }
-	
+
 	@Override
 	public int countsOf(String classification) {
 		Integer count = countsPerClass.get(classification);
 		return count == null ? 0 : count;
 	}
-	
+
 	@Override
 	public void clear() {
 		super.clear();

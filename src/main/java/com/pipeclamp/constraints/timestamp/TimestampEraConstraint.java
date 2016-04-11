@@ -2,6 +2,7 @@ package com.pipeclamp.constraints.timestamp;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.avro.Schema.Type;
@@ -63,6 +64,14 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 			case Historical : return checkHistorical(value);
 			}
 		return null;
+	}
+
+	@Override
+	public Map<Parameter<?>, Object> parameters() {
+
+		Map<Parameter<?>, Object> params = new HashMap<>(1);
+		params.put(Era, restriction.keyword);
+		return params;
 	}
 
 	private Violation checkHistorical(long timestamp) {

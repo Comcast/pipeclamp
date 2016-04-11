@@ -7,8 +7,8 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.SignatureMatcher;
 import com.pipeclamp.api.Parameter;
+import com.pipeclamp.api.SignatureMatcher;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
@@ -27,14 +27,14 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 	public static final ByteMatcherParameter MATCHER = new ByteMatcherParameter("matcher", "legal matcher");
 
 	private static SignatureMatcher[] matchersIn(Map<String, String> values, ByteMatcherParameter param) {
-		
+
 		String matcherId = values.remove(param.id());
 		return new SignatureMatcher[] {
 			param.valueIn(matcherId, null)
 			};
 		}
 
-	
+
 	public static final ConstraintBuilder<byte[]> Builder = new ConstraintBuilder<byte[]>() {
 
 		public String id() { return TypeTag; };
@@ -52,7 +52,7 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 
 		public Parameter<?>[] parameters() { return new Parameter[] { MATCHER };	}
 	};
-	
+
 	protected BytePrefixConstraint(String theId, boolean nullAllowed, SignatureMatcher... theMatchers) {
 		super(theId, nullAllowed);
 

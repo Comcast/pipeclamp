@@ -37,7 +37,7 @@ public class RegexDescriptor extends AbstractRegisteredItem {
 
 	private RegexDescriptor(String theId, String theRegex, String theDescription) {
 		super(theId, theDescription);
-	
+
 		regex = theRegex;
 		pattern = Pattern.compile(theRegex);
 	}

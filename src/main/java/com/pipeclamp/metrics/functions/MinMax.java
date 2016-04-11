@@ -33,7 +33,7 @@ public class MinMax<I extends Comparable<?>> extends AbstractCollectionFunction<
 	}
 
 	public Collector<I> createCollector() { return new MinMaxCollector<I>(predicate()); }
-	
+
 //	@Override
 //	public Collector<I> createCollector() {
 //

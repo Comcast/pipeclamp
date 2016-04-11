@@ -58,9 +58,9 @@ public class CollectionSizeConstraint extends AbstractCollectionConstraint {
 	@Override
 	public Map<Parameter<?>, Object> parameters() {
 
-		Map<Parameter<?>, Object> params = new HashMap<>();
-		params.put(MIN_ITEMS, minSize);
-		params.put(MAX_ITEMS, maxSize);
+		Map<Parameter<?>, Object> params = new HashMap<>(2);
+		if (minSize != null) params.put(MIN_ITEMS, minSize);
+		if (maxSize != null) params.put(MAX_ITEMS, maxSize);
 		return params;
 	}
 

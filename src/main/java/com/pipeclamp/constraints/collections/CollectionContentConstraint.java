@@ -3,6 +3,7 @@ package com.pipeclamp.constraints.collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function", "to do");	// TODO
 	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
-	
+
 	public static final ConstraintBuilder<Object[]> Builder = new ConstraintBuilder<Object[]>() {
 
 		public String id() { return TypeTag; };
@@ -39,7 +40,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 			CollectionRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
 			if (restriction == null) return null;
 			String[] opts = Options.valueIn(values.remove(Options.id()), null);
-			
+
 			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>(1);
 
 			Set<String> optSet = opts == null ? null : new HashSet<String>(Arrays.asList(opts));
@@ -128,10 +129,19 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 				   default: return null;
 			}
 	}
+	
+	@Override
+	public Map<Parameter<?>, Object> parameters() {
+
+		Map<Parameter<?>, Object> params = new HashMap<>(2);
+		params.put(Function, restriction);
+		if (options != null) params.put(Options, options);
+		return params;
+	}
 
 	@Override
 	public String toString() {
 		return "CollectionContentConstraint restriction: " + restriction + " options: " + options;
-				
+
 	}
 }

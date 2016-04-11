@@ -26,11 +26,11 @@ public interface Path<T extends Object, V extends Object> {
 	boolean hasLoop();
 
 	/**
-	 * 
+	 *
 	 * @return boolean
 	 */
 	boolean denotesCollection();
-	
+
 	/**
 	 *
 	 * @param source

@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.pipeclamp.api.SignatureMatcher;
 
 /**
- * 
+ *
  * @author Brian Remedios
  */
 public interface Matchers {
@@ -19,5 +19,5 @@ public interface Matchers {
 		      put("JPG_EXIF", SimplePrefixMatcher.JPG_WITH_EXIF).
 		      put("javaClass", SimplePrefixMatcher.JavaClass).
 		      build();
-	
+
 }

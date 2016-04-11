@@ -25,4 +25,6 @@ public interface Parameter<T extends Object> extends DescriptiveItem {
 	 * TODO  unwanted AVRO (Type) dependency breaks generic form
 	 */
 	T valueIn(String text, Type type);
+	
+	Parameter<?>[] EMPTY_ARRAY = new Parameter<?>[0];
 }

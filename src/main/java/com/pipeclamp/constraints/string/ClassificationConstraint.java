@@ -3,12 +3,12 @@ package com.pipeclamp.constraints.string;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Classifier;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
@@ -16,16 +16,15 @@ import com.pipeclamp.api.Violation;
 import com.pipeclamp.params.StringArrayParameter;
 
 /**
- * Evaluates strings to ensure that they do or don't contain any of the specified words.
  *
  * @author Brian Remedios
  */
-public class WordSetConstraint extends AbstractStringConstraint {
+public class ClassificationConstraint extends AbstractStringConstraint {
 
-	private final String[] words;
-	private final WordRestriction restriction;
+	private final Classifier<String> classifier;
+	private final Set<String> classes;
 
-	public static final String TypeTag = "wordSet";
+	public static final String TypeTag = "classifier";
 
 	public static final WordRestrictionParameter Function = new WordRestrictionParameter("function", "to do");	// TODO
 	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
@@ -42,7 +41,7 @@ public class WordSetConstraint extends AbstractStringConstraint {
 
 			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>();
 
-			constraints.add( new WordSetConstraint("", nullsAllowed, opts, restriction) );
+		//	constraints.add( new ClassificationConstraint("", nullsAllowed, opts) );
 
 			return constraints.isEmpty() ? null : constraints;
 		}
@@ -51,54 +50,32 @@ public class WordSetConstraint extends AbstractStringConstraint {
 		public Parameter<?>[] parameters() { return new Parameter<?>[] { Function, Options }; }
 	};
 
-	public WordSetConstraint(String theId, boolean nullAllowed, String[] theWords, WordRestriction theRestriction) {
+	public ClassificationConstraint(String theId, boolean nullAllowed, Classifier<String> theClassifier, Set<String> theClasses) {
 		super(theId, nullAllowed);
 
-		if (theWords.length == 0) throw new IllegalArgumentException("No words specified");
-
-		words = theWords;
-		restriction = theRestriction;
+		classifier = theClassifier;
+		classes = theClasses;
 	}
-
-	@Override
-	public String typeTag() { return TypeTag; }
 
 	@Override
 	public Map<Parameter<?>, Object> parameters() {
 
-		Map<Parameter<?>, Object> params = new HashMap<>();
-		// TODO
+		Map<Parameter<?>, Object> params = new HashMap<>(2);
+		if (classifier != null) params.put(Function, classifier);
+		if (classes != null) params.put(Options, classes);
 		return params;
 	}
 
 	@Override
 	public Violation typedErrorFor(String value) {
 
-		Set<String> matches = new HashSet<String>();
+		String result = classifier.classify(value);
+		if (classes.contains(result)) return null;
 
-		for (String word : words) {
-			if (value.contains(word)) matches.add(word);
-		}
-
-		if (matches.isEmpty()) {
-			switch (restriction) {
-				case MustHaveOne :
-				case MustHaveAll : return new Violation(this, "missing required word(s)");
-				default: return null;
-				}
-		}
-
-		switch (restriction) {
-			case MustHaveOne : return null;
-			case MustHaveAll : if (matches.size() < words.length) return new Violation(this, "missing words"); break;
-			case CannotHave : return new Violation(this, "Illegal words found: " + matches);
-			}
-
-		return null;
+		return new Violation(this, "cannot contain class: " + result);
 	}
 
 	@Override
-	public String toString() {
-		return "WordSetConstraint  words: " + words;
-	}
+	public String typeTag() { return TypeTag; }
+
 }

@@ -29,22 +29,22 @@ public class MetricDescriptor extends AbstractRegisteredItem {
 		function = theFunction;
 		unitLabel = aUnitLabel;
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
-		
+
 		if (!super.equals(other)) return false;
-		
+
 		if (!(other instanceof MetricDescriptor)) return false;
-		
+
 		MetricDescriptor md = MetricDescriptor.class.cast(other);
-		
-		return 
+
+		return
 				Objects.deepEquals(label, md.label) &&
 				Objects.deepEquals(function, md.function) &&
 				Objects.deepEquals(unitLabel, md.unitLabel);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return super.hashCode() + Objects.hash(label, function, unitLabel);

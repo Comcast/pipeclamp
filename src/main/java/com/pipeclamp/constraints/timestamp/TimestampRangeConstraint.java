@@ -66,9 +66,9 @@ public class TimestampRangeConstraint extends AbstractValueConstraint<Long> {
 	@Override
 	public Map<Parameter<?>, Object> parameters() {
 
-		Map<Parameter<?>, Object> params = new HashMap<>();
-		params.put(MIN_TIMESTAMP, minTimestamp);
-		params.put(MAX_TIMESTAMP, maxTimestamp);
+		Map<Parameter<?>, Object> params = new HashMap<>(2);
+		if (minTimestamp != null) params.put(MIN_TIMESTAMP, minTimestamp);
+		if (maxTimestamp != null) params.put(MAX_TIMESTAMP, maxTimestamp);
 		return params;
 	}
 

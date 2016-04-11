@@ -11,6 +11,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.params.BooleanParameter;
 import com.pipeclamp.params.NumberParameter;
 import com.pipeclamp.params.StringParameter;
 
@@ -22,14 +23,16 @@ import com.pipeclamp.params.StringParameter;
 public class NumericConstraint extends AbstractNumericConstraint {
 
 	private final Number min;
-	private final boolean minExclusive;	// TODO
+	private final Boolean includeMin;	// TODO
 	private final Number max;
-	private final boolean maxExclusive;	// TODO
+	private final Boolean includeMax;	// TODO
 
 	private static final String TypeTag = "range";
 
 	public static final NumberParameter MIN_VALUE	= new NumberParameter("min", "minimum value");
+	public static final BooleanParameter MIN_INCLUSIVE = new BooleanParameter("includeMin", "include the minimum value");
 	public static final NumberParameter MAX_VALUE	= new NumberParameter("max", "maximum value");
+	public static final BooleanParameter MAX_INCLUSIVE = new BooleanParameter("includeMax", "include the maximum value");
 	public static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
 
 	public static final ConstraintBuilder<Number> Builder = new ConstraintBuilder<Number>() {
@@ -39,11 +42,13 @@ public class NumericConstraint extends AbstractNumericConstraint {
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Number minValue = numberValueIn(values, MIN_VALUE, type);
+			Boolean includeMin = booleanValueIn(values, MIN_INCLUSIVE);
 			Number maxValue = numberValueIn(values, MAX_VALUE, type);
-
+			Boolean includeMax = booleanValueIn(values, MAX_INCLUSIVE);
+			
 			if (minValue != null || maxValue != null) {
 				return Arrays.<ValueConstraint<?>>asList(
-						new NumericConstraint("", nullsAllowed, minValue, true, maxValue, true)
+						new NumericConstraint("", nullsAllowed, minValue, includeMin, maxValue, includeMax)
 						);
 			}
 
@@ -52,7 +57,7 @@ public class NumericConstraint extends AbstractNumericConstraint {
 				NamedRange range = NamedRange.ALL.get(rangeId);
 				if (range != null) {
 					return Arrays.<ValueConstraint<?>>asList(
-							new NumericConstraint(range.name, nullsAllowed, range.min, true, range.max, true)
+							new NumericConstraint(range.id(), nullsAllowed, range.min, true, range.max, true)
 							);
 				} else {
 					throw new IllegalArgumentException("Unrecognized range: " + rangeId);
@@ -62,20 +67,20 @@ public class NumericConstraint extends AbstractNumericConstraint {
 			return null;
 		}
 
-		public Parameter<?>[] parameters() { return new Parameter[] { MIN_VALUE, MAX_VALUE, RANGE_ID };	}
+		public Parameter<?>[] parameters() { return new Parameter[] { MIN_VALUE, MIN_INCLUSIVE, MAX_VALUE, MAX_INCLUSIVE, RANGE_ID };	}
 	};
 
-	public NumericConstraint(String theId, boolean nullAllowed, Number theMin, boolean includeMin, Number theMax, boolean includeMax) {
+	public NumericConstraint(String theId, boolean nullAllowed, Number theMin, Boolean includeMinFlag, Number theMax, Boolean includeMaxFlag) {
 		super(theId, nullAllowed);
 
 		if (theMin != null && theMax != null && theMin.doubleValue() > theMax.doubleValue())
 			throw new IllegalArgumentException("Minimum value limit cannot be greater than the maximum");
 
 		min = theMin;
-		minExclusive = includeMin;
+		includeMin = includeMinFlag;
 
 		max = theMax;
-		maxExclusive = includeMax;
+		includeMax = includeMaxFlag;
 	}
 
 	@Override
@@ -87,8 +92,10 @@ public class NumericConstraint extends AbstractNumericConstraint {
 		// TODO include the rangeId somehow
 
 		Map<Parameter<?>, Object> params = new HashMap<>(3);
-		params.put(MIN_VALUE, min);
-		params.put(MAX_VALUE, max);
+		if (min != null) params.put(MIN_VALUE, min);
+		if (includeMin != null) params.put(MIN_INCLUSIVE, includeMin);
+		if (max != null) params.put(MAX_VALUE, max);
+		if (includeMax != null) params.put(MAX_INCLUSIVE, includeMax);
 		return params;
 	}
 

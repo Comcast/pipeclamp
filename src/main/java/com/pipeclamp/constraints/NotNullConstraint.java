@@ -12,7 +12,8 @@ import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 
 /**
- * 
+ * Catches fields that have no values.
+ *
  * @author Brian Remedios
  */
 public class NotNullConstraint extends AbstractValueConstraint<Object> {
@@ -28,7 +29,7 @@ public class NotNullConstraint extends AbstractValueConstraint<Object> {
 			return Arrays.<ValueConstraint<?>>asList( new NotNullConstraint("") );
 		}
 
-		public Parameter<?>[] parameters() { return new Parameter[] { };	}
+		public Parameter<?>[] parameters() { return Parameter.EMPTY_ARRAY; }
 	};
 	
 	public NotNullConstraint(String theId) {

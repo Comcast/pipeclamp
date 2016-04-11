@@ -26,7 +26,6 @@ import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.path.Path;
 import com.pipeclamp.path.SimpleAvroPath;
-import com.pipeclamp.util.StringUtil;
 
 /**
  *
@@ -82,7 +81,7 @@ public class AvroConstraintUtil extends QAUtil {
 	 * @param issuesByPath
 	 * @param out
 	 */
-	public static void showIssues2(Map<Path<GenericRecord,?>, Collection<Violation>> issuesByPath, PrintStream out) {
+	public static void showIssues(Map<Path<GenericRecord,?>, Collection<Violation>> issuesByPath, PrintStream out) {
 
 		for (Entry<Path<GenericRecord,?>, Collection<Violation>> entry : issuesByPath.entrySet()) {
 			out.println(entry.getKey());
@@ -100,18 +99,18 @@ public class AvroConstraintUtil extends QAUtil {
 	 *
 	 * @return Map<String[], Collection<ValueConstraint<?>>>
 	 */
-	public static Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsIn3(Schema schema, boolean flagUnknowns, ConstraintFactory<Schema.Type> factory) {
+	public static Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsIn(Schema schema, boolean flagUnknowns, ConstraintFactory<Schema.Type> factory) {
 
-		return constraintParamsIn3(schema, factory);
+		return constraintParamsIn(schema, factory);
 	}
 
-	private static Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintParamsIn3(Schema schema, ConstraintFactory<Schema.Type> factory) {
+	private static Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintParamsIn(Schema schema, ConstraintFactory<Schema.Type> factory) {
 
 		Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsByPath = new HashMap<>();
 
-		Stack<String> path = new Stack<String>();
+		Stack<String> path = new Stack<>();
 
-		collectConstraints3(path, schema, constraintsByPath, factory);
+		collectConstraints(path, schema, constraintsByPath, factory);
 
 		return constraintsByPath;
 	}
@@ -155,7 +154,7 @@ public class AvroConstraintUtil extends QAUtil {
 	 * @param fields
 	 * @param constraintsByPath
 	 */
-	private static void collectConstraints3(Stack<String> path, Schema schema, Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsByPath, ConstraintFactory<Schema.Type> factory) {
+	private static void collectConstraints(Stack<String> path, Schema schema, Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsByPath, ConstraintFactory<Schema.Type> factory) {
 
 		JsonNode cstNode = schema.getJsonProp(ConstraintKey);
 		if (cstNode != null) {
@@ -186,13 +185,13 @@ public class AvroConstraintUtil extends QAUtil {
 			switch (childSchema.getType()) {
 				case RECORD : {
 					path.push(fld.name());
-					collectConstraints3(path, childSchema, constraintsByPath, factory);
+					collectConstraints(path, childSchema, constraintsByPath, factory);
 					path.pop();
 					break;
 					}
 				case ARRAY :  {
 					path.push(fld.name() + "[]");
-					collectConstraints3(path, childSchema, constraintsByPath, factory);
+					collectConstraints(path, childSchema, constraintsByPath, factory);
 					path.pop();
 					break;
 				}

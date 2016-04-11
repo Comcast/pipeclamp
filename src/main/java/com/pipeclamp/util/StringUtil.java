@@ -11,40 +11,40 @@ public class StringUtil {
 	private StringUtil() { }
 
 	public static String withoutWhitespaces(String input) {
-		
+
 		StringBuilder sb = new StringBuilder(input.length());
 		for (int i=0; i<input.length(); i++) {
 			char ch = input.charAt(i);
 			if (Character.isWhitespace(ch)) continue;
 			sb.append(ch);
 		}
-		
+
 		return sb.toString();
 	}
-	
+
 	public static byte[] asByteArray(String rawHexString) {
-		
+
 		String hexString = withoutWhitespaces(rawHexString);
-		
+
 		int len = hexString.length();
 		if (len % 2 == 1) return null;	// must have even number of chars
-		
+
 	    byte[] data = new byte[len / 2];
-	    
+
 	    for (int i=0; i<len; i += 2) {
 	        data[i/2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4)
 	                             + Character.digit(hexString.charAt(i+1), 16));
 	    }
 	    return data;
 	}
-	
+
 	public static String digitsIn(String text) {
-		
+
 		if (text == null) return null;
-		
+
 		int len = text.length();
 		if (len == 0) return null;
-		
+
 		StringBuilder sb = new StringBuilder(len);
 		for (int i=0; i<len; i++) {
 			char ch = text.charAt(i);
@@ -52,7 +52,7 @@ public class StringUtil {
 		}
 		return sb.toString();
 	}
-	
+
 	public static void printLeftJustified(String str, PrintStream out, int width) {
 
 		int len = str.length();
@@ -77,10 +77,10 @@ public class StringUtil {
 	}
 
 	public static boolean hasBoundingWhitespace(String value) {
-		
+
 		int len = value.length();
 		if (value == null || len == 0) return false;
-		
+
 		return value.trim().length() != value.length();
 	}
 }

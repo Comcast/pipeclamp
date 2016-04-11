@@ -6,6 +6,7 @@ import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.params.BooleanParameter;
 import com.pipeclamp.params.ByteArrayParameter;
 import com.pipeclamp.params.FloatParameter;
 import com.pipeclamp.params.IntegerParameter;
@@ -23,6 +24,14 @@ import com.pipeclamp.params.TimestampParameter;
  */
 public abstract class AbstractValueConstraint<V extends Object> extends AbstractConstraint implements ValueConstraint<V>{
 
+	protected static Boolean booleanValueIn(Map<String, String> values, BooleanParameter bp) {
+		if (values.containsKey(bp.id())) {
+			String value = values.remove(bp.id());
+			return bp.valueIn(value, Type.BOOLEAN);
+		}
+		return null;
+	}
+	
 	protected static Number numberValueIn(Map<String, String> values, NumberParameter ip, Type type) {
 		if (values.containsKey(ip.id())) {
 			String value = values.remove(ip.id());

@@ -12,9 +12,9 @@ import java.util.List;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;
+import org.apache.avro.SchemaParseException;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.NullNode;
-import org.apache.avro.SchemaParseException;
 
 /**
  *
@@ -85,7 +85,7 @@ public class AvroUtil {
 	}
 
 	//		public static boolean hasAnyProperty(Field field, String... names) {
-	//			
+	//
 	//			for (String name : names) {
 	//				if (field.getJsonProp(name) != null) return true;
 	//			}
@@ -94,12 +94,12 @@ public class AvroUtil {
 
 	public static boolean denotesPrimitiveValue(Schema schema) {
 		switch (schema.getType()) {
-		case INT : 
-		case BOOLEAN : 
-		case ENUM : 
-		case BYTES : 
-		case LONG : 
-		case FIXED : 
+		case INT :
+		case BOOLEAN :
+		case ENUM :
+		case BYTES :
+		case LONG :
+		case FIXED :
 		case FLOAT:
 		case DOUBLE :
 		case STRING : return true;

@@ -35,7 +35,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 	}
 
 	private static final ConstraintFactory<Schema.Type> Factory = AvroConfiguration.ConstraintFactory;
-	
+
 	/**
 	 * Use this if you don't have an enhanced schema. You'll just have to register
 	 * your constraints manually.
@@ -52,7 +52,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 	 * @param flagUnknowns
 	 */
 	public AvroValidator(Schema schema, boolean flagUnknowns) {
-		this(AvroConstraintUtil.constraintsIn3(schema, flagUnknowns, Factory), new HashMap<Path<GenericRecord, ?>, Collection<MultiValueConstraint<GenericRecord>>>());
+		this(AvroConstraintUtil.constraintsIn(schema, flagUnknowns, Factory), new HashMap<Path<GenericRecord, ?>, Collection<MultiValueConstraint<GenericRecord>>>());
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 					issues.put(path, violations);
 					continue;
 				}
-				
+
 				for (int i=0; i<values.size(); i++) {
 					Collection<Violation> violations = violationsFor(entry.getValue(), values.get(i));
 					if (violations.isEmpty()) continue;

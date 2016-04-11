@@ -14,7 +14,7 @@ public enum WordRestriction {
 	public final String label;
 
 	public static WordRestriction forKeyword(String word) {
-		
+
 		for (WordRestriction wr : values()) {
 			if (wr.operator.equals(word)) return wr;
 		}
@@ -25,7 +25,7 @@ public enum WordRestriction {
 		operator = theOp;
 		label = theLabel;
 	}
-	
+
 	@Override
 	public String toString() { return operator; }
 }

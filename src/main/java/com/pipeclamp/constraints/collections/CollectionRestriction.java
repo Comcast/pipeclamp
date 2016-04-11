@@ -17,7 +17,7 @@ public enum CollectionRestriction {
 	public final String description;
 
 	public static CollectionRestriction forKeyword(String word) {
-		
+
 		for (CollectionRestriction cr : values()) {
 			if (cr.keyword.equals(word)) return cr;
 		}
@@ -28,7 +28,7 @@ public enum CollectionRestriction {
 		keyword = theKeyword;
 		description = theDesc;
 	}
-	
+
 	@Override
 	public String toString() { return keyword; }
 }

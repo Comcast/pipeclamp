@@ -62,8 +62,8 @@ public class StringLengthConstraint extends AbstractStringConstraint {
 	public Map<Parameter<?>, Object> parameters() {
 
 		Map<Parameter<?>, Object> params = new HashMap<>(2);
-		params.put(MIN_LENGTH, minLength);
-		params.put(MAX_LENGTH, maxLength);
+		if (minLength != null) params.put(MIN_LENGTH, minLength);
+		if (maxLength != null) params.put(MAX_LENGTH, maxLength);
 		return params;
 	}
 

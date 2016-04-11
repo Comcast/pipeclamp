@@ -71,7 +71,7 @@ public abstract class AbstractCollector<I extends Object> implements Collector<I
 
 	@Override
 	public Set<String> classifications() {	return Collections.emptySet(); }
-	
+
 	@Override
 	public int countsOf(String classification) { return 0; }
 }

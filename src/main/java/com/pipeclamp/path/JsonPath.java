@@ -40,7 +40,7 @@ public class JsonPath<V extends Object> implements Path<ReadContext, V> {
 
 	@Override
 	public boolean denotesCollection() { return denotesCollection; }
-	
+
 	@Override
 	public Path<ReadContext, V> withIndex(int segment, String index) {
 		// TODO Auto-generated method stub

@@ -2,6 +2,7 @@ package com.pipeclamp.constraints.string;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -66,6 +67,14 @@ public class RegexConstraint extends AbstractStringConstraint {
 
 		regex = theRegex;
 		pattern = Pattern.compile(theRegex);
+	}
+
+	@Override
+	public Map<Parameter<?>, Object> parameters() {
+
+		Map<Parameter<?>, Object> params = new HashMap<>(2);
+	//	params.put(PATTERN, regex);		// TODO
+		return params;
 	}
 
 	@Override

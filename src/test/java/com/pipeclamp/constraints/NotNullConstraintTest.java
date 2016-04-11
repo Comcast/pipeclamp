@@ -16,7 +16,7 @@ import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.NotNullConstraint;
 
 /**
- * 
+ *
  * @author Brian Remedios
  */
 public class NotNullConstraintTest {

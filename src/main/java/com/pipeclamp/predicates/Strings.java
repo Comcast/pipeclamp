@@ -24,25 +24,25 @@ public interface Strings {
 			return !IsEmpty.apply(value);
 			}
 	};
-	
+
 	Predicate<String> IsAlpha = new Predicate<String>() {
 		public boolean apply(String value) {
 			return StringUtils.isAlpha(value);
 			}
 	};
-	
+
 	Predicate<String> IsNumeric = new Predicate<String>() {
 		public boolean apply(String value) {
 			return StringUtils.isNumeric(value);
 			}
 	};
-	
+
 	Predicate<String> IsAlphanumeric = new Predicate<String>() {
 		public boolean apply(String value) {
 			return StringUtils.isAlphanumeric(value);
 			}
 	};
-	
+
 	Predicate<String> HasBoundingWhitespace = new Predicate<String>() {
 		public boolean apply(String value) {
 			return StringUtil.hasBoundingWhitespace(value);

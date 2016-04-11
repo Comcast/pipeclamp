@@ -2,6 +2,7 @@ package com.pipeclamp.constraints.bytes;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.avro.Schema.Type;
@@ -68,6 +69,15 @@ public class ByteArraySizeConstraint extends AbstractValueConstraint<byte[]> {
 		maxSize = theMaxSize;
 	}
 
+	@Override
+	public Map<Parameter<?>, Object> parameters() {
+
+		Map<Parameter<?>, Object> params = new HashMap<>(2);
+		if (minSize != null) params.put(MIN_SIZE, minSize);
+		if (maxSize != null) params.put(MAX_SIZE, maxSize);
+		return params;
+	}
+	
 	@Override
 	public byte[] cast(Object value) {
 		return (byte[])value;

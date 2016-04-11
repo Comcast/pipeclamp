@@ -5,7 +5,7 @@ import org.apache.avro.Schema.Type;
 import com.pipeclamp.params.AbstractParameter;
 
 /**
- * 
+ *
  * @author Brian Remedios
  */
 public class WordRestrictionParameter extends AbstractParameter<WordRestriction> {

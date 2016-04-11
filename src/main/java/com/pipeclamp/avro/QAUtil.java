@@ -17,7 +17,7 @@ import com.pipeclamp.api.Parameter;
  * @author Brian Remedios
  */
 public class QAUtil {
-	
+
 	private static final String ArgsKey = "args";
 	private static final String ArgNameKey = "name";
 	private static final String ArgValueKey = "value";

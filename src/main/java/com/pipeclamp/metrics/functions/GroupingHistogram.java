@@ -21,29 +21,29 @@ import com.pipeclamp.params.StringParameter;
 public class GroupingHistogram<I extends Object> extends AbstractCollectionFunction<I, Map<String, Integer>> {
 
 	private final Classifier<I> classifier;
-	
+
 	private static final StringParameter ClassificationParam = new StringParameter("classifier", "");
-	
+
 	public static final String Id = "groupingHistogram";
 
 	public GroupingHistogram(Classifier<I> theClassifier) {
 		super(null);
-		
+
 		classifier = theClassifier;
 	}
 
 	@Override
-	public Collector<I> createCollector() {	
-		return new ClassifyingHistogramCollector<I>(predicate(), classifier); 
+	public Collector<I> createCollector() {
+		return new ClassifyingHistogramCollector<I>(predicate(), classifier);
 	}
 
 	@Override
 	public Map<String,Integer> compute(Collector<I> collector) {
 
 		Set<String> classifications = collector.classifications();
-		
+
 		Map<String, Integer> values = new HashMap<>(classifications.size());
-		
+
 		for (String classification : classifications) {
 			values.put(classification, collector.countsOf(classification));
 		}
@@ -52,7 +52,7 @@ public class GroupingHistogram<I extends Object> extends AbstractCollectionFunct
 
 	@Override
 	public Map<Parameter<?>, Object> parameters() {
-		
+
 		return ImmutableMap.<Parameter<?>, Object>builder().
 			      put(ClassificationParam, classifier).
 			      build();
