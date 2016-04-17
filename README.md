@@ -44,3 +44,10 @@ the offending field:
 		}
 	
 ```
+
+Like XML, as long as your schema is syntactically correct, Json parsers will ignore 
+new tags leaving you free to fully document & constraint your schemas and ensure that
+everyone that references them is on the same page.
+
+A full listing of the available constraints and how to write your own are listed in 
+the /docs/manual.pdf
