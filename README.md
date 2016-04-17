@@ -6,7 +6,7 @@ primarily with Avro/JSON data for now but can be extended to support other schem
 ### Example
 
 You can augment an existing Avro schema by including new tags that reference
-type-specific constraints. In the partial person schema below we'd like to ensure that 
+type-specific constraints. In the partial Person schema below we'd like to ensure that 
 first name values are kept between 2 and 30 characters in length:
 
 ```json
@@ -14,15 +14,15 @@ first name values are kept between 2 and 30 characters in length:
 			"name": "firstname",	
 			"type": "string",
 			"doc": "Person's first name",
-	**		"constraints" : [
+			"constraints" : [
 			{ 
 				"function" : "length", 
-				”id” : "firstNameLength",
+				"id" : "firstNameLength",
 				"args" : [
 					{ "name" : "min", "value" : "2"}, 
 					{ "name" : "max", "value" : "30"} 
 					] 
-				} ]  **
+				} ]  
 		},
 ```
 
