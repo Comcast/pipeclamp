@@ -33,21 +33,21 @@ public class StringLengthConstraintTest extends AbstractConstraintTest {
 		Assert.assertEquals(0, paramsByKey.size());
 	}
 
-  @Test
-  public void typedErrorFor() {
+	@Test
+	public void typedErrorFor() {
 
-	  StringLengthConstraint slc = new StringLengthConstraint("", true, 5, 10);
+		StringLengthConstraint slc = new StringLengthConstraint("", true, 5, 10);
 
-	  Violation v = slc.errorFor(null);	// nulls ok
-	  Assert.assertNull(v);
+		Violation v = slc.errorFor(null);	// nulls ok
+		Assert.assertNull(v);
 
-	  v = slc.errorFor("billy");
-	  Assert.assertNull(v);
+		v = slc.errorFor("billy");
+		Assert.assertNull(v);
 
-	  v = slc.errorFor("bill");
-	  Assert.assertNotNull(v);
+		v = slc.errorFor("bill");
+		Assert.assertNotNull(v);
 
-	  v = slc.errorFor("bill bill bill bill");
-	  Assert.assertNotNull(v);
-  }
+		v = slc.errorFor("bill bill bill bill");
+		Assert.assertNotNull(v);
+	}
 }
