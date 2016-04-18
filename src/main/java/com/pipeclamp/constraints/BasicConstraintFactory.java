@@ -54,10 +54,10 @@ public class BasicConstraintFactory<T extends Object> implements ConstraintFacto
 		for (Entry<T, Map<String, ConstraintBuilder<?>>> entry : buildersByType.entrySet()) {
 			out.println(entry.getKey());
 			for (ConstraintBuilder<?> builder : entry.getValue().values()) {
-				out.println("\t" + builder.toString());
+				out.println("\t" + builder.executionType().getName() + "\t'" + builder.id() + '\'');
 				for (Parameter<?> p : builder.parameters()) {
 					out.print("\t\t");
-					StringUtil.printLeftJustified('\'' + p.id() + '\'', out, paramIdWidth);;
+					StringUtil.printLeftJustified('\'' + p.id() + '\'', out, paramIdWidth);
 					out.println("\t" + p.description());
 				}
 			}

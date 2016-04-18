@@ -12,6 +12,7 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.IntegerParameter;
 
 /**
@@ -29,9 +30,7 @@ public class ByteArraySizeConstraint extends AbstractValueConstraint<byte[]> {
 	public static final IntegerParameter MAX_SIZE	= new IntegerParameter("max", "maximum size");
 //	public static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
 
-	public static final ConstraintBuilder<byte[]> Builder = new ConstraintBuilder<byte[]>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, ByteArraySizeConstraint.class, MIN_SIZE, MAX_SIZE) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -58,8 +57,6 @@ public class ByteArraySizeConstraint extends AbstractValueConstraint<byte[]> {
 
 			return null;
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter[] { MIN_SIZE, MAX_SIZE };	}
 	};
 
 	protected ByteArraySizeConstraint(String theId, boolean nullAllowed, Integer theMinSize, Integer theMaxSize) {

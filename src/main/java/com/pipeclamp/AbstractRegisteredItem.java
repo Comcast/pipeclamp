@@ -49,6 +49,6 @@ public abstract class AbstractRegisteredItem implements DescriptiveItem {
 	
 	@Override
 	public String toString() {
-		return id() + "\t" + description;
+		return id + "\t" + description;
 	}
 }

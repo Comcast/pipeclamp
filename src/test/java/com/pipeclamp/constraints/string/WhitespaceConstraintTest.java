@@ -28,7 +28,7 @@ public class WhitespaceConstraintTest extends AbstractConstraintTest {
 		assertNotNull(vcs);
 		assertTrue(paramsByKey.isEmpty());
 
-		paramsByKey = asParams(WhitespaceConstraint.NO_TAILING, true);
+		paramsByKey = asParams(WhitespaceConstraint.NO_TRAILING, true);
 
 		vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 
@@ -36,7 +36,7 @@ public class WhitespaceConstraintTest extends AbstractConstraintTest {
 		assertEquals(0, paramsByKey.size());
 		
 		
-		paramsByKey = asParams(WhitespaceConstraint.NO_TAILING, false);
+		paramsByKey = asParams(WhitespaceConstraint.NO_TRAILING, false);
 
 		vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 
@@ -63,7 +63,7 @@ public class WhitespaceConstraintTest extends AbstractConstraintTest {
 		
 		// ========
 		
-		paramsByKey = asParams(WhitespaceConstraint.NO_TAILING, true);
+		paramsByKey = asParams(WhitespaceConstraint.NO_TRAILING, true);
 
 		vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 		assertNotNull(vcs);

@@ -12,6 +12,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringParameter;
 
 /**
@@ -26,13 +27,11 @@ public class RegexConstraint extends AbstractStringConstraint {
 	private final Pattern pattern;
 
 	public static final String TypeTag = "regex";
-
-	public static final ConstraintBuilder<String> Builder = new ConstraintBuilder<String>() {
-
-		final StringParameter PATTERN		= new StringParameter("pattern", "regular expression pattern");
-		final StringParameter PATTERN_ID	= new StringParameter("patternId", "regular expression pattern identifier");
-
-		public String id() { return TypeTag; };
+	
+	static final StringParameter PATTERN		= new StringParameter("pattern", "regular expression pattern");
+	static final StringParameter PATTERN_ID	= new StringParameter("patternId", "regular expression pattern identifier");
+	
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, RegexConstraint.class, PATTERN, PATTERN_ID) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -54,8 +53,6 @@ public class RegexConstraint extends AbstractStringConstraint {
 
 			return null;
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter[] { PATTERN, PATTERN_ID };	}
 	};
 
 	public RegexConstraint(RegexDescriptor desc) {

@@ -38,7 +38,7 @@ public class IllegalCharacterConstraintTest extends AbstractConstraintTest {
 		assertNull(vcs);
 		
 		
-		paramsByKey = asParams(WhitespaceConstraint.NO_TAILING, false);
+		paramsByKey = asParams(WhitespaceConstraint.NO_TRAILING, false);
 
 		vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 

@@ -12,6 +12,7 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringParameter;
 import com.pipeclamp.util.TimeUtil;
 
@@ -27,9 +28,7 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 
 	public static final StringParameter Era = new StringParameter("era", "era");
 
-	public static final ConstraintBuilder<Long> Builder = new ConstraintBuilder<Long>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampEraConstraint.class, Era) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -42,9 +41,6 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 
 			return null;
 		}
-
-		@Override
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { Era  }; }
 	};
 
 	public TimestampEraConstraint(String theId, boolean nullAllowed, TimestampRestriction theRestriction) {

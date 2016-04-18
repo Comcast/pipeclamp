@@ -12,6 +12,7 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.TimestampParameter;
 
 /**
@@ -28,9 +29,7 @@ public class TimestampRangeConstraint extends AbstractValueConstraint<Long> {
 	static final TimestampParameter MIN_TIMESTAMP = new TimestampParameter("minTime", "earliest timestamp (UTC)", "yyyy-MM-dd HH:mm:ss");
 	static final TimestampParameter MAX_TIMESTAMP = new TimestampParameter("maxTime", "latest timestamp (UTC)", "yyyy-MM-dd HH:mm:ss");
 
-	public static final ConstraintBuilder<Long> Builder = new ConstraintBuilder<Long>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampRangeConstraint.class, MIN_TIMESTAMP, MAX_TIMESTAMP) {;
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -45,8 +44,6 @@ public class TimestampRangeConstraint extends AbstractValueConstraint<Long> {
 
 			return null;
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter[] { MIN_TIMESTAMP, MAX_TIMESTAMP };	}
 	};
 
 	public TimestampRangeConstraint(String theId, boolean nullAllowed, String theMin, String theMax) {

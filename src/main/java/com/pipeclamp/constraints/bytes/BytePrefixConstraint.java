@@ -7,11 +7,11 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.SignatureMatcher;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 
 /**
  * A simple match that looks for known byte prefixes on binary data.
@@ -35,9 +35,7 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 		}
 
 
-	public static final ConstraintBuilder<byte[]> Builder = new ConstraintBuilder<byte[]>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, BytePrefixConstraint.class, MATCHER) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -49,8 +47,6 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 					new BytePrefixConstraint("", nullsAllowed, matchers)
 					);
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter[] { MATCHER };	}
 	};
 
 	protected BytePrefixConstraint(String theId, boolean nullAllowed, SignatureMatcher... theMatchers) {

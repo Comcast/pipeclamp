@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.BooleanParameter;
 
 /**
@@ -20,38 +20,33 @@ import com.pipeclamp.params.BooleanParameter;
 public class WhitespaceConstraint extends AbstractStringConstraint {
 
 	private final boolean checkLeading;
-	private final boolean checkTailing;
+	private final boolean checkTrailing;
 	
 	public static final String TypeTag = "whitespace";
 	
 	public static final BooleanParameter NO_LEADING = new BooleanParameter("noLead", "no starting whitespace characters");
-	public static final BooleanParameter NO_TAILING = new BooleanParameter("noTail", "no ending whitespace characters");
+	public static final BooleanParameter NO_TRAILING = new BooleanParameter("noTail", "no ending whitespace characters");
 
-	public static final ConstraintBuilder<String> Builder = new ConstraintBuilder<String>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WhitespaceConstraint.class, NO_LEADING, NO_TRAILING) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Boolean noLead = booleanValueIn(values, NO_LEADING);
 			if (noLead == Boolean.FALSE) noLead = null;
-			Boolean noTail = booleanValueIn(values, NO_TAILING);
-			if (noTail == Boolean.FALSE) noTail = null;
+			Boolean noTrail = booleanValueIn(values, NO_TRAILING);
+			if (noTrail == Boolean.FALSE) noTrail = null;
 			
-			if (noLead == null && noTail == null) return null;
+			if (noLead == null && noTrail == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(new WhitespaceConstraint("", nullsAllowed, noLead, noTail));
+			return Arrays.<ValueConstraint<?>>asList(new WhitespaceConstraint("", nullsAllowed, noLead, noTrail));
 		}
-
-		@Override
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { NO_LEADING, NO_TAILING }; };
 	};
 	
-	public WhitespaceConstraint(String theId, boolean nullAllowed, Boolean noLeadingFlag, Boolean noTailingFlag) {
+	public WhitespaceConstraint(String theId, boolean nullAllowed, Boolean noLeadingFlag, Boolean noTrailingFlag) {
 		super(theId, nullAllowed);
 
 		checkLeading = Boolean.TRUE == noLeadingFlag;
-		checkTailing = Boolean.TRUE == noTailingFlag;
+		checkTrailing = Boolean.TRUE == noTrailingFlag;
 	}
 
 	@Override
@@ -67,7 +62,7 @@ public class WhitespaceConstraint extends AbstractStringConstraint {
 			}
 		}
 		
-		if (checkTailing) {
+		if (checkTrailing) {
 			char ch = value.charAt(len-1);
 			if (Character.isWhitespace(ch)) {
 				return new Violation(this, "Illegal ending whitespace: " + ch);

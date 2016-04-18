@@ -13,6 +13,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringArrayParameter;
 
 /**
@@ -30,9 +31,7 @@ public class WordSetConstraint extends AbstractStringConstraint {
 	public static final WordRestrictionParameter Function = new WordRestrictionParameter("function", "to do");	// TODO
 	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
 
-	public static final ConstraintBuilder<String> Builder = new ConstraintBuilder<String>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WordSetConstraint.class, Function, Options) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -46,9 +45,6 @@ public class WordSetConstraint extends AbstractStringConstraint {
 
 			return constraints.isEmpty() ? null : constraints;
 		}
-
-		@Override
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { Function, Options }; }
 	};
 
 	public WordSetConstraint(String theId, boolean nullAllowed, String[] theWords, WordRestriction theRestriction) {

@@ -11,6 +11,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.IntegerParameter;
 
 /**
@@ -28,9 +29,7 @@ public class CollectionSizeConstraint extends AbstractCollectionConstraint {
 	public static final IntegerParameter MIN_ITEMS = new IntegerParameter("minItems", "minimum number of items");
 	public static final IntegerParameter MAX_ITEMS = new IntegerParameter("maxItems", "maximum number of items");
 
-	public static final ConstraintBuilder<Object[]> Builder = new ConstraintBuilder<Object[]>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<Object[]> Builder = new BasicConstraintBuilder<Object[]>(TypeTag, CollectionSizeConstraint.class, MIN_ITEMS, MAX_ITEMS) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -41,8 +40,6 @@ public class CollectionSizeConstraint extends AbstractCollectionConstraint {
 
 			return Arrays.<ValueConstraint<?>>asList(new CollectionSizeConstraint("", nullsAllowed, min, max));
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { MIN_ITEMS, MAX_ITEMS }; };
 	};
 
 	public CollectionSizeConstraint(String theId, boolean nullAllowed, Integer theMin, Integer theMax) {

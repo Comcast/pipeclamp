@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.NumberParameter;
 
 /**
@@ -23,23 +23,18 @@ public class MathConstraint extends AbstractNumericConstraint {
 
 	private static final String TypeTag = "math";
 
-	public static final ConstraintBuilder<Number> Builder = new ConstraintBuilder<Number>() {
-
-		final NumberParameter MULTIPLE_OF = new NumberParameter("multipleOf", "multiple of the specified divisor");
-
-		public String id() { return TypeTag; };
+	static final NumberParameter MULTIPLE_OF = new NumberParameter("multipleOf", "multiple of the specified divisor");
+	
+	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, MathConstraint.class, MULTIPLE_OF) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			Number factor = numberValueIn(values,MULTIPLE_OF, type);
+			Number factor = numberValueIn(values, MULTIPLE_OF, type);
 
 			if (factor == null) return null;
 
 			return Arrays.<ValueConstraint<?>>asList(new MathConstraint("", nullsAllowed, factor));
 		}
-
-		@Override
-		public Parameter<?>[] parameters() { return new Parameter[] { MULTIPLE_OF }; };
 	};
 
 	public MathConstraint(String theId, boolean nullAllowed, Number theFactor) {

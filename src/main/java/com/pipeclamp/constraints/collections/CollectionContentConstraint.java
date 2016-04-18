@@ -14,6 +14,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringArrayParameter;
 
 /**
@@ -31,9 +32,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function", "to do");	// TODO
 	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
 
-	public static final ConstraintBuilder<Object[]> Builder = new ConstraintBuilder<Object[]>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<Object[]> Builder = new BasicConstraintBuilder<Object[]>(TypeTag, CollectionContentConstraint.class, Function, Options) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -50,9 +49,6 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 			return constraints.isEmpty() ? null : constraints;
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { Function, Options }; }
-
 	};
 
 	public CollectionContentConstraint(String theId, boolean nullAllowed, CollectionRestriction theRestriction, Set<String> theOptions) {

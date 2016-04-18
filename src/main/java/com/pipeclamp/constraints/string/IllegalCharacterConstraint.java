@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringParameter;
 
 /**
@@ -25,9 +25,7 @@ public class IllegalCharacterConstraint extends AbstractStringConstraint {
 	
 	public static final StringParameter BAD_CHARS = new StringParameter("badChars", "unwanted characters");
 
-	public static final ConstraintBuilder<String> Builder = new ConstraintBuilder<String>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, IllegalCharacterConstraint.class, BAD_CHARS) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -38,8 +36,6 @@ public class IllegalCharacterConstraint extends AbstractStringConstraint {
 			return Arrays.<ValueConstraint<?>>asList(new IllegalCharacterConstraint("", nullsAllowed, baddies));
 		}
 
-		@Override
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { BAD_CHARS }; };
 	};
 	
 	private static final boolean[] asBooleanMap(char[] theChars) {

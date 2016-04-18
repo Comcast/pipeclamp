@@ -11,6 +11,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.BooleanParameter;
 import com.pipeclamp.params.NumberParameter;
 import com.pipeclamp.params.StringParameter;
@@ -35,9 +36,7 @@ public class NumericConstraint extends AbstractNumericConstraint {
 	public static final BooleanParameter MAX_INCLUSIVE = new BooleanParameter("includeMax", "include the maximum value");
 	public static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
 
-	public static final ConstraintBuilder<Number> Builder = new ConstraintBuilder<Number>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, NumericConstraint.class, MIN_VALUE, MIN_INCLUSIVE, MAX_VALUE, MAX_INCLUSIVE, RANGE_ID) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -66,8 +65,6 @@ public class NumericConstraint extends AbstractNumericConstraint {
 
 			return null;
 		}
-
-		public Parameter<?>[] parameters() { return new Parameter[] { MIN_VALUE, MIN_INCLUSIVE, MAX_VALUE, MAX_INCLUSIVE, RANGE_ID };	}
 	};
 
 	public NumericConstraint(String theId, boolean nullAllowed, Number theMin, Boolean includeMinFlag, Number theMax, Boolean includeMaxFlag) {

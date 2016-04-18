@@ -11,6 +11,7 @@ import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.IntegerParameter;
 
 /**
@@ -28,9 +29,7 @@ public class StringLengthConstraint extends AbstractStringConstraint {
 	public static final IntegerParameter MIN_LENGTH = new IntegerParameter("min", "minimum length");
 	public static final IntegerParameter MAX_LENGTH = new IntegerParameter("max", "maximum length");
 
-	public static final ConstraintBuilder<String> Builder = new ConstraintBuilder<String>() {
-
-		public String id() { return TypeTag; };
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, StringLengthConstraint.class, MIN_LENGTH, MAX_LENGTH) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
@@ -41,9 +40,6 @@ public class StringLengthConstraint extends AbstractStringConstraint {
 
 			return Arrays.<ValueConstraint<?>>asList(new StringLengthConstraint("", nullsAllowed, minLen, maxLen));
 		}
-
-		@Override
-		public Parameter<?>[] parameters() { return new Parameter<?>[] { MIN_LENGTH, MAX_LENGTH }; };
 	};
 
 	public StringLengthConstraint(String theId, boolean nullAllowed, Integer theMin, Integer theMax) {
