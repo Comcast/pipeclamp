@@ -25,11 +25,12 @@ public class TimestampRangeConstraint extends AbstractValueConstraint<Long> {
 	private final Long maxTimestamp;
 
 	public static final String TypeTag = "timestampRange";
+	public static final String Docs = "ToDo";
 
 	static final TimestampParameter MIN_TIMESTAMP = new TimestampParameter("minTime", "earliest timestamp (UTC)", "yyyy-MM-dd HH:mm:ss");
 	static final TimestampParameter MAX_TIMESTAMP = new TimestampParameter("maxTime", "latest timestamp (UTC)", "yyyy-MM-dd HH:mm:ss");
 
-	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampRangeConstraint.class, MIN_TIMESTAMP, MAX_TIMESTAMP) {;
+	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampRangeConstraint.class, Docs, MIN_TIMESTAMP, MAX_TIMESTAMP) {;
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

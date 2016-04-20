@@ -9,6 +9,8 @@ import java.util.Set;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ConstraintFactory;
 import com.pipeclamp.api.Parameter;
+import com.pipeclamp.api.RegisteredItem;
+import com.pipeclamp.params.AbstractEnumerationParameter;
 import com.pipeclamp.util.StringUtil;
 
 /**
@@ -19,9 +21,12 @@ import com.pipeclamp.util.StringUtil;
  */
 public class BasicConstraintFactory<T extends Object> implements ConstraintFactory<T> {
 
+	private final Map<String, T> typesByStringType;
 	private final Map<T, Map<String, ConstraintBuilder<?>>> buildersByType = new HashMap<>();
 
-	public BasicConstraintFactory() { }
+	public BasicConstraintFactory(Map<String, T> typesByRawTypeMapping) { 
+		typesByStringType = typesByRawTypeMapping;
+	}
 
 	@Override
 	public void register(T type, ConstraintBuilder<?> ...builders) {
@@ -40,25 +45,41 @@ public class BasicConstraintFactory<T extends Object> implements ConstraintFacto
 	public Set<T> registeredTypes() { return buildersByType.keySet(); }
 
 	@Override
+	public ConstraintBuilder<?> builderFor(String rawType, String id) {
+		if (typesByStringType == null) return null;
+		T type = typesByStringType.get(rawType.toLowerCase());
+		return builderFor(type, id);
+	}
+	
+	@Override
 	public ConstraintBuilder<?> builderFor(T type, String id) {
 		Map<String, ConstraintBuilder<?>> builders =  buildersByType.get(type);
 		if (builders == null) return null;
 		return builders.get(id);
 	}
-
+	
 	@Override
 	public void showOn(PrintStream out) {
 
-		int paramIdWidth = 12;
+		final int paramIdWidth = 12;
 
 		for (Entry<T, Map<String, ConstraintBuilder<?>>> entry : buildersByType.entrySet()) {
+			out.println();
 			out.println(entry.getKey());
 			for (ConstraintBuilder<?> builder : entry.getValue().values()) {
-				out.println("\t" + builder.executionType().getName() + "\t'" + builder.id() + '\'');
+				out.println();
+				out.println("\t" + builder.executionType().getSimpleName());
+				out.println("\t'" + builder.id() + "\'\t" + builder.docs());
 				for (Parameter<?> p : builder.parameters()) {
 					out.print("\t\t");
 					StringUtil.printLeftJustified('\'' + p.id() + '\'', out, paramIdWidth);
 					out.println("\t" + p.description());
+					if (p instanceof AbstractEnumerationParameter) {
+						AbstractEnumerationParameter<?> aep = AbstractEnumerationParameter.class.cast(p);
+						for (RegisteredItem option : aep.values()) {
+							out.println("\t\t\t" + option.id() + "\t" + option.description());
+						}
+					}
 				}
 			}
 		}

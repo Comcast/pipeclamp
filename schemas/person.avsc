@@ -1,6 +1,6 @@
 
 {
-	"namespace": "com.comcast.xbi.test",
+	"namespace": "com.pipeclamp.test",
 	"type": "record",
 	"name": "Person",
 	"doc": "Common fields related to human beings",
@@ -19,8 +19,8 @@
 		{
 			"name": "passports",
 			"type": {
-				"type": "array", 
-				"items": {
+				"type": "map", 
+				"values": {
 			          "type": "record",
 			          "name": "Passport",
 			          "doc": "A functional passport",

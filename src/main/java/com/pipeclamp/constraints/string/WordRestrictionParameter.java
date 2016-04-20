@@ -2,13 +2,13 @@ package com.pipeclamp.constraints.string;
 
 import org.apache.avro.Schema.Type;
 
-import com.pipeclamp.params.AbstractParameter;
+import com.pipeclamp.params.AbstractEnumerationParameter;
 
 /**
  *
  * @author Brian Remedios
  */
-public class WordRestrictionParameter extends AbstractParameter<WordRestriction> {
+public class WordRestrictionParameter extends AbstractEnumerationParameter<WordRestriction> {
 
 	public WordRestrictionParameter(String theId, String theDescription) {
 		super(theId, theDescription);
@@ -19,5 +19,8 @@ public class WordRestrictionParameter extends AbstractParameter<WordRestriction>
 
 		return WordRestriction.forKeyword(text);
 	}
+
+	@Override
+	public WordRestriction[] values() { return WordRestriction.values(); }
 
 }

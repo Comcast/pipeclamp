@@ -3,32 +3,24 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-
-
-
-
-
-
-
-
 package com.pipeclamp.test;  
 @SuppressWarnings("all")
 /** Common fields related to human beings */
 @org.apache.avro.specific.AvroGenerated
 public class Person extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Person\",\"namespace\":\"com.comcast.xbi.test\",\"doc\":\"Common fields related to human beings\",\"fields\":[{\"name\":\"nicknames\",\"type\":{\"type\":\"array\",\"items\":\"string\",\"constraints\":[\"minLength=3\"]},\"doc\":\"aliases used\",\"constraints\":[{\"id\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"2\"},{\"name\":\"max\",\"value\":\"4\"}]}]},{\"name\":\"passports\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Passport\",\"doc\":\"A functional passport\",\"fields\":[{\"name\":\"number\",\"type\":\"string\",\"doc\":\"unique identifier\",\"constraints\":[{\"id\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"3\"}]}]},{\"name\":\"country\",\"type\":{\"type\":\"enum\",\"name\":\"Country\",\"symbols\":[\"CAN\",\"USA\"]},\"doc\":\"issuing country\"},{\"name\":\"expiryDate\",\"type\":\"long\",\"doc\":\"expiration date in Unix time.\"},{\"name\":\"pages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Page\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":\"string\",\"doc\":\"page contents\"}]}}}]}},\"doc\":\"passports used\",\"constraints\":[{\"id\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"4\"}]}]},{\"name\":\"birthdate\",\"type\":[\"null\",\"long\"],\"default\":null},{\"name\":\"deathdate\",\"type\":[\"null\",\"long\"],\"default\":null},{\"name\":\"bellybuttons\",\"type\":\"int\",\"default\":1},{\"name\":\"firstname\",\"type\":\"string\",\"doc\":\"Person's first name\",\"constraints\":[{\"id\":\"length\",\"args\":[{\"name\":\"min\",\"value\":\"2\"},{\"name\":\"max\",\"value\":\"30\"}]}]},{\"name\":\"lastname\",\"type\":\"string\",\"doc\":\"\",\"constraints\":[{\"id\":\"length\",\"args\":[{\"name\":\"min\",\"value\":\"2\"},{\"name\":\"max\",\"value\":\"30\"}]}]},{\"name\":\"latitude\",\"type\":[\"null\",\"double\"],\"doc\":\"last known location (latitude)\",\"default\":null,\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"rangeId\",\"value\":\"geoLatitude\"}]}]},{\"name\":\"longitude\",\"type\":[\"null\",\"double\"],\"doc\":\"last known location (longitude)\",\"default\":null,\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"rangeId\",\"value\":\"geoLongitude\"}]}]},{\"name\":\"weight\",\"type\":\"float\",\"doc\":\"body weight\",\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"0.5\"},{\"name\":\"max\",\"value\":\"330.5\"}]}]},{\"name\":\"email\",\"type\":[\"null\",\"string\"],\"doc\":\"contact email address\",\"default\":null,\"constraints\":[{\"id\":\"regex\",\"args\":[{\"name\":\"patternId\",\"value\":\"emailAddress\"}]}]},{\"name\":\"bonesBroken\",\"type\":\"int\",\"doc\":\"Number of bones broken since birth\",\"default\":0,\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"0\"},{\"name\":\"max\",\"value\":\"100\"}]}]}],\"constraints\":[\"birthdate < deathdate\"]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Person\",\"namespace\":\"com.pipeclamp.test\",\"doc\":\"Common fields related to human beings\",\"fields\":[{\"name\":\"nicknames\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"constraints\":[{\"function\":\"size\",\"args\":[{\"name\":\"minItems\",\"value\":\"3\"}]}]},\"doc\":\"aliases used\",\"constraints\":[{\"function\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"2\"},{\"name\":\"max\",\"value\":\"4\"}]}]},{\"name\":\"passports\",\"type\":{\"type\":\"map\",\"values\":{\"type\":\"record\",\"name\":\"Passport\",\"doc\":\"A functional passport\",\"fields\":[{\"name\":\"number\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"unique identifier\",\"constraints\":[{\"function\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"3\"}]}]},{\"name\":\"country\",\"type\":{\"type\":\"enum\",\"name\":\"Country\",\"symbols\":[\"CAN\",\"USA\",\"MEX\",\"JAP\"]},\"doc\":\"issuing country\"},{\"name\":\"expiryDate\",\"type\":\"long\",\"doc\":\"expiration date in Unix time.\"},{\"name\":\"pages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Page\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"page contents\"}]}}}]},\"avro.java.string\":\"String\"},\"doc\":\"passports used\",\"constraints\":[{\"function\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"4\"}]},{\"function\":\"mapKeys\",\"args\":[{\"name\":\"keyType\",\"value\":\"string\"},{\"name\":\"constraintId\",\"value\":\"length\"},{\"name\":\"max\",\"value\":\"4\"}]}]},{\"name\":\"birthdate\",\"type\":[\"null\",\"long\"],\"default\":null},{\"name\":\"deathdate\",\"type\":[\"null\",\"long\"],\"default\":null},{\"name\":\"bellybuttons\",\"type\":\"int\",\"default\":1,\"metrics\":[{\"function\":\"average\",\"id\":\"bellybuttonAvg\",\"doc\":\"asdf asdf asdf\"}]},{\"name\":\"firstname\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Person's first name\",\"constraints\":[{\"function\":\"length\",\"args\":[{\"name\":\"min\",\"value\":\"2\"},{\"name\":\"max\",\"value\":\"30\"}]}]},{\"name\":\"lastname\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"\",\"constraints\":[{\"function\":\"length\",\"args\":[{\"name\":\"min\",\"value\":\"2\"},{\"name\":\"max\",\"value\":\"30\"}]}]},{\"name\":\"latitude\",\"type\":[\"null\",\"double\"],\"doc\":\"last known location (latitude)\",\"default\":null,\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"rangeId\",\"value\":\"geoLatitude\"}]}]},{\"name\":\"longitude\",\"type\":[\"null\",\"double\"],\"doc\":\"last known location (longitude)\",\"default\":null,\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"rangeId\",\"value\":\"geoLongitude\"}]}]},{\"name\":\"weight\",\"type\":\"float\",\"doc\":\"body weight\",\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"0.5\"},{\"name\":\"max\",\"value\":\"330.5\"}]}]},{\"name\":\"email\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"contact email address\",\"default\":null,\"constraints\":[{\"function\":\"regex\",\"args\":[{\"name\":\"patternId\",\"value\":\"emailAddress\"}]}]},{\"name\":\"bonesBroken\",\"type\":\"int\",\"doc\":\"Number of bones broken since birth\",\"default\":0,\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"0\"},{\"name\":\"max\",\"value\":\"100\"}]}]}],\"constraints\":[{\"function\":\"expression\",\"args\":[{\"name\":\"predicate\",\"value\":\"birthdate < deathdate\"}]}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   /** aliases used */
-   private java.util.List<java.lang.CharSequence> nicknames;
+   private java.util.List<java.lang.String> nicknames;
   /** passports used */
-   private java.util.List<com.pipeclamp.test.Passport> passports;
+   private java.util.Map<java.lang.String,com.pipeclamp.test.Passport> passports;
    private java.lang.Long birthdate;
    private java.lang.Long deathdate;
    private int bellybuttons;
   /** Person's first name */
-   private java.lang.CharSequence firstname;
+   private java.lang.String firstname;
   /**  */
-   private java.lang.CharSequence lastname;
+   private java.lang.String lastname;
   /** last known location (latitude) */
    private java.lang.Double latitude;
   /** last known location (longitude) */
@@ -36,7 +28,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   /** body weight */
    private float weight;
   /** contact email address */
-   private java.lang.CharSequence email;
+   private java.lang.String email;
   /** Number of bones broken since birth */
    private int bonesBroken;
 
@@ -50,7 +42,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   /**
    * All-args constructor.
    */
-  public Person(java.util.List<java.lang.CharSequence> nicknames, java.util.List<com.pipeclamp.test.Passport> passports, java.lang.Long birthdate, java.lang.Long deathdate, java.lang.Integer bellybuttons, java.lang.CharSequence firstname, java.lang.CharSequence lastname, java.lang.Double latitude, java.lang.Double longitude, java.lang.Float weight, java.lang.CharSequence email, java.lang.Integer bonesBroken) {
+  public Person(java.util.List<java.lang.String> nicknames, java.util.Map<java.lang.String,com.pipeclamp.test.Passport> passports, java.lang.Long birthdate, java.lang.Long deathdate, java.lang.Integer bellybuttons, java.lang.String firstname, java.lang.String lastname, java.lang.Double latitude, java.lang.Double longitude, java.lang.Float weight, java.lang.String email, java.lang.Integer bonesBroken) {
     this.nicknames = nicknames;
     this.passports = passports;
     this.birthdate = birthdate;
@@ -88,17 +80,17 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: nicknames = (java.util.List<java.lang.CharSequence>)value$; break;
-    case 1: passports = (java.util.List<com.pipeclamp.test.Passport>)value$; break;
+    case 0: nicknames = (java.util.List<java.lang.String>)value$; break;
+    case 1: passports = (java.util.Map<java.lang.String,com.pipeclamp.test.Passport>)value$; break;
     case 2: birthdate = (java.lang.Long)value$; break;
     case 3: deathdate = (java.lang.Long)value$; break;
     case 4: bellybuttons = (java.lang.Integer)value$; break;
-    case 5: firstname = (java.lang.CharSequence)value$; break;
-    case 6: lastname = (java.lang.CharSequence)value$; break;
+    case 5: firstname = (java.lang.String)value$; break;
+    case 6: lastname = (java.lang.String)value$; break;
     case 7: latitude = (java.lang.Double)value$; break;
     case 8: longitude = (java.lang.Double)value$; break;
     case 9: weight = (java.lang.Float)value$; break;
-    case 10: email = (java.lang.CharSequence)value$; break;
+    case 10: email = (java.lang.String)value$; break;
     case 11: bonesBroken = (java.lang.Integer)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
@@ -107,7 +99,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   /**
    * Gets the value of the 'nicknames' field.
    * aliases used   */
-  public java.util.List<java.lang.CharSequence> getNicknames() {
+  public java.util.List<java.lang.String> getNicknames() {
     return nicknames;
   }
 
@@ -115,14 +107,14 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'nicknames' field.
    * aliases used   * @param value the value to set.
    */
-  public void setNicknames(java.util.List<java.lang.CharSequence> value) {
+  public void setNicknames(java.util.List<java.lang.String> value) {
     this.nicknames = value;
   }
 
   /**
    * Gets the value of the 'passports' field.
    * passports used   */
-  public java.util.List<com.pipeclamp.test.Passport> getPassports() {
+  public java.util.Map<java.lang.String,com.pipeclamp.test.Passport> getPassports() {
     return passports;
   }
 
@@ -130,7 +122,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'passports' field.
    * passports used   * @param value the value to set.
    */
-  public void setPassports(java.util.List<com.pipeclamp.test.Passport> value) {
+  public void setPassports(java.util.Map<java.lang.String,com.pipeclamp.test.Passport> value) {
     this.passports = value;
   }
 
@@ -182,7 +174,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   /**
    * Gets the value of the 'firstname' field.
    * Person's first name   */
-  public java.lang.CharSequence getFirstname() {
+  public java.lang.String getFirstname() {
     return firstname;
   }
 
@@ -190,14 +182,14 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'firstname' field.
    * Person's first name   * @param value the value to set.
    */
-  public void setFirstname(java.lang.CharSequence value) {
+  public void setFirstname(java.lang.String value) {
     this.firstname = value;
   }
 
   /**
    * Gets the value of the 'lastname' field.
    *    */
-  public java.lang.CharSequence getLastname() {
+  public java.lang.String getLastname() {
     return lastname;
   }
 
@@ -205,7 +197,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'lastname' field.
    *    * @param value the value to set.
    */
-  public void setLastname(java.lang.CharSequence value) {
+  public void setLastname(java.lang.String value) {
     this.lastname = value;
   }
 
@@ -257,7 +249,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   /**
    * Gets the value of the 'email' field.
    * contact email address   */
-  public java.lang.CharSequence getEmail() {
+  public java.lang.String getEmail() {
     return email;
   }
 
@@ -265,7 +257,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
    * Sets the value of the 'email' field.
    * contact email address   * @param value the value to set.
    */
-  public void setEmail(java.lang.CharSequence value) {
+  public void setEmail(java.lang.String value) {
     this.email = value;
   }
 
@@ -305,17 +297,17 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Person>
     implements org.apache.avro.data.RecordBuilder<Person> {
 
-    private java.util.List<java.lang.CharSequence> nicknames;
-    private java.util.List<com.pipeclamp.test.Passport> passports;
+    private java.util.List<java.lang.String> nicknames;
+    private java.util.Map<java.lang.String,com.pipeclamp.test.Passport> passports;
     private java.lang.Long birthdate;
     private java.lang.Long deathdate;
     private int bellybuttons;
-    private java.lang.CharSequence firstname;
-    private java.lang.CharSequence lastname;
+    private java.lang.String firstname;
+    private java.lang.String lastname;
     private java.lang.Double latitude;
     private java.lang.Double longitude;
     private float weight;
-    private java.lang.CharSequence email;
+    private java.lang.String email;
     private int bonesBroken;
 
     /** Creates a new Builder */
@@ -430,12 +422,12 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     }
 
     /** Gets the value of the 'nicknames' field */
-    public java.util.List<java.lang.CharSequence> getNicknames() {
+    public java.util.List<java.lang.String> getNicknames() {
       return nicknames;
     }
     
     /** Sets the value of the 'nicknames' field */
-    public com.pipeclamp.test.Person.Builder setNicknames(java.util.List<java.lang.CharSequence> value) {
+    public com.pipeclamp.test.Person.Builder setNicknames(java.util.List<java.lang.String> value) {
       validate(fields()[0], value);
       this.nicknames = value;
       fieldSetFlags()[0] = true;
@@ -455,12 +447,12 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     }
 
     /** Gets the value of the 'passports' field */
-    public java.util.List<com.pipeclamp.test.Passport> getPassports() {
+    public java.util.Map<java.lang.String,com.pipeclamp.test.Passport> getPassports() {
       return passports;
     }
     
     /** Sets the value of the 'passports' field */
-    public com.pipeclamp.test.Person.Builder setPassports(java.util.List<com.pipeclamp.test.Passport> value) {
+    public com.pipeclamp.test.Person.Builder setPassports(java.util.Map<java.lang.String,com.pipeclamp.test.Passport> value) {
       validate(fields()[1], value);
       this.passports = value;
       fieldSetFlags()[1] = true;
@@ -554,12 +546,12 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     }
 
     /** Gets the value of the 'firstname' field */
-    public java.lang.CharSequence getFirstname() {
+    public java.lang.String getFirstname() {
       return firstname;
     }
     
     /** Sets the value of the 'firstname' field */
-    public com.pipeclamp.test.Person.Builder setFirstname(java.lang.CharSequence value) {
+    public com.pipeclamp.test.Person.Builder setFirstname(java.lang.String value) {
       validate(fields()[5], value);
       this.firstname = value;
       fieldSetFlags()[5] = true;
@@ -579,12 +571,12 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     }
 
     /** Gets the value of the 'lastname' field */
-    public java.lang.CharSequence getLastname() {
+    public java.lang.String getLastname() {
       return lastname;
     }
     
     /** Sets the value of the 'lastname' field */
-    public com.pipeclamp.test.Person.Builder setLastname(java.lang.CharSequence value) {
+    public com.pipeclamp.test.Person.Builder setLastname(java.lang.String value) {
       validate(fields()[6], value);
       this.lastname = value;
       fieldSetFlags()[6] = true;
@@ -678,12 +670,12 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     }
 
     /** Gets the value of the 'email' field */
-    public java.lang.CharSequence getEmail() {
+    public java.lang.String getEmail() {
       return email;
     }
     
     /** Sets the value of the 'email' field */
-    public com.pipeclamp.test.Person.Builder setEmail(java.lang.CharSequence value) {
+    public com.pipeclamp.test.Person.Builder setEmail(java.lang.String value) {
       validate(fields()[10], value);
       this.email = value;
       fieldSetFlags()[10] = true;
@@ -730,17 +722,17 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
     public Person build() {
       try {
         Person record = new Person();
-        record.nicknames = fieldSetFlags()[0] ? this.nicknames : (java.util.List<java.lang.CharSequence>) defaultValue(fields()[0]);
-        record.passports = fieldSetFlags()[1] ? this.passports : (java.util.List<com.pipeclamp.test.Passport>) defaultValue(fields()[1]);
+        record.nicknames = fieldSetFlags()[0] ? this.nicknames : (java.util.List<java.lang.String>) defaultValue(fields()[0]);
+        record.passports = fieldSetFlags()[1] ? this.passports : (java.util.Map<java.lang.String,com.pipeclamp.test.Passport>) defaultValue(fields()[1]);
         record.birthdate = fieldSetFlags()[2] ? this.birthdate : (java.lang.Long) defaultValue(fields()[2]);
         record.deathdate = fieldSetFlags()[3] ? this.deathdate : (java.lang.Long) defaultValue(fields()[3]);
         record.bellybuttons = fieldSetFlags()[4] ? this.bellybuttons : (java.lang.Integer) defaultValue(fields()[4]);
-        record.firstname = fieldSetFlags()[5] ? this.firstname : (java.lang.CharSequence) defaultValue(fields()[5]);
-        record.lastname = fieldSetFlags()[6] ? this.lastname : (java.lang.CharSequence) defaultValue(fields()[6]);
+        record.firstname = fieldSetFlags()[5] ? this.firstname : (java.lang.String) defaultValue(fields()[5]);
+        record.lastname = fieldSetFlags()[6] ? this.lastname : (java.lang.String) defaultValue(fields()[6]);
         record.latitude = fieldSetFlags()[7] ? this.latitude : (java.lang.Double) defaultValue(fields()[7]);
         record.longitude = fieldSetFlags()[8] ? this.longitude : (java.lang.Double) defaultValue(fields()[8]);
         record.weight = fieldSetFlags()[9] ? this.weight : (java.lang.Float) defaultValue(fields()[9]);
-        record.email = fieldSetFlags()[10] ? this.email : (java.lang.CharSequence) defaultValue(fields()[10]);
+        record.email = fieldSetFlags()[10] ? this.email : (java.lang.String) defaultValue(fields()[10]);
         record.bonesBroken = fieldSetFlags()[11] ? this.bonesBroken : (java.lang.Integer) defaultValue(fields()[11]);
         return record;
       } catch (Exception e) {

@@ -19,7 +19,9 @@ public class NotNullConstraint extends AbstractValueConstraint<Object> {
 
 	private static final String TypeTag = "notNull";
 	
-	public static final ConstraintBuilder<Object> Builder = new BasicConstraintBuilder<Object>(TypeTag, NotNullConstraint.class) {
+	private static final String Docs = "Catches fields that have no values";	// TODO expand
+	
+	public static final ConstraintBuilder<Object> Builder = new BasicConstraintBuilder<Object>(TypeTag, NotNullConstraint.class, Docs) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

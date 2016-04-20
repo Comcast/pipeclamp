@@ -1,6 +1,7 @@
 package com.pipeclamp.constraints.string;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,29 +29,25 @@ public class WordSetConstraint extends AbstractStringConstraint {
 
 	public static final String TypeTag = "wordSet";
 
-	public static final WordRestrictionParameter Function = new WordRestrictionParameter("function", "to do");	// TODO
-	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
+	public static final String Docs = "Evaluates strings to ensure that they do or don't contain any of the specified words";
 
-	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WordSetConstraint.class, Function, Options) {
+	public static final WordRestrictionParameter Function = new WordRestrictionParameter("function", "to do");	// TODO
+	public static final StringArrayParameter WORDS = new StringArrayParameter("options", "to do", "The words of interest");
+
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WordSetConstraint.class, Docs, Function, WORDS) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			WordRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
-			String[] opts = Options.valueIn(values.remove(Options.id()), null);
-			if (restriction == null) return null;
+			String[] words = WORDS.valueIn(values.remove(WORDS.id()), null);
+			if (restriction == null || words == null || words.length == 0) return null;
 
-			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>();
-
-			constraints.add( new WordSetConstraint("", nullsAllowed, opts, restriction) );
-
-			return constraints.isEmpty() ? null : constraints;
+			return Arrays.<ValueConstraint<?>>asList( new WordSetConstraint("", nullsAllowed, words, restriction) );
 		}
 	};
 
 	public WordSetConstraint(String theId, boolean nullAllowed, String[] theWords, WordRestriction theRestriction) {
 		super(theId, nullAllowed);
-
-		if (theWords.length == 0) throw new IllegalArgumentException("No words specified");
 
 		words = theWords;
 		restriction = theRestriction;

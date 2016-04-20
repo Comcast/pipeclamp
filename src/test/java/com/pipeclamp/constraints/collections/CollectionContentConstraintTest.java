@@ -24,7 +24,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(
 				  CollectionContentConstraint.Function, CollectionRestriction.Required, 
-				  CollectionContentConstraint.Options, "frank bob");
+				  CollectionContentConstraint.CHOICES, "frank bob");
 
 		Collection<ValueConstraint<?>> vc = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -37,7 +37,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 	  Map<String,String> paramsByKey = asParams(
 			  CollectionContentConstraint.Function, CollectionRestriction.Required, 
-			  CollectionContentConstraint.Options, "frank bob");
+			  CollectionContentConstraint.CHOICES, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -56,7 +56,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 	  Map<String,String> paramsByKey = asParams(
 			  CollectionContentConstraint.Function, CollectionRestriction.OneOf, 
-			  CollectionContentConstraint.Options, "frank bob");
+			  CollectionContentConstraint.CHOICES, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -77,7 +77,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 	  Map<String,String> paramsByKey = asParams(
 			  CollectionContentConstraint.Function, CollectionRestriction.NoneOf, 
-			  CollectionContentConstraint.Options, "frank bob");
+			  CollectionContentConstraint.CHOICES, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -111,7 +111,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 	  Map<String,String> paramsByKey = asParams(
 			  CollectionContentConstraint.Function, CollectionRestriction.AnyOf, 
-			  CollectionContentConstraint.Options, "frank bob");
+			  CollectionContentConstraint.CHOICES, "frank bob");
 
 	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 

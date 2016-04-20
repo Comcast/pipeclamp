@@ -28,6 +28,8 @@ public class NumericConstraint extends AbstractNumericConstraint {
 	private final Number max;
 	private final Boolean includeMax;	// TODO
 
+	public static final String Docs = "Provides min/max limit checking for numeric values";
+
 	private static final String TypeTag = "range";
 
 	public static final NumberParameter MIN_VALUE	= new NumberParameter("min", "minimum value");
@@ -36,7 +38,7 @@ public class NumericConstraint extends AbstractNumericConstraint {
 	public static final BooleanParameter MAX_INCLUSIVE = new BooleanParameter("includeMax", "include the maximum value");
 	public static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
 
-	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, NumericConstraint.class, MIN_VALUE, MIN_INCLUSIVE, MAX_VALUE, MAX_INCLUSIVE, RANGE_ID) {
+	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, NumericConstraint.class, Docs, MIN_VALUE, MIN_INCLUSIVE, MAX_VALUE, MAX_INCLUSIVE, RANGE_ID) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

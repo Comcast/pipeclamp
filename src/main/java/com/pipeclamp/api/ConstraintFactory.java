@@ -17,6 +17,15 @@ public interface ConstraintFactory<T extends Object> {
 	 */
 	void register(T type, ConstraintBuilder<?>... builders);
 
+
+	/**
+	 * 
+	 * @param type
+	 * @param id
+	 * @return
+	 */
+	ConstraintBuilder<?> builderFor(String rawType, String id);
+	
 	/**
 	 * 
 	 * @param type

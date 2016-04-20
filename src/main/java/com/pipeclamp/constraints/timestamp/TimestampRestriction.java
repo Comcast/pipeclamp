@@ -1,16 +1,19 @@
 package com.pipeclamp.constraints.timestamp;
 
+import com.pipeclamp.api.RegisteredItem;
+
 /**
  *
  * @author Brian Remedios
  */
-public enum TimestampRestriction {
+public enum TimestampRestriction implements RegisteredItem {
 
-	Future("futureOnly"),
-	Historical("historicalOnly");
+	Future("futureOnly", "todo"),
+	Historical("historicalOnly", "todo");
 
 	public final String keyword;
-
+	public final String description;
+	
 	public static TimestampRestriction fromKeyword(String word) {
 
 		for (TimestampRestriction tr : values()) {
@@ -19,13 +22,18 @@ public enum TimestampRestriction {
 		return null;
 	}
 
-	TimestampRestriction(String theKeyword) {
+	TimestampRestriction(String theKeyword, String theDesc) {
 		keyword = theKeyword;
+		description = theDesc;
 	}
-
-
 
 	@Override
 	public String toString() { return keyword; }
+	
+	@Override
+	public String id() { return keyword; }
+	
+	@Override
+	public String description() { return description; }
 
 }

@@ -19,6 +19,12 @@ public interface ConstraintBuilder<V extends Object> {
 	String id();
 
 	/**
+	 * 
+	 * @return
+	 */
+	String docs();
+	
+	/**
 	 *
 	 * @return Parameter<?>[]
 	 */

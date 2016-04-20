@@ -26,11 +26,13 @@ public class ByteArraySizeConstraint extends AbstractValueConstraint<byte[]> {
 
 	private static final String TypeTag = "range";
 
+	private static final String Docs = "Limits byte arrays to minimum and/or maximum lengths";
+	
 	public static final IntegerParameter MIN_SIZE	= new IntegerParameter("min", "minimum size");
 	public static final IntegerParameter MAX_SIZE	= new IntegerParameter("max", "maximum size");
 //	public static final StringParameter RANGE_ID	= new StringParameter("rangeId", null);
 
-	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, ByteArraySizeConstraint.class, MIN_SIZE, MAX_SIZE) {
+	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, ByteArraySizeConstraint.class, Docs, MIN_SIZE, MAX_SIZE) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

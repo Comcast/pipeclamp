@@ -20,6 +20,7 @@ public class BasicConstraintBuilder<V extends Object> implements ConstraintBuild
 	public final String id;
 	public final Class<?> executionType;
 	public final Parameter<?>[] parameters;
+	public final String documentation;
 	
 	/**
 	 * 
@@ -27,14 +28,18 @@ public class BasicConstraintBuilder<V extends Object> implements ConstraintBuild
 	 * @param theExecutionType
 	 * @param theParams
 	 */
-	public BasicConstraintBuilder(String theId, Class<?> theExecutionType, Parameter<?>... theParams) {
+	public BasicConstraintBuilder(String theId, Class<?> theExecutionType, String theDocs, Parameter<?>... theParams) {
 		id = theId;
 		executionType = theExecutionType;
+		documentation = theDocs;
 		parameters = theParams;
 	}
 
 	@Override
 	public String id() { return id; }
+
+	@Override
+	public String docs() { return documentation; }
 
 	@Override
 	public Parameter<?>[] parameters() { return parameters; }

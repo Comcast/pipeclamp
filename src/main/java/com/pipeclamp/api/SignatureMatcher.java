@@ -4,7 +4,7 @@ package com.pipeclamp.api;
  *
  * @author Brian Remedios
  */
-public interface SignatureMatcher {
+public interface SignatureMatcher extends RegisteredItem {
 
 	/**
 	 * 

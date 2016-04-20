@@ -2,14 +2,14 @@ package com.pipeclamp;
 
 import java.util.Objects;
 
-import com.pipeclamp.api.DescriptiveItem;
+import com.pipeclamp.api.RegisteredItem;
 
 /**
  * Convenient base class for things we are likely to keep in maps and browsed.
  *
  * @author Brian Remedios
  */
-public abstract class AbstractRegisteredItem implements DescriptiveItem {
+public abstract class AbstractRegisteredItem implements RegisteredItem {
 
 	private final String id;
 	private String description;
@@ -21,6 +21,7 @@ public abstract class AbstractRegisteredItem implements DescriptiveItem {
 		description = theDescription;
 	}
 
+	@Override
 	public String id() { return id; }
 
 	@Override

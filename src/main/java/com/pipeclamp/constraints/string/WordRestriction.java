@@ -1,10 +1,12 @@
 package com.pipeclamp.constraints.string;
 
+import com.pipeclamp.api.RegisteredItem;
+
 /**
  *
  * @author Brian Remedios
  */
-public enum WordRestriction {
+public enum WordRestriction implements RegisteredItem {
 
 	MustHaveAll("mustHave", 	"must have all the words"),
 	MustHaveOne("mustHaveOne",	"must have at least one"),
@@ -28,4 +30,10 @@ public enum WordRestriction {
 
 	@Override
 	public String toString() { return operator; }
+	
+	@Override
+	public String id() { return operator; }
+	
+	@Override
+	public String description() { return label; }
 }

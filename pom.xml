@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-   Copyright 2009-2015 Comcast Interactive Media, LLC.
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-       
-       http://www.apache.org/licenses/LICENSE-2.0
-       
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
+<!-- Copyright 2009-2015 Comcast Interactive Media, LLC. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -24,62 +17,66 @@
 	<version>1.0-SNAPSHOT</version>
 	<url>https://github.com/Comcast/pipeclamp</url>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    
-    <developers>
-        <developer>
-            <id>bremed200</id>
-            <name>Brian Remedios</name>
-            <organization>Comcast</organization>
-            <timezone>America/Seattle</timezone>
-        </developer>
-    </developers>
-    
-    <scm>
-        <connection>scm:git:git@github.com:Comcast/pipeclamp.git</connection>
-        <developerConnection>scm:git:git@github.com:Comcast/pipeclamp.git</developerConnection>
-        <url>git@github.com:Comcast/pipeclamp.git</url>
-    </scm>
-    
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <avro.version>1.7.7</avro.version>
-        <undertow.version>1.3.12.Final</undertow.version>
-    </properties>
-    
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>bremed200</id>
+			<name>Brian Remedios</name>
+			<organization>Comcast</organization>
+			<timezone>America/Seattle</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:Comcast/pipeclamp.git</connection>
+		<developerConnection>scm:git:git@github.com:Comcast/pipeclamp.git</developerConnection>
+		<url>git@github.com:Comcast/pipeclamp.git</url>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<avro.version>1.7.7</avro.version>
+		<undertow.version>1.3.12.Final</undertow.version>
+	</properties>
+
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>19.0</version>
 		</dependency>
-	
-	    <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>${avro.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro-ipc</artifactId>
-            <version>${avro.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.9.9</version>
-            <scope>test</scope>
-        </dependency>
-        
+
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>${avro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro-maven-plugin</artifactId>
+			<version>${avro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro-compiler</artifactId>
+			<version>${avro.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.9</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -90,7 +87,7 @@
 			<artifactId>json-path</artifactId>
 			<version>2.1.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.undertow</groupId>
 			<artifactId>undertow-core</artifactId>
@@ -106,8 +103,8 @@
 			<artifactId>undertow-websockets-jsr</artifactId>
 			<version>${undertow.version}</version>
 		</dependency>
-		
-		
+
+
 	</dependencies>
 
 	<build>
@@ -124,7 +121,8 @@
 					</configuration>
 				</plugin>
 
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -179,13 +177,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin> <groupId>pl.project13.maven</groupId> <artifactId>git-commit-id-plugin</artifactId> 
-				<version>2.1.13</version> <executions> <execution> <goals> <goal>revision</goal> 
-				</goals> </execution> </executions> <configuration> <verbose>true</verbose> 
-				<dotGitDirectory>${project.basedir}/.git</dotGitDirectory> <generateGitPropertiesFile>true</generateGitPropertiesFile> 
-				<generateGitPropertiesFilename>target/classes/git.properties</generateGitPropertiesFilename> 
-				</configuration> </plugin> -->
-<!-- 
+
 			<plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
@@ -201,18 +193,12 @@
 							<stringType>String</stringType>
 							<testSourceDirectory>${project.basedir}/src/test/resources/</testSourceDirectory>
 							<testOutputDirectory>${project.basedir}/src/test/java/</testOutputDirectory>
-
-							<imports>
-								<import>${project.basedir}/src/test/resources/1_xbi-datatype.avsc</import>
-								<import>${project.basedir}/src/test/resources/2_xbi-core.avsc</import>
-							</imports>
-
 							<fieldVisibility>PRIVATE</fieldVisibility>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
- -->
+
 		</plugins>
 	</build>
 

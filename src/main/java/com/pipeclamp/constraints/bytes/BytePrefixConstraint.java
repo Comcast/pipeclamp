@@ -26,6 +26,8 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 
 	public static final ByteMatcherParameter MATCHER = new ByteMatcherParameter("matcher", "legal matcher");
 
+	public static final String Docs = "A simple match that looks for known byte prefixes on binary data";
+	
 	private static SignatureMatcher[] matchersIn(Map<String, String> values, ByteMatcherParameter param) {
 
 		String matcherId = values.remove(param.id());
@@ -34,8 +36,7 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 			};
 		}
 
-
-	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, BytePrefixConstraint.class, MATCHER) {
+	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, BytePrefixConstraint.class, Docs, MATCHER) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.apache.avro.Schema.Type;
+import org.apache.commons.lang.StringUtils;
 
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
@@ -28,16 +29,18 @@ public class RegexConstraint extends AbstractStringConstraint {
 
 	public static final String TypeTag = "regex";
 	
+	public static final String Docs = " Evaluates string values to ensure they are match the supplied regular expression pattern. You can supply a custom regular expression or specify a predefined one (easier)";
+	
 	static final StringParameter PATTERN		= new StringParameter("pattern", "regular expression pattern");
 	static final StringParameter PATTERN_ID	= new StringParameter("patternId", "regular expression pattern identifier");
 	
-	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, RegexConstraint.class, PATTERN, PATTERN_ID) {
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, RegexConstraint.class, Docs, PATTERN, PATTERN_ID) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			String regex = stringValueIn(values, PATTERN);
 
-			if (regex != null && regex.trim().length() > 0)
+			if (StringUtils.isNotEmpty(regex))
 				return Arrays.<ValueConstraint<?>>asList(
 						new RegexConstraint("", nullsAllowed, regex)
 						);

@@ -1,6 +1,5 @@
-
 {
-	"namespace": "com.comcast.xbi.test",
+	"namespace": "com.pipeclamp.test",
 	"type": "record",
 	"name": "Person",
 	"doc": "Common fields related to human beings",
@@ -24,8 +23,8 @@
 		{
 			"name": "passports",
 			"type": {
-				"type": "array", 
-				"items": {
+				"type": "map", 
+				"values": {
 			          "type": "record",
 			          "name": "Passport",
 			          "doc": "A functional passport",
@@ -38,7 +37,7 @@
 			            },
 			            {
 			              "name": "country",  "type": {
-						        "type": "enum",  "name": "Country",   "symbols": [ "CAN", "USA" ]
+						        "type": "enum",  "name": "Country",   "symbols": [ "CAN", "USA", "MEX", "JAP" ]
 						      	},
 			              "doc": "issuing country"
 			            },
@@ -69,7 +68,12 @@
 			},
 			"doc": "passports used",
 			"constraints" : [	
-								{ "function" : "size", "args" : [ { "name" : "min", "value" : "1"}, { "name" : "max", "value" : "4"} ] }
+								{ "function" : "size", "args" : [ { "name" : "min", "value" : "1"}, { "name" : "max", "value" : "4"} ] },
+								{ "function" : "mapKeys", "args" : [ 
+									{ "name" : "keyType", "value" : "string"},
+									{ "name" : "constraintId", "value" : "length"},
+									{ "name" : "max", "value" : "4"} 
+									] }
 				      		]
 		},
 		{

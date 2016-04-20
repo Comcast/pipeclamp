@@ -27,10 +27,12 @@ public class ClassificationConstraint extends AbstractStringConstraint {
 
 	public static final String TypeTag = "classifier";
 
+	public static final String Docs = "ToDo";
+
 	public static final WordRestrictionParameter Function = new WordRestrictionParameter("function", "to do");	// TODO
 	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
 
-	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, ClassificationConstraint.class, Function, Options) {
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, ClassificationConstraint.class, Docs, Function, Options) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

@@ -1,5 +1,6 @@
 package com.pipeclamp.constraints.string;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -26,8 +27,8 @@ public class WordSetConstraintTest extends AbstractConstraintTest {
 	public void testBuilder() {
 
 		Map<String,String> paramsByKey = asParams(
-				  CollectionContentConstraint.Function, WordRestriction.CannotHave, 
-				  CollectionContentConstraint.Options, "jerk idiot");
+				WordSetConstraint.Function, WordRestriction.CannotHave, 
+				WordSetConstraint.WORDS, "jerk idiot");
 
 		Collection<ValueConstraint<?>> vcs = WordSetConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
@@ -35,12 +36,12 @@ public class WordSetConstraintTest extends AbstractConstraintTest {
 		assertTrue(paramsByKey.isEmpty());
 		
 		paramsByKey = asParams(
-				  CollectionContentConstraint.Options, "jerk idiot");
+				  CollectionContentConstraint.CHOICES, "jerk idiot");
 
 		vcs = WordSetConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
 		assertNull(vcs);
-		assertTrue(paramsByKey.isEmpty());
+		assertFalse(paramsByKey.isEmpty());	// unwanted param not consumed
 	}
 
 	@Test

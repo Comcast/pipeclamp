@@ -8,10 +8,10 @@ package com.pipeclamp.test;
 /** A functional passport */
 @org.apache.avro.specific.AvroGenerated
 public class Passport extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Passport\",\"namespace\":\"com.comcast.xbi.test\",\"doc\":\"A functional passport\",\"fields\":[{\"name\":\"number\",\"type\":\"string\",\"doc\":\"unique identifier\",\"constraints\":[{\"id\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"3\"}]}]},{\"name\":\"country\",\"type\":{\"type\":\"enum\",\"name\":\"Country\",\"symbols\":[\"CAN\",\"USA\"]},\"doc\":\"issuing country\"},{\"name\":\"expiryDate\",\"type\":\"long\",\"doc\":\"expiration date in Unix time.\"},{\"name\":\"pages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Page\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":\"string\",\"doc\":\"page contents\"}]}}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Passport\",\"namespace\":\"com.pipeclamp.test\",\"doc\":\"A functional passport\",\"fields\":[{\"name\":\"number\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"unique identifier\",\"constraints\":[{\"function\":\"size\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"3\"}]}]},{\"name\":\"country\",\"type\":{\"type\":\"enum\",\"name\":\"Country\",\"symbols\":[\"CAN\",\"USA\",\"MEX\",\"JAP\"]},\"doc\":\"issuing country\"},{\"name\":\"expiryDate\",\"type\":\"long\",\"doc\":\"expiration date in Unix time.\"},{\"name\":\"pages\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"Page\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"page contents\"}]}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   /** unique identifier */
-   private java.lang.CharSequence number;
+   private java.lang.String number;
   /** issuing country */
    private com.pipeclamp.test.Country country;
   /** expiration date in Unix time. */
@@ -28,7 +28,7 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
   /**
    * All-args constructor.
    */
-  public Passport(java.lang.CharSequence number, com.pipeclamp.test.Country country, java.lang.Long expiryDate, java.util.List<com.pipeclamp.test.Page> pages) {
+  public Passport(java.lang.String number, com.pipeclamp.test.Country country, java.lang.Long expiryDate, java.util.List<com.pipeclamp.test.Page> pages) {
     this.number = number;
     this.country = country;
     this.expiryDate = expiryDate;
@@ -50,7 +50,7 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: number = (java.lang.CharSequence)value$; break;
+    case 0: number = (java.lang.String)value$; break;
     case 1: country = (com.pipeclamp.test.Country)value$; break;
     case 2: expiryDate = (java.lang.Long)value$; break;
     case 3: pages = (java.util.List<com.pipeclamp.test.Page>)value$; break;
@@ -61,7 +61,7 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
   /**
    * Gets the value of the 'number' field.
    * unique identifier   */
-  public java.lang.CharSequence getNumber() {
+  public java.lang.String getNumber() {
     return number;
   }
 
@@ -69,7 +69,7 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
    * Sets the value of the 'number' field.
    * unique identifier   * @param value the value to set.
    */
-  public void setNumber(java.lang.CharSequence value) {
+  public void setNumber(java.lang.String value) {
     this.number = value;
   }
 
@@ -139,7 +139,7 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Passport>
     implements org.apache.avro.data.RecordBuilder<Passport> {
 
-    private java.lang.CharSequence number;
+    private java.lang.String number;
     private com.pipeclamp.test.Country country;
     private long expiryDate;
     private java.util.List<com.pipeclamp.test.Page> pages;
@@ -192,12 +192,12 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
     }
 
     /** Gets the value of the 'number' field */
-    public java.lang.CharSequence getNumber() {
+    public java.lang.String getNumber() {
       return number;
     }
     
     /** Sets the value of the 'number' field */
-    public com.pipeclamp.test.Passport.Builder setNumber(java.lang.CharSequence value) {
+    public com.pipeclamp.test.Passport.Builder setNumber(java.lang.String value) {
       validate(fields()[0], value);
       this.number = value;
       fieldSetFlags()[0] = true;
@@ -294,7 +294,7 @@ public class Passport extends org.apache.avro.specific.SpecificRecordBase implem
     public Passport build() {
       try {
         Passport record = new Passport();
-        record.number = fieldSetFlags()[0] ? this.number : (java.lang.CharSequence) defaultValue(fields()[0]);
+        record.number = fieldSetFlags()[0] ? this.number : (java.lang.String) defaultValue(fields()[0]);
         record.country = fieldSetFlags()[1] ? this.country : (com.pipeclamp.test.Country) defaultValue(fields()[1]);
         record.expiryDate = fieldSetFlags()[2] ? this.expiryDate : (java.lang.Long) defaultValue(fields()[2]);
         record.pages = fieldSetFlags()[3] ? this.pages : (java.util.List<com.pipeclamp.test.Page>) defaultValue(fields()[3]);

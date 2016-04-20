@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.collections;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,25 +28,24 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 	public static final String TypeTag = "content";
 
-	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function", "to do");	// TODO
-	public static final StringArrayParameter Options = new StringArrayParameter("options", "to do", " ");	// TODO
+	public static final String Docs = "Enforces one or more restrictions on the contents of a collection";
 
-	public static final ConstraintBuilder<Object[]> Builder = new BasicConstraintBuilder<Object[]>(TypeTag, CollectionContentConstraint.class, Function, Options) {
+	public static final CollectionRestrictionParameter Function = new CollectionRestrictionParameter("function", "to do");	// TODO
+	public static final StringArrayParameter CHOICES = new StringArrayParameter("choices", "to do", " ");	// TODO
+
+	public static final ConstraintBuilder<Object[]> Builder = new BasicConstraintBuilder<Object[]>(TypeTag, CollectionContentConstraint.class, Docs, Function, CHOICES) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			CollectionRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
 			if (restriction == null) return null;
-			String[] opts = Options.valueIn(values.remove(Options.id()), null);
-
-			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>(1);
+			String[] opts = CHOICES.valueIn(values.remove(CHOICES.id()), null);
 
 			Set<String> optSet = opts == null ? null : new HashSet<String>(Arrays.asList(opts));
-			constraints.add(
+			
+			return Arrays.<ValueConstraint<?>>asList(
 					new CollectionContentConstraint("", nullsAllowed, restriction, optSet)
 					);
-
-			return constraints.isEmpty() ? null : constraints;
 		}
 	};
 
@@ -131,7 +129,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 		Map<Parameter<?>, Object> params = new HashMap<>(2);
 		params.put(Function, restriction);
-		if (options != null) params.put(Options, options);
+		if (options != null) params.put(CHOICES, options);
 		return params;
 	}
 

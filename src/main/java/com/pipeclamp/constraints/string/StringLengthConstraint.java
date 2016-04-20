@@ -26,10 +26,12 @@ public class StringLengthConstraint extends AbstractStringConstraint {
 
 	public static final String TypeTag = "length";
 
+	public static final String Docs = "Ensures string values are within either the min or max length limits or both";
+
 	public static final IntegerParameter MIN_LENGTH = new IntegerParameter("min", "minimum length");
 	public static final IntegerParameter MAX_LENGTH = new IntegerParameter("max", "maximum length");
 
-	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, StringLengthConstraint.class, MIN_LENGTH, MAX_LENGTH) {
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, StringLengthConstraint.class, Docs, MIN_LENGTH, MAX_LENGTH) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

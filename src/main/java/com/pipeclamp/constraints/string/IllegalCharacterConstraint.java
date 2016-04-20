@@ -22,10 +22,12 @@ public class IllegalCharacterConstraint extends AbstractStringConstraint {
 	private final boolean blacklist[];
 	
 	public static final String TypeTag = "illegalChars";
-	
+
+	public static final String Docs = "Tests strings for unwanted characters";
+
 	public static final StringParameter BAD_CHARS = new StringParameter("badChars", "unwanted characters");
 
-	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, IllegalCharacterConstraint.class, BAD_CHARS) {
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, IllegalCharacterConstraint.class, Docs, BAD_CHARS) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

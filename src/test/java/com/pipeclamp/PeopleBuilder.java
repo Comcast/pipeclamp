@@ -3,7 +3,9 @@ package com.pipeclamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pipeclamp.test.Country;
 import com.pipeclamp.test.Page;
@@ -30,7 +32,7 @@ public class PeopleBuilder {
 					.setLastname("qwer")
 					.setWeight(i * 2f)
 					.setEmail( i % 2 == 0 ? "email" + Integer.toString(i) + "@mail.com" : null)
-					.setNicknames(Arrays.asList(new CharSequence[] {"bob", "sue"}))
+					.setNicknames(Arrays.asList(new String[] {"bob", "sue"}))
 					.setBellybuttons(1)
 					.setPassports(createPassports(3))
 					.build()
@@ -38,8 +40,8 @@ public class PeopleBuilder {
 		}
 		return people;
 	}
-	
-	public static Person newPerson(String firstName, String lastName, int weight, Date birthdate, CharSequence... nicknames) {
+
+	public static Person newPerson(String firstName, String lastName, int weight, Date birthdate, String... nicknames) {
 		 
 		return Person.newBuilder()
 				.setFirstname(firstName)
@@ -47,7 +49,7 @@ public class PeopleBuilder {
 				.setBirthdate(birthdate.getTime())
 				.setWeight(weight)
 				.setNicknames(Arrays.asList(nicknames))
-				.setPassports(createPassports(12))
+				.setPassports( createPassports(Country.values().length))
 				.build();
 	}
 
@@ -66,13 +68,17 @@ public class PeopleBuilder {
 				Integer.toHexString(i*99).toUpperCase();
 	}
 
-	public static List<Passport> createPassports(int count) {
+	public static Map<String, Passport> createPassports(int count) {
 		
-		List<Passport> passports = new ArrayList<Passport>(count);
+		Map<String, Passport> passports = new HashMap<>(count);
+		Country country = null;
+		
 		for (int i=0; i<count; i++) {
-			passports.add( 
+			country = i%2==0 ? Country.CAN : Country.USA;
+			passports.put( 
+					country.name(),
 					Passport.newBuilder()
-						.setCountry( i%2==0 ? Country.CAN : Country.USA)
+						.setCountry(country)
 						.setExpiryDate(new Date().getTime())
 						.setNumber(passportIdFor(i))
 						.setPages( createPages(4) )

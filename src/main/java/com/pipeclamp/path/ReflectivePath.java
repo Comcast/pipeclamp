@@ -2,6 +2,7 @@ package com.pipeclamp.path;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Path parts denote method names to call to retrieve the child elements.
@@ -72,6 +73,13 @@ public class ReflectivePath<I,O extends Object> extends AbstractPath<I, O> {
 			return;
 		}
 
+		if (item instanceof Map) {
+			//for (I child : (Map)item) {	 TODO
+			//	collectItemsFor(child, collector, pathIndex+1);
+			//}
+			return;
+		}
+		
 		collectItemsFor((I)item, collector, pathIndex+1);
 		// shouldn't reach here
 	}

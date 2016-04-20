@@ -7,12 +7,12 @@ package com.pipeclamp.test;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Page extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Page\",\"namespace\":\"com.comcast.xbi.test\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"id\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":\"string\",\"doc\":\"page contents\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Page\",\"namespace\":\"com.pipeclamp.test\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"page contents\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   /** page number */
    private int index;
   /** page contents */
-   private java.lang.CharSequence contents;
+   private java.lang.String contents;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -24,7 +24,7 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
   /**
    * All-args constructor.
    */
-  public Page(java.lang.Integer index, java.lang.CharSequence contents) {
+  public Page(java.lang.Integer index, java.lang.String contents) {
     this.index = index;
     this.contents = contents;
   }
@@ -43,7 +43,7 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: index = (java.lang.Integer)value$; break;
-    case 1: contents = (java.lang.CharSequence)value$; break;
+    case 1: contents = (java.lang.String)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -66,7 +66,7 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
   /**
    * Gets the value of the 'contents' field.
    * page contents   */
-  public java.lang.CharSequence getContents() {
+  public java.lang.String getContents() {
     return contents;
   }
 
@@ -74,7 +74,7 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
    * Sets the value of the 'contents' field.
    * page contents   * @param value the value to set.
    */
-  public void setContents(java.lang.CharSequence value) {
+  public void setContents(java.lang.String value) {
     this.contents = value;
   }
 
@@ -100,7 +100,7 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
     implements org.apache.avro.data.RecordBuilder<Page> {
 
     private int index;
-    private java.lang.CharSequence contents;
+    private java.lang.String contents;
 
     /** Creates a new Builder */
     private Builder() {
@@ -158,12 +158,12 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
     }
 
     /** Gets the value of the 'contents' field */
-    public java.lang.CharSequence getContents() {
+    public java.lang.String getContents() {
       return contents;
     }
     
     /** Sets the value of the 'contents' field */
-    public com.pipeclamp.test.Page.Builder setContents(java.lang.CharSequence value) {
+    public com.pipeclamp.test.Page.Builder setContents(java.lang.String value) {
       validate(fields()[1], value);
       this.contents = value;
       fieldSetFlags()[1] = true;
@@ -187,7 +187,7 @@ public class Page extends org.apache.avro.specific.SpecificRecordBase implements
       try {
         Page record = new Page();
         record.index = fieldSetFlags()[0] ? this.index : (java.lang.Integer) defaultValue(fields()[0]);
-        record.contents = fieldSetFlags()[1] ? this.contents : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.contents = fieldSetFlags()[1] ? this.contents : (java.lang.String) defaultValue(fields()[1]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);

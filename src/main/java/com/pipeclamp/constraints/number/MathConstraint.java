@@ -23,9 +23,11 @@ public class MathConstraint extends AbstractNumericConstraint {
 
 	private static final String TypeTag = "math";
 
+	public static final String Docs = "TODO";
+	
 	static final NumberParameter MULTIPLE_OF = new NumberParameter("multipleOf", "multiple of the specified divisor");
 	
-	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, MathConstraint.class, MULTIPLE_OF) {
+	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, MathConstraint.class, Docs, MULTIPLE_OF) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

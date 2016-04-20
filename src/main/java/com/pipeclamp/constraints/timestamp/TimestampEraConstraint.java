@@ -26,9 +26,11 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 
 	public static final String TypeTag = "timestampEra";
 
+	public static final String Docs = "Ensures that timestamp values sit within established eras";
+
 	public static final StringParameter Era = new StringParameter("era", "era");
 
-	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampEraConstraint.class, Era) {
+	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampEraConstraint.class, Docs, Era) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 

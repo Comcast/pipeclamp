@@ -24,10 +24,12 @@ public class WhitespaceConstraint extends AbstractStringConstraint {
 	
 	public static final String TypeTag = "whitespace";
 	
+	public static final String Docs = "An efficient way to test for whitespace characters in the wrong places";
+
 	public static final BooleanParameter NO_LEADING = new BooleanParameter("noLead", "no starting whitespace characters");
 	public static final BooleanParameter NO_TRAILING = new BooleanParameter("noTail", "no ending whitespace characters");
 
-	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WhitespaceConstraint.class, NO_LEADING, NO_TRAILING) {
+	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WhitespaceConstraint.class, Docs, NO_LEADING, NO_TRAILING) {
 
 		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
