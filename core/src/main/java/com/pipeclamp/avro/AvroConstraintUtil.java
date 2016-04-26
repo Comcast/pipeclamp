@@ -25,7 +25,6 @@ import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.path.Path;
-import com.pipeclamp.path.SimpleAvroPath;
 
 /**
  *

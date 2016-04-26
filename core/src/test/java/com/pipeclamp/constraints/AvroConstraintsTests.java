@@ -18,11 +18,11 @@ import com.pipeclamp.avro.AvroConstraintUtil;
 import com.pipeclamp.avro.AvroUtil;
 import com.pipeclamp.avro.AvroValidator;
 import com.pipeclamp.avro.QAUtil;
+import com.pipeclamp.avro.SimpleAvroPath;
 import com.pipeclamp.constraints.number.NumericConstraint;
 import com.pipeclamp.constraints.string.RegexConstraint;
 import com.pipeclamp.constraints.string.StringLengthConstraint;
 import com.pipeclamp.path.Path;
-import com.pipeclamp.path.SimpleAvroPath;
 import com.pipeclamp.test.Person;
 
 

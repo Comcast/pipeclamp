@@ -11,13 +11,13 @@ import org.testng.annotations.Test;
 
 import com.pipeclamp.PeopleBuilder;
 import com.pipeclamp.api.Aggregator;
+import com.pipeclamp.avro.SimpleAvroPath;
 import com.pipeclamp.classifiers.Numbers;
 import com.pipeclamp.metrics.functions.Averager;
 import com.pipeclamp.metrics.functions.Counter;
 import com.pipeclamp.metrics.functions.GroupingHistogram;
 import com.pipeclamp.metrics.functions.MinMax;
 import com.pipeclamp.metrics.functions.Summer;
-import com.pipeclamp.path.SimpleAvroPath;
 import com.pipeclamp.predicates.Objects;
 import com.pipeclamp.test.Person;
 

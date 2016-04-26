@@ -1,9 +1,14 @@
-package com.pipeclamp.path;
+package com.pipeclamp.avro;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.avro.generic.GenericRecord;
+
+import com.pipeclamp.api.PathBuilder;
+import com.pipeclamp.path.AbstractPath;
+import com.pipeclamp.path.Path;
 
 /**
  *
@@ -11,6 +16,13 @@ import org.apache.avro.generic.GenericRecord;
  */
 public class SimpleAvroPath<O extends Object> extends AbstractPath<GenericRecord, O> {
 
+	public static final PathBuilder Builder = new PathBuilder() {
+
+		public Path<GenericRecord, ?> pathFor(String[] parts) {
+			return new SimpleAvroPath(Arrays.asList(parts));
+		}
+	};
+	
 	public SimpleAvroPath(List<String> thePath) {
 		super(thePath.toArray(new String[thePath.size()]));
 	}

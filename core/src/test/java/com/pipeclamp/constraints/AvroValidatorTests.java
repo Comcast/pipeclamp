@@ -5,10 +5,10 @@ import org.testng.annotations.Test;
 
 import com.pipeclamp.ErrorEventBuilder;
 import com.pipeclamp.avro.AvroValidator;
+import com.pipeclamp.avro.SimpleAvroPath;
 import com.pipeclamp.constraints.string.RegexConstraint;
 import com.pipeclamp.constraints.string.RegexDescriptor;
 import com.pipeclamp.constraints.string.StringLengthConstraint;
-import com.pipeclamp.path.SimpleAvroPath;
 
 
 /**

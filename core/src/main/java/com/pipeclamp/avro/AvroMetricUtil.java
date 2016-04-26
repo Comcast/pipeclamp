@@ -17,7 +17,6 @@ import com.pipeclamp.api.Function;
 import com.pipeclamp.metrics.MetricDescriptor;
 import com.pipeclamp.metrics.MetricFactory;
 import com.pipeclamp.path.Path;
-import com.pipeclamp.path.SimpleAvroPath;
 
 /**
  *

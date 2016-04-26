@@ -16,10 +16,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>com.pipeclamp</groupId>
 	<artifactId>pipeclamp-ui</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	
 	<name>Pipeclamp UI</name>
 	<description>UI</description>
 

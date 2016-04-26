@@ -14,7 +14,6 @@ import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.multivalue.MultiValueConstraint;
 import com.pipeclamp.path.Path;
-import com.pipeclamp.path.SimpleAvroPath;
 import com.pipeclamp.validation.AbstractValidator;
 
 /**

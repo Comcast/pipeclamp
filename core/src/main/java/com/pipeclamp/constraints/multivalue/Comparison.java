@@ -1,12 +1,12 @@
 package com.pipeclamp.constraints.multivalue;
 
-
+import com.pipeclamp.api.RegisteredItem;
 
 /**
  *
  * @author Brian Remedios
  */
-public enum Comparison {
+public enum Comparison implements RegisteredItem {
 
 	GreaterThan(">", "greater than", new Checker() { public boolean check(Comparable a, Comparable b) { return a.compareTo(b) > 0; } }),
 	LessThan("<",	"less than",	 new Checker() { public boolean check(Comparable a, Comparable b) { return a.compareTo(b) < 0; } }),
@@ -21,4 +21,10 @@ public enum Comparison {
 		label = theLabel;
 		comp = theComp;
 	}
+
+	@Override
+	public String id() { return operator; }
+
+	@Override
+	public String description() { return label; }
 }

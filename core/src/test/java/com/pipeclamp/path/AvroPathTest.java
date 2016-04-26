@@ -8,8 +8,8 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 import com.pipeclamp.PeopleBuilder;
+import com.pipeclamp.avro.SimpleAvroPath;
 import com.pipeclamp.path.Path;
-import com.pipeclamp.path.SimpleAvroPath;
 import com.pipeclamp.test.Country;
 import com.pipeclamp.test.Person;
 

@@ -2,6 +2,7 @@ package com.pipeclamp.constraints.multivalue;
 
 import java.util.Map;
 
+import com.pipeclamp.api.ParametricItem;
 import com.pipeclamp.api.TaggedItem;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.path.Path;
@@ -12,7 +13,7 @@ import com.pipeclamp.path.Path;
  *
  * @author Brian Remedios
  */
-public interface MultiValueConstraint<T extends Object> extends TaggedItem {
+public interface MultiValueConstraint<T extends Object> extends TaggedItem, ParametricItem {
 
 	/**
 	 *
