@@ -10,11 +10,5 @@ public interface TaggedItem {
 	 *
 	 * @return String
 	 */
-	String id();
-
-	/**
-	 *
-	 * @return String
-	 */
 	String typeTag();
 }

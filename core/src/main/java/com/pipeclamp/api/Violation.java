@@ -7,7 +7,7 @@ package com.pipeclamp.api;
  */
 public class Violation {
 
-	public final ParametricItem constraint;
+	public final Constraint<?> constraint;
 	public final String message;
 
 	/**
@@ -15,7 +15,7 @@ public class Violation {
 	 * @param theConstraint
 	 * @param theMessage
 	 */
-	public Violation(ParametricItem theConstraint, String theMessage) {
+	public Violation(Constraint<?> theConstraint, String theMessage) {
 		constraint = theConstraint;
 		message = theMessage;
 	}
