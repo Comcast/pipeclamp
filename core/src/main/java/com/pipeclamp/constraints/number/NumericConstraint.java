@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.BooleanParameter;
@@ -41,7 +41,7 @@ public class NumericConstraint extends AbstractNumericConstraint {
 
 	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, NumericConstraint.class, Docs, MIN_VALUE, MIN_INCLUSIVE, MAX_VALUE, MAX_INCLUSIVE, RANGE_ID) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Number minValue = numberValueIn(values, MIN_VALUE, type);
 			Boolean includeMin = booleanValueIn(values, MIN_INCLUSIVE);
@@ -49,7 +49,7 @@ public class NumericConstraint extends AbstractNumericConstraint {
 			Boolean includeMax = booleanValueIn(values, MAX_INCLUSIVE);
 			
 			if (minValue != null || maxValue != null) {
-				return Arrays.<ValueConstraint<?>>asList(
+				return Arrays.<Constraint<?>>asList(
 						new NumericConstraint("", nullsAllowed, minValue, includeMin, maxValue, includeMax)
 						);
 			}
@@ -58,7 +58,7 @@ public class NumericConstraint extends AbstractNumericConstraint {
 			if (rangeId != null) {
 				NamedRange range = NamedRange.ALL.get(rangeId);
 				if (range != null) {
-					return Arrays.<ValueConstraint<?>>asList(
+					return Arrays.<Constraint<?>>asList(
 							new NumericConstraint(range.id(), nullsAllowed, range.min, true, range.max, true)
 							);
 				} else {

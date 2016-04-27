@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringParameter;
@@ -29,13 +29,13 @@ public class IllegalCharacterConstraint extends AbstractStringConstraint {
 
 	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, IllegalCharacterConstraint.class, Docs, BAD_CHARS) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			String baddies = stringValueIn(values, BAD_CHARS);
 
 			if (baddies == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(new IllegalCharacterConstraint("", nullsAllowed, baddies));
+			return Arrays.<Constraint<?>>asList(new IllegalCharacterConstraint("", nullsAllowed, baddies));
 		}
 
 	};

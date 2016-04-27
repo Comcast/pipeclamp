@@ -13,6 +13,7 @@ import org.apache.avro.Schema;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
@@ -30,7 +31,7 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 				TimestampRangeConstraint.MIN_TIMESTAMP, "2016-02-01 00:00:00",
 				TimestampRangeConstraint.MAX_TIMESTAMP, "2016-03-01 00:00:00");
 
-		Collection<ValueConstraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
+		Collection<Constraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
 		assertFalse(vcs.isEmpty());
 		assertTrue(paramsByKey.isEmpty());	// they were consumed
@@ -50,9 +51,9 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 				TimestampRangeConstraint.MIN_TIMESTAMP, "2016-02-01 00:00:00",
 				TimestampRangeConstraint.MAX_TIMESTAMP, "2016-03-01 00:00:00");
 
-		Collection<ValueConstraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
+		Collection<Constraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 		Map<Parameter<?>, Object> params = vc.parameters();
 		assertEquals(2, params.size());
 	}
@@ -64,7 +65,7 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 				TimestampRangeConstraint.MIN_TIMESTAMP, "2016-02-01 00:00:00",
 				TimestampRangeConstraint.MAX_TIMESTAMP, "2016-03-01 00:00:00");
 
-		Collection<ValueConstraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
+		Collection<Constraint<?>> vcs = TimestampRangeConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
 		TimestampRangeConstraint trc = (TimestampRangeConstraint)vcs.iterator().next();
 		

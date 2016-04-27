@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.NumberParameter;
@@ -29,13 +29,13 @@ public class MathConstraint extends AbstractNumericConstraint {
 	
 	public static final ConstraintBuilder<Number> Builder = new BasicConstraintBuilder<Number>(TypeTag, MathConstraint.class, Docs, MULTIPLE_OF) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Number factor = numberValueIn(values, MULTIPLE_OF, type);
 
 			if (factor == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(new MathConstraint("", nullsAllowed, factor));
+			return Arrays.<Constraint<?>>asList(new MathConstraint("", nullsAllowed, factor));
 		}
 	};
 

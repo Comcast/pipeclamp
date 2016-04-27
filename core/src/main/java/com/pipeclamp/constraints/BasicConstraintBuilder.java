@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class BasicConstraintBuilder<V extends Object> implements ConstraintBuild
 	 * You are expected to implement this method.
 	 */
 	@Override
-	public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+	public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 		throw new RuntimeException("Method not implemented");
 	}
 

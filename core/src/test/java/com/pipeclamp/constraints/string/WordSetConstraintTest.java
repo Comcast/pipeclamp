@@ -12,6 +12,7 @@ import org.apache.avro.Schema;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -31,7 +32,7 @@ public class WordSetConstraintTest extends AbstractConstraintTest {
 				WordSetConstraint.Function, WordRestriction.CannotHave, 
 				WordSetConstraint.WORDS, "jerk idiot");
 
-		Collection<ValueConstraint<?>> vcs = WordSetConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+		Collection<Constraint<?>> vcs = WordSetConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertTrue(paramsByKey.isEmpty());

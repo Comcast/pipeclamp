@@ -11,9 +11,9 @@ import java.util.Collection;
 import org.apache.avro.Schema;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
-import com.pipeclamp.constraints.NotNullConstraint;
 
 /**
  *
@@ -24,11 +24,11 @@ public class NotNullConstraintTest {
 	@Test
 	public void typedErrorFor() {
 
-		Collection<ValueConstraint<?>> vcs = NotNullConstraint.Builder.constraintsFrom(Schema.Type.RECORD, false, null);
+		Collection<Constraint<?>> vcs = NotNullConstraint.Builder.constraintsFrom(Schema.Type.RECORD, false, null);
 
 		assertFalse(vcs.isEmpty());
 
-		ValueConstraint<?> constraint = vcs.iterator().next();
+		ValueConstraint<?> constraint = (ValueConstraint<?>)vcs.iterator().next();
 
 		Violation v = constraint.errorFor("asdf");
 		assertNull(v);

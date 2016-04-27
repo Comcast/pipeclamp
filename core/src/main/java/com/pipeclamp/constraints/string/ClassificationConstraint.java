@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.Classifier;
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
@@ -34,13 +35,13 @@ public class ClassificationConstraint extends AbstractStringConstraint {
 
 	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, ClassificationConstraint.class, Docs, Function, Options) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			WordRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
 			String[] opts = Options.valueIn(values.remove(Options.id()), null);
 			if (restriction == null) return null;
 
-			Collection<ValueConstraint<?>> constraints = new ArrayList<ValueConstraint<?>>();
+			Collection<Constraint<?>> constraints = new ArrayList<>();
 
 		//	constraints.add( new ClassificationConstraint("", nullsAllowed, opts) );
 

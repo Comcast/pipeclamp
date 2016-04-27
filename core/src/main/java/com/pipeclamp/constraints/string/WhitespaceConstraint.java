@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.BooleanParameter;
@@ -33,7 +33,7 @@ public class WhitespaceConstraint extends AbstractStringConstraint {
 
 	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WhitespaceConstraint.class, Docs, NO_LEADING, NO_TRAILING) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Boolean noLead = booleanValueIn(values, NO_LEADING);
 			if (noLead == Boolean.FALSE) noLead = null;
@@ -42,7 +42,7 @@ public class WhitespaceConstraint extends AbstractStringConstraint {
 			
 			if (noLead == null && noTrail == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(new WhitespaceConstraint("", nullsAllowed, noLead, noTrail));
+			return Arrays.<Constraint<?>>asList(new WhitespaceConstraint("", nullsAllowed, noLead, noTrail));
 		}
 	};
 	

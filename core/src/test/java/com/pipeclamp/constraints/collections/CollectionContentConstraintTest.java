@@ -12,6 +12,7 @@ import org.apache.avro.Schema;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -26,7 +27,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 				  CollectionContentConstraint.Function, CollectionRestriction.Required, 
 				  CollectionContentConstraint.CHOICES, "frank bob");
 
-		Collection<ValueConstraint<?>> vc = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+		Collection<Constraint<?>> vc = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
 		assertNotNull(vc);
 		assertTrue(paramsByKey.isEmpty());
@@ -39,9 +40,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 			  CollectionContentConstraint.Function, CollectionRestriction.Required, 
 			  CollectionContentConstraint.CHOICES, "frank bob");
 
-	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+	  Collection<Constraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-	  ValueConstraint<?> vc = vcs.iterator().next();
+	  ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("frank", "bob", "brian", "eddie") );
 	  assertNull(v);
@@ -58,9 +59,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 			  CollectionContentConstraint.Function, CollectionRestriction.OneOf, 
 			  CollectionContentConstraint.CHOICES, "frank bob");
 
-	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+	  Collection<Constraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-	  ValueConstraint<?> vc = vcs.iterator().next();
+	  ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("brian", "eddie") );
 	  assertNotNull(v);
@@ -79,9 +80,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 			  CollectionContentConstraint.Function, CollectionRestriction.NoneOf, 
 			  CollectionContentConstraint.CHOICES, "frank bob");
 
-	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+	  Collection<Constraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-	  ValueConstraint<?> vc = vcs.iterator().next();
+	  ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("brian", "eddie") );
 	  assertNull(v);
@@ -95,9 +96,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 
 	  Map<String,String> paramsByKey = asParams(CollectionContentConstraint.Function, CollectionRestriction.AllUnique);
 
-	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+	  Collection<Constraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-	  ValueConstraint<?> vc = vcs.iterator().next();
+	  ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("brian", "eddie") );
 	  Assert.assertNull(v);
@@ -113,9 +114,9 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 			  CollectionContentConstraint.Function, CollectionRestriction.AnyOf, 
 			  CollectionContentConstraint.CHOICES, "frank bob");
 
-	  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+	  Collection<Constraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-	  ValueConstraint<?> vc = vcs.iterator().next();
+	  ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 	  Violation v = vc.errorFor( Arrays.asList("brian", "eddie", "bob") );
 	  Assert.assertNull(v);
@@ -133,7 +134,7 @@ public class CollectionContentConstraintTest extends AbstractConstraintTest {
 		 Map<String,String> paramsByKey = asParams(
 				  CollectionContentConstraint.Function, CollectionRestriction.AnyOf, 
 				  CollectionContentConstraint.CHOICES, "frank bob");
-		  Collection<ValueConstraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
-		  return vcs.iterator().next();
+		  Collection<Constraint<?>> vcs = CollectionContentConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+		  return (ValueConstraint<?>)vcs.iterator().next();
 	}
 }

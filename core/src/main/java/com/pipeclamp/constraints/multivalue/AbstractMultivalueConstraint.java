@@ -2,6 +2,7 @@ package com.pipeclamp.constraints.multivalue;
 
 import java.util.Map;
 
+import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.PathBuilder;
 import com.pipeclamp.constraints.AbstractConstraint;
 import com.pipeclamp.params.PathParameter;
@@ -27,8 +28,11 @@ public abstract class AbstractMultivalueConstraint<T extends Object> extends Abs
 		super(theId, allowsNulls);
 	}
 	
-	protected static Comparison comparisonIn(Map values, ComparisonParameter compParam) {
-		// TODO Auto-generated method stub
-		return null;
+	protected static Comparison comparisonIn(Map<String, String> values, ComparisonParameter compParam) {
+		
+		String op = values.remove(compParam.id());
+		if (op == null) return null;
+		
+		return Comparison.forOperator(op);
 	}
 }

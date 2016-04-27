@@ -8,11 +8,11 @@ import org.apache.avro.Schema;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
-import com.pipeclamp.constraints.collections.CollectionSizeConstraint;
 import com.pipeclamp.constraints.string.StringLengthConstraint;
 
 public class CollectionSizeConstraintTest extends AbstractConstraintTest {
@@ -25,9 +25,9 @@ public class CollectionSizeConstraintTest extends AbstractConstraintTest {
 				CollectionSizeConstraint.MAX_ITEMS, 6,
 				StringLengthConstraint.MIN_LENGTH, 3);	// this one should be ignored
 
-		Collection<ValueConstraint<?>> vcs = CollectionSizeConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+		Collection<Constraint<?>> vcs = CollectionSizeConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 		Assert.assertNotNull(vc);
 		Assert.assertEquals(1, paramsByKey.size());
@@ -41,9 +41,9 @@ public class CollectionSizeConstraintTest extends AbstractConstraintTest {
 				CollectionSizeConstraint.MAX_ITEMS, 5,
 				StringLengthConstraint.MIN_LENGTH, 43);
 
-		Collection<ValueConstraint<?>> vcs = CollectionSizeConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
+		Collection<Constraint<?>> vcs = CollectionSizeConstraint.Builder.constraintsFrom(Schema.Type.ARRAY, false, paramsByKey);
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 		Violation v = vc.errorFor(Arrays.asList("1", "2", "3", "4"));
 		Assert.assertNull(v);

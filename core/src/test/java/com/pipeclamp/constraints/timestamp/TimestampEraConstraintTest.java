@@ -11,12 +11,11 @@ import java.util.Map;
 import org.apache.avro.Schema;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
-import com.pipeclamp.constraints.string.WordRestriction;
-import com.pipeclamp.constraints.string.WordSetConstraint;
 
 public class TimestampEraConstraintTest extends AbstractConstraintTest {
 
@@ -25,12 +24,12 @@ public class TimestampEraConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(TimestampEraConstraint.Era, TimestampRestriction.Future);
 
-		Collection<ValueConstraint<?>> vcs = TimestampEraConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
+		Collection<Constraint<?>> vcs = TimestampEraConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertEquals(1, vcs.size());
 		
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 		assertTrue(vc.getClass() == TimestampEraConstraint.class);
 		
 	//	assertEquals(paramsByKey, vc.parameters());		 TODO
@@ -41,9 +40,9 @@ public class TimestampEraConstraintTest extends AbstractConstraintTest {
     
 	  Map<String,String> paramsByKey = asParams(TimestampEraConstraint.Era, TimestampRestriction.Historical);
 
-	  Collection<ValueConstraint<?>> vcs = TimestampEraConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
+	  Collection<Constraint<?>> vcs = TimestampEraConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
-	  ValueConstraint<?> vc = vcs.iterator().next();
+	  ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 	  
 	  Violation violation = vc.errorFor(System.currentTimeMillis() - 1000);
 	  assertNull(violation);
@@ -57,7 +56,7 @@ public class TimestampEraConstraintTest extends AbstractConstraintTest {
 
 	 vcs = TimestampEraConstraint.Builder.constraintsFrom(Schema.Type.LONG, false, paramsByKey);
 
-	 vc = vcs.iterator().next();
+	 vc = (ValueConstraint<?>)vcs.iterator().next();
 	  
 	  violation = vc.errorFor(System.currentTimeMillis() - 1000);
 	  assertNotNull(violation);

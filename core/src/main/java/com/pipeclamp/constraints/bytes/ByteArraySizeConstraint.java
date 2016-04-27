@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
@@ -34,13 +34,13 @@ public class ByteArraySizeConstraint extends AbstractValueConstraint<byte[]> {
 
 	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, ByteArraySizeConstraint.class, Docs, MIN_SIZE, MAX_SIZE) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Integer minValue = intValueIn(values, MIN_SIZE);
 			Integer maxValue = intValueIn(values, MAX_SIZE);
 
 			if (minValue != null || maxValue != null) {
-				return Arrays.<ValueConstraint<?>>asList(
+				return Arrays.<Constraint<?>>asList(
 						new ByteArraySizeConstraint("", nullsAllowed, minValue, maxValue)
 						);
 			}

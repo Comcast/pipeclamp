@@ -12,6 +12,7 @@ import org.apache.avro.Schema;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -24,7 +25,7 @@ public class WhitespaceConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(WhitespaceConstraint.NO_LEADING, true);
 
-		Collection<ValueConstraint<?>> vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
+		Collection<Constraint<?>> vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertTrue(paramsByKey.isEmpty());
@@ -49,9 +50,9 @@ public class WhitespaceConstraintTest extends AbstractConstraintTest {
 		
 		Map<String,String> paramsByKey = asParams(WhitespaceConstraint.NO_LEADING, true);
 
-		Collection<ValueConstraint<?>> vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
+		Collection<Constraint<?>> vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 		assertNotNull(vcs);
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc =(ValueConstraint<?>) vcs.iterator().next();
 		
 		Violation violation = vc.errorFor("hello");
 		assertNull(violation);
@@ -68,7 +69,7 @@ public class WhitespaceConstraintTest extends AbstractConstraintTest {
 
 		vcs = WhitespaceConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 		assertNotNull(vcs);
-		vc = vcs.iterator().next();
+		vc = (ValueConstraint<?>)vcs.iterator().next();
 		
 		violation = vc.errorFor("hello");
 		assertNull(violation);

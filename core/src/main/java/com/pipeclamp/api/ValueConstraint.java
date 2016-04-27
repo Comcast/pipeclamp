@@ -9,7 +9,7 @@ package com.pipeclamp.api;
  *
  * @param <V>
  */
-public interface ValueConstraint<V extends Object> extends TaggedItem, ParametricItem {
+public interface ValueConstraint<V extends Object> extends Constraint<V> {
 
 	/**
 	 * Tests the value and casts it before invoking typedErrorFor()

@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.avro.Schema;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -26,12 +27,12 @@ public class ByteArraySizeConstraintTest extends AbstractConstraintTest {
 		Map<String,String> paramsCopy = new HashMap<String, String>();
 		paramsCopy.putAll(paramsByKey);
 		
-		Collection<ValueConstraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		Collection<Constraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertEquals(1, vcs.size());
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 		assertEquals(paramsCopy.size(), vc.parameters().size());	// TODO compare values instead
 	}
@@ -41,9 +42,9 @@ public class ByteArraySizeConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(ByteArraySizeConstraint.MIN_SIZE, 2, ByteArraySizeConstraint.MAX_SIZE, 4);
 
-		Collection<ValueConstraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		Collection<Constraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 		Violation v = vc.errorFor(new byte[] { 0,0,0,0} );
 		assertNull(v);
@@ -62,7 +63,7 @@ public class ByteArraySizeConstraintTest extends AbstractConstraintTest {
 	protected ValueConstraint<?> sampleConstraint() {
 		
 		Map<String,String> paramsByKey = asParams(ByteArraySizeConstraint.MIN_SIZE, 2, ByteArraySizeConstraint.MAX_SIZE, 4);
-		Collection<ValueConstraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
-		return vcs.iterator().next();
+		Collection<Constraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		return (ValueConstraint<?>)vcs.iterator().next();
 	}
 }

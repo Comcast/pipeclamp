@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import org.apache.avro.Schema.Type;
 import org.apache.commons.lang.StringUtils;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
@@ -36,12 +37,12 @@ public class RegexConstraint extends AbstractStringConstraint {
 	
 	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, RegexConstraint.class, Docs, PATTERN, PATTERN_ID) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			String regex = stringValueIn(values, PATTERN);
 
 			if (StringUtils.isNotEmpty(regex))
-				return Arrays.<ValueConstraint<?>>asList(
+				return Arrays.<Constraint<?>>asList(
 						new RegexConstraint("", nullsAllowed, regex)
 						);
 
@@ -51,7 +52,7 @@ public class RegexConstraint extends AbstractStringConstraint {
 				RegexDescriptor rd = RegexDescriptor.ALL.get(id);
 				if (rd == null) throw new IllegalArgumentException("Unknown pattern id: " + id);
 
-				return Arrays.<ValueConstraint<?>>asList(new RegexConstraint(rd.id(), nullsAllowed, rd.regex));
+				return Arrays.<Constraint<?>>asList(new RegexConstraint(rd.id(), nullsAllowed, rd.regex));
 			}
 
 			return null;

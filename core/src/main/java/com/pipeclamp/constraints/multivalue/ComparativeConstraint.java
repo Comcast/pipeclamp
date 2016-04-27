@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.ConstraintBuilder;
+import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.PathBuilder;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;

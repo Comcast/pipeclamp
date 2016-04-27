@@ -19,6 +19,7 @@ import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ConstraintFactory;
 import com.pipeclamp.api.Parameter;
@@ -63,7 +64,7 @@ public class AvroConstraintUtil extends QAUtil {
 		return schema.getJsonProp(ConstraintKey) != null;
 	}
 
-	public static Collection<ValueConstraint<?>> localConstraintsIn(Schema schema, ConstraintFactory<Schema.Type> factory) {
+	public static Collection<Constraint<?>> localConstraintsIn(Schema schema, ConstraintFactory<Schema.Type> factory) {
 		return allConstraintsIn(schema.getJsonProp(ConstraintKey), schema, factory);
 	}
 
@@ -71,7 +72,7 @@ public class AvroConstraintUtil extends QAUtil {
 		return field.getJsonProp(ConstraintKey) != null;
 	}
 
-	public static Collection<ValueConstraint<?>> localConstraintsIn(Field field, ConstraintFactory<Schema.Type> factory) {
+	public static Collection<Constraint<?>> localConstraintsIn(Field field, ConstraintFactory<Schema.Type> factory) {
 		return allConstraintsIn(field.getJsonProp(ConstraintKey), field.schema(), factory);
 	}
 
@@ -96,16 +97,16 @@ public class AvroConstraintUtil extends QAUtil {
 	 * @param schema
 	 * @param flagUnknowns
 	 *
-	 * @return Map<String[], Collection<ValueConstraint<?>>>
+	 * @return Map<String[], Collection<Constraint<?>>>
 	 */
-	public static Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsIn(Schema schema, boolean flagUnknowns, ConstraintFactory<Schema.Type> factory) {
+	public static Map<Path<GenericRecord,?>, Collection<Constraint<?>>> constraintsIn(Schema schema, boolean flagUnknowns, ConstraintFactory<Schema.Type> factory) {
 
 		return constraintParamsIn(schema, factory);
 	}
 
-	private static Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintParamsIn(Schema schema, ConstraintFactory<Schema.Type> factory) {
+	private static Map<Path<GenericRecord,?>, Collection<Constraint<?>>> constraintParamsIn(Schema schema, ConstraintFactory<Schema.Type> factory) {
 
-		Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsByPath = new HashMap<>();
+		Map<Path<GenericRecord,?>, Collection<Constraint<?>>> constraintsByPath = new HashMap<>();
 
 		Stack<String> path = new Stack<>();
 
@@ -114,23 +115,23 @@ public class AvroConstraintUtil extends QAUtil {
 		return constraintsByPath;
 	}
 
-	private static Collection<ValueConstraint<?>> allConstraintsIn(JsonNode cstNode, Schema schema, ConstraintFactory<Schema.Type> factory) {
+	private static Collection<Constraint<?>> allConstraintsIn(JsonNode cstNode, Schema schema, ConstraintFactory<Schema.Type> factory) {
 
 		if (Type.UNION == schema.getType() && schema.getTypes().size() > 2) throw new RuntimeException("Cannot currently handle more than two major datatypes in a UNION");
 
-		Collection<ValueConstraint<?>> constraints = new ArrayList<>(cstNode.size() + 2);
+		Collection<Constraint<?>> constraints = new ArrayList<>(cstNode.size() + 2);
 		Type type = AvroUtil.primaryTypeIn(schema);
 		boolean allowsNulls = AvroUtil.allowsNull(schema);
 
 		Iterator<JsonNode> iter = cstNode.getElements();
 		while (iter.hasNext()) {
-			Collection<ValueConstraint<?>> csts = constraintsIn(iter.next(), type, allowsNulls, factory);
+			Collection<Constraint<?>> csts = constraintsIn(iter.next(), type, allowsNulls, factory);
 			if (csts != null) constraints.addAll(csts);
 		}
 		return constraints;
 	}
 
-	private static Collection<ValueConstraint<?>> constraintsIn(JsonNode node, Type type, boolean allowsNulls, ConstraintFactory<Schema.Type> factory) {
+	private static Collection<Constraint<?>> constraintsIn(JsonNode node, Type type, boolean allowsNulls, ConstraintFactory<Schema.Type> factory) {
 
 		if (!node.has(ConstraintFunctionKey)) return null;
 
@@ -153,11 +154,11 @@ public class AvroConstraintUtil extends QAUtil {
 	 * @param fields
 	 * @param constraintsByPath
 	 */
-	private static void collectConstraints(Stack<String> path, Schema schema, Map<Path<GenericRecord,?>, Collection<ValueConstraint<?>>> constraintsByPath, ConstraintFactory<Schema.Type> factory) {
+	private static void collectConstraints(Stack<String> path, Schema schema, Map<Path<GenericRecord,?>, Collection<Constraint<?>>> constraintsByPath, ConstraintFactory<Schema.Type> factory) {
 
 		JsonNode cstNode = schema.getJsonProp(ConstraintKey);
 		if (cstNode != null) {
-			Collection<ValueConstraint<?>> constraints = allConstraintsIn(cstNode, schema, factory);
+			Collection<Constraint<?>> constraints = allConstraintsIn(cstNode, schema, factory);
 			if (constraints != null && constraints.size() > 0) {
 				SimpleAvroPath<?> avroPath = new SimpleAvroPath(path);
 				constraintsByPath.put(avroPath, constraints);

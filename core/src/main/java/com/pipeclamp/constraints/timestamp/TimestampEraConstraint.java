@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
@@ -32,12 +32,12 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 
 	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampEraConstraint.class, Docs, Era) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			String restrictionId = values.remove(Era.id());
 			TimestampRestriction tr = TimestampRestriction.fromKeyword(restrictionId);
 			if (tr != null)
-					return Arrays.<ValueConstraint<?>>asList(
+					return Arrays.<Constraint<?>>asList(
 							new TimestampEraConstraint("", nullsAllowed, tr)
 							);
 

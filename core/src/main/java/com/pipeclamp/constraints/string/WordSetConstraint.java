@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringArrayParameter;
@@ -35,13 +35,13 @@ public class WordSetConstraint extends AbstractStringConstraint {
 
 	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, WordSetConstraint.class, Docs, Function, WORDS) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			WordRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
 			String[] words = WORDS.valueIn(values.remove(WORDS.id()), null);
 			if (restriction == null || words == null || words.length == 0) return null;
 
-			return Arrays.<ValueConstraint<?>>asList( new WordSetConstraint("", nullsAllowed, words, restriction) );
+			return Arrays.<Constraint<?>>asList( new WordSetConstraint("", nullsAllowed, words, restriction) );
 		}
 	};
 

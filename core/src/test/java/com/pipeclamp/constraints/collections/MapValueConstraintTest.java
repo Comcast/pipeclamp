@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.avro.Schema.Type;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.avro.AvroConfiguration;
@@ -25,7 +26,7 @@ public class MapValueConstraintTest extends AbstractConstraintTest {
 				AbstractMapConstraint.CONSTRAINT_ID, StringLengthConstraint.TypeTag, 
 				StringLengthConstraint.MIN_LENGTH, 3);
 
-		Collection<ValueConstraint<?>> vcs = MapValueConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
+		Collection<Constraint<?>> vcs = MapValueConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertEquals(vcs.size(), 1);

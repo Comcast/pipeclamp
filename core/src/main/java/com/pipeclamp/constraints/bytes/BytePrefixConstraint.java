@@ -7,10 +7,10 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.SignatureMatcher;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
@@ -40,13 +40,13 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 
 	public static final ConstraintBuilder<byte[]> Builder = new BasicConstraintBuilder<byte[]>(TypeTag, BytePrefixConstraint.class, Docs, MATCHERS) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			SignatureMatcher[] matchers = matchersIn(values, MATCHERS);
 
 			if (matchers == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(
+			return Arrays.<Constraint<?>>asList(
 					new BytePrefixConstraint("", nullsAllowed, matchers)
 					);
 		}

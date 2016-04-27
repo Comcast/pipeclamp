@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.IntegerParameter;
@@ -33,14 +33,14 @@ public class CollectionSizeConstraint extends AbstractCollectionConstraint {
 
 	public static final ConstraintBuilder<Object[]> Builder = new BasicConstraintBuilder<Object[]>(TypeTag, CollectionSizeConstraint.class, Docs, MIN_ITEMS, MAX_ITEMS) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Integer min = intValueIn(values, MIN_ITEMS);
 			Integer max = intValueIn(values, MAX_ITEMS);
 
 			if (min== null && max == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(new CollectionSizeConstraint("", nullsAllowed, min, max));
+			return Arrays.<Constraint<?>>asList(new CollectionSizeConstraint("", nullsAllowed, min, max));
 		}
 	};
 

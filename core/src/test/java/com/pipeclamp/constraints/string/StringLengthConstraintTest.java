@@ -7,13 +7,12 @@ import org.apache.avro.Schema;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
-import com.pipeclamp.constraints.collections.CollectionSizeConstraint;
 import com.pipeclamp.constraints.number.NumericConstraint;
-import com.pipeclamp.constraints.string.StringLengthConstraint;
 
 public class StringLengthConstraintTest extends AbstractConstraintTest {
 
@@ -22,7 +21,7 @@ public class StringLengthConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(StringLengthConstraint.MIN_LENGTH, 3);
 
-		Collection<ValueConstraint<?>> vc = StringLengthConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
+		Collection<Constraint<?>> vc = StringLengthConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
 		Assert.assertNotNull(vc);
 		Assert.assertTrue(paramsByKey.isEmpty());

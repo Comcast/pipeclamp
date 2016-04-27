@@ -7,6 +7,7 @@ import org.apache.avro.Schema;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -19,7 +20,7 @@ public class NumericConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(NumericConstraint.MIN_VALUE, 3);
 
-		Collection<ValueConstraint<?>> vcs = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
+		Collection<Constraint<?>> vcs = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
 		Assert.assertNotNull(vcs);
 		Assert.assertTrue(paramsByKey.isEmpty());

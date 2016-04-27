@@ -11,6 +11,7 @@ import org.apache.avro.Schema.Type;
 import org.testng.annotations.Test;
 
 import com.pipeclamp.PeopleBuilder;
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -29,7 +30,7 @@ public class MapKeyConstraintTest extends AbstractConstraintTest {
 				AbstractMapConstraint.CONSTRAINT_ID, StringLengthConstraint.TypeTag, 
 				StringLengthConstraint.MIN_LENGTH, 3);
 
-		Collection<ValueConstraint<?>> vcs = MapKeyConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
+		Collection<Constraint<?>> vcs = MapKeyConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertEquals(vcs.size(), 1);
@@ -54,11 +55,11 @@ public class MapKeyConstraintTest extends AbstractConstraintTest {
 				AbstractMapConstraint.CONSTRAINT_ID, StringLengthConstraint.TypeTag, 
 				StringLengthConstraint.MIN_LENGTH, 3);
 
-		Collection<ValueConstraint<?>> vcs = MapKeyConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
+		Collection<Constraint<?>> vcs = MapKeyConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
 		assertNotNull(vcs);
 		assertEquals(vcs.size(), 1);
 		
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 		
 		Person person = PeopleBuilder.createPeople(1).iterator().next();
 		
@@ -77,7 +78,7 @@ public class MapKeyConstraintTest extends AbstractConstraintTest {
 				AbstractMapConstraint.CONSTRAINT_ID, StringLengthConstraint.TypeTag, 
 				StringLengthConstraint.MIN_LENGTH, 3);
 
-		Collection<ValueConstraint<?>> vcs = MapKeyConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
-		return vcs.iterator().next();
+		Collection<Constraint<?>> vcs = MapKeyConstraint.builderWith(AvroConfiguration.ConstraintFactory).constraintsFrom(Type.MAP, false, paramsByKey);
+		return (ValueConstraint<?>)vcs.iterator().next();
 	}
 }

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 
 /**
@@ -23,9 +23,9 @@ public class NotNullConstraint extends AbstractValueConstraint<Object> {
 	
 	public static final ConstraintBuilder<Object> Builder = new BasicConstraintBuilder<Object>(TypeTag, NotNullConstraint.class, Docs) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			return Arrays.<ValueConstraint<?>>asList( new NotNullConstraint("") );
+			return Arrays.<Constraint<?>>asList( new NotNullConstraint("") );
 		}
 	};
 	

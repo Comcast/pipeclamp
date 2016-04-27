@@ -9,9 +9,9 @@ import java.util.Set;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringArrayParameter;
@@ -35,7 +35,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 	public static final ConstraintBuilder<Object[]> Builder = new BasicConstraintBuilder<Object[]>(TypeTag, CollectionContentConstraint.class, Docs, Function, CHOICES) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			CollectionRestriction restriction = Function.valueIn(values.remove(Function.id()), null);
 			if (restriction == null) return null;
@@ -43,7 +43,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 			Set<String> optSet = opts == null ? null : new HashSet<String>(Arrays.asList(opts));
 			
-			return Arrays.<ValueConstraint<?>>asList(
+			return Arrays.<Constraint<?>>asList(
 					new CollectionContentConstraint("", nullsAllowed, restriction, optSet)
 					);
 		}

@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.IntegerParameter;
@@ -33,14 +33,14 @@ public class StringLengthConstraint extends AbstractStringConstraint {
 
 	public static final ConstraintBuilder<String> Builder = new BasicConstraintBuilder<String>(TypeTag, StringLengthConstraint.class, Docs, MIN_LENGTH, MAX_LENGTH) {
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Integer minLen = intValueIn(values, MIN_LENGTH);
 			Integer maxLen = intValueIn(values, MAX_LENGTH);
 
 			if (minLen == null && maxLen == null) return null;
 
-			return Arrays.<ValueConstraint<?>>asList(new StringLengthConstraint("", nullsAllowed, minLen, maxLen));
+			return Arrays.<Constraint<?>>asList(new StringLengthConstraint("", nullsAllowed, minLen, maxLen));
 		}
 	};
 

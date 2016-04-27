@@ -11,11 +11,11 @@ import org.apache.avro.Schema;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractConstraintTest;
-import com.pipeclamp.constraints.collections.CollectionSizeConstraint;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class IllegalCharacterConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(IllegalCharacterConstraint.BAD_CHARS, "./?");
 
-		Collection<ValueConstraint<?>> vcs = IllegalCharacterConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
+		Collection<Constraint<?>> vcs = IllegalCharacterConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertTrue(paramsByKey.isEmpty());
@@ -52,8 +52,8 @@ public class IllegalCharacterConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(IllegalCharacterConstraint.BAD_CHARS, "./?");
 
-		Collection<ValueConstraint<?>> vcs = IllegalCharacterConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
-		ValueConstraint<?> vc = vcs.iterator().next();
+		Collection<Constraint<?>> vcs = IllegalCharacterConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 		Violation violation = vc.errorFor("hello world");
 		assertNull(violation);
@@ -75,7 +75,7 @@ public class IllegalCharacterConstraintTest extends AbstractConstraintTest {
 	protected ValueConstraint<?> sampleConstraint() {
 
 		Map<String,String> paramsByKey = asParams(IllegalCharacterConstraint.BAD_CHARS, "./?");
-		Collection<ValueConstraint<?>> vcs = IllegalCharacterConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
-		return vcs.iterator().next();
+		Collection<Constraint<?>> vcs = IllegalCharacterConstraint.Builder.constraintsFrom(Schema.Type.STRING, false, paramsByKey);
+		return (ValueConstraint<?>)vcs.iterator().next();
 	}
 }

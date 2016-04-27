@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.avro.Schema;
 import org.testng.annotations.Test;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -22,12 +23,12 @@ public class BytePrefixConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(BytePrefixConstraint.MATCHERS, "GIF");
 
-		Collection<ValueConstraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		Collection<Constraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
 
 		assertNotNull(vcs);
 		assertEquals(1, vcs.size());
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 	//	assertEquals(paramsByKey, vc.parameters());	TODO
 	}
@@ -37,9 +38,9 @@ public class BytePrefixConstraintTest extends AbstractConstraintTest {
 
 		Map<String,String> paramsByKey = asParams(BytePrefixConstraint.MATCHERS, "GIF");
 
-		Collection<ValueConstraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		Collection<Constraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
 
-		ValueConstraint<?> vc = vcs.iterator().next();
+		ValueConstraint<?> vc = (ValueConstraint<?>)vcs.iterator().next();
 
 		byte[] data = readResource("throbber.gif");
 		Violation v = vc.errorFor(data);
@@ -60,7 +61,7 @@ public class BytePrefixConstraintTest extends AbstractConstraintTest {
 	protected ValueConstraint<?> sampleConstraint() {
 		
 		Map<String,String> paramsByKey = asParams(BytePrefixConstraint.MATCHERS, "GIF");
-		Collection<ValueConstraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
-		return vcs.iterator().next();
+		Collection<Constraint<?>> vcs = BytePrefixConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);
+		return (ValueConstraint<?>)vcs.iterator().next();
 	}
 }

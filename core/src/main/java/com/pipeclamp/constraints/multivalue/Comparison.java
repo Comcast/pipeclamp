@@ -16,6 +16,20 @@ public enum Comparison implements RegisteredItem {
 	public final String label;
 	public final Checker comp;
 
+	/**
+	 * 
+	 * @param op
+	 *
+	 * @return Comparison
+	 */
+	public static Comparison forOperator(String op) {
+		
+		for (Comparison comp : values()) {
+			if (comp.operator.equals(op)) return comp;
+		}
+		return null;
+	}
+	
 	Comparison(String theOp, String theLabel, Checker theComp) {
 		operator = theOp;
 		label = theLabel;

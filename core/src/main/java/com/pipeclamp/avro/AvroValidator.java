@@ -1,5 +1,6 @@
 package com.pipeclamp.avro;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +10,11 @@ import java.util.Map.Entry;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintFactory;
+import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
-import com.pipeclamp.constraints.multivalue.MultiValueConstraint;
 import com.pipeclamp.path.Path;
 import com.pipeclamp.validation.AbstractValidator;
 
@@ -51,7 +53,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 	 * @param flagUnknowns
 	 */
 	public AvroValidator(Schema schema, boolean flagUnknowns) {
-		this(AvroConstraintUtil.constraintsIn(schema, flagUnknowns, Factory), new HashMap<Path<GenericRecord, ?>, Collection<MultiValueConstraint<GenericRecord>>>());
+		this(AvroConstraintUtil.constraintsIn(schema, flagUnknowns, Factory));
 	}
 
 	/**
@@ -61,8 +63,8 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 	 * @param theConstraintsByPath
 	 * @param theMultivalues
 	 */
-	public AvroValidator(Map<Path<GenericRecord, ?>, Collection<ValueConstraint<?>>> theConstraintsByPath, Map<Path<GenericRecord, ?>, Collection<MultiValueConstraint<GenericRecord>>> theMultivalues) {
-		super(theConstraintsByPath, theMultivalues);
+	public AvroValidator(Map<Path<GenericRecord, ?>, Collection<Constraint<?>>> theConstraintsByPath) {
+		super(theConstraintsByPath);
 	}
 
 
@@ -70,6 +72,10 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 		register(constraint, new SimpleAvroPath(thePath));
 	}
 
+	public void register(MultiValueConstraint<GenericRecord> constraint, String... thePath) {
+		register(constraint, new SimpleAvroPath(thePath));
+	}
+	
 	/**
 	 * Walks the path for every registered constraint to extract the value
 	 * and evaluates them. Any violations are held and returned in a map
@@ -82,6 +88,8 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 	@Override
 	public Map<Path<GenericRecord, ?>, Collection<Violation>> validate(GenericRecord record) {
 
+		validationStarting();
+
 		Map<Path<GenericRecord, ?>, Collection<Violation>> issues = new HashMap<Path<GenericRecord, ?>, Collection<Violation>>();
 
 		for (Entry<Path<GenericRecord, ?>, Collection<ValueConstraint<?>>> entry : valueConstraints()) {
@@ -91,7 +99,8 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 			if (path.hasLoop()) {
 
 				List<?> values = (List<?>) path.valuesVia(record);
-
+				cache(path, values);
+				
 				if (path.denotesCollection()) {
 					Collection<Violation> violations = violationsFor(entry.getValue(), values);
 					if (violations.isEmpty()) continue;
@@ -107,6 +116,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 					}
 				} else {
 					Object value = path.valueVia(record);
+					cache(path, value);
 					Collection<Violation> violations = violationsFor(entry.getValue(), value);
 					if (violations.isEmpty()) continue;
 					issues.put(path, violations);
@@ -118,15 +128,37 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 		return issues;
 	}
 
+	private Map<Path<GenericRecord,?>, Object> valuesFor(GenericRecord record, Path<GenericRecord, ?>[] paths) {
+		
+		Map<Path<GenericRecord,?>, Object> valuesByPath = new HashMap<>(paths.length);
+		for (Path<GenericRecord, ?> path : paths) {
+			if (cachedValuesByPath.containsKey(path)) {
+				valuesByPath.put(path, cachedValuesByPath.get(path));
+			} else {
+				valuesByPath.put(path, path.valueVia(record));
+				}
+			}
+		return valuesByPath;
+	}
+	
 	private void checkMultivaluedConstraints(GenericRecord record, Map<Path<GenericRecord, ?>, Collection<Violation>> issues) {
-
+		
 		for (Entry<Path<GenericRecord, ?>, Collection<MultiValueConstraint<GenericRecord>>> entry : multiValueConstraints()) {
 			for (MultiValueConstraint<GenericRecord> mvc : entry.getValue()) {
 				if (hasConflict(mvc, issues)) continue;
+				
+				Map<Path<GenericRecord,?>, Object> valuesByPath = valuesFor(record, mvc.valuePaths());
+				Violation violation = mvc.evaluate(valuesByPath);
+				if (violation != null) {
+					Collection<Violation> vios = issues.get(entry.getKey());
+					if (vios == null) {
+						vios = new ArrayList<Violation>();
+						issues.put(entry.getKey(), vios);
+					}
+					vios.add(violation);
+				}
 			}
 
-//			JsonNode node = nodeFor(record, entry.getKey());
-//			if (node == null) continue;
 		}
 	}
 

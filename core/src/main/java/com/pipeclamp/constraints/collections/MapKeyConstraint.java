@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.ConstraintFactory;
 import com.pipeclamp.api.ValueConstraint;
@@ -29,15 +30,15 @@ public class MapKeyConstraint extends AbstractMapConstraint {
 
 		return new BasicConstraintBuilder<Object[]>(TypeTag, MapKeyConstraint.class, Docs, KEY_TYPE, CONSTRAINT_ID) {
 	
-			public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+			public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 				
 				ConstraintBuilder<?> cb = builderFor(cstFactory, values, KEY_TYPE);
 				if (cb == null) return null;
 				
-				Collection<ValueConstraint<?>> constraints = cb.constraintsFrom(null, nullsAllowed, values);
+				Collection<Constraint<?>> constraints = cb.constraintsFrom(null, nullsAllowed, values);
 				if (constraints == null || constraints.isEmpty()) return null;
 			
-				return Arrays.<ValueConstraint<?>>asList(new MapKeyConstraint("", nullsAllowed, constraints.iterator().next()));
+				return Arrays.<Constraint<?>>asList(new MapKeyConstraint("", nullsAllowed, (ValueConstraint<?>)constraints.iterator().next()));
 			}
 		};
 	};

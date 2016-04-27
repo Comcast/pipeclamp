@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.AbstractValueConstraint;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
@@ -32,13 +32,13 @@ public class TimestampRangeConstraint extends AbstractValueConstraint<Long> {
 
 	public static final ConstraintBuilder<Long> Builder = new BasicConstraintBuilder<Long>(TypeTag, TimestampRangeConstraint.class, Docs, MIN_TIMESTAMP, MAX_TIMESTAMP) {;
 
-		public Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 			Long minValue = timestampValueIn(values, MIN_TIMESTAMP);
 			Long maxValue = timestampValueIn(values, MAX_TIMESTAMP);
 
 			if (minValue != null || maxValue != null) {
-				return Arrays.<ValueConstraint<?>>asList(
+				return Arrays.<Constraint<?>>asList(
 						new TimestampRangeConstraint("", nullsAllowed, minValue, maxValue)
 						);
 			}

@@ -38,9 +38,9 @@ public interface ConstraintBuilder<V extends Object> {
 	 * @param nullsAllowed
 	 * @param values
 	 *
-	 * @return Collection<ValueConstraint<?>> or null
+	 * @return Collection<Constraint<?>> or null
 	 */
-	Collection<ValueConstraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values);
+	Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values);
 	
 	/**
 	 * @return Class
