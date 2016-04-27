@@ -44,7 +44,7 @@ public class AvroMetricUtil extends QAUtil {
 
 		Map<Path<GenericRecord,?>, Map<String, MetricDescriptor>> metricsByPath = new HashMap<>();
 
-		Stack<String> path = new Stack<String>();
+		Stack<String> path = new Stack<>();
 
 		collectMetrics(path, schema, metricsByPath);
 

@@ -7,7 +7,7 @@ import com.pipeclamp.api.Parameter;
  *
  * @author Brian Remedios
  *
- * @param <V>
+ * @param <T>
  */
 public abstract class AbstractParameter<T extends Object> extends AbstractRegisteredItem implements Parameter<T> {
 

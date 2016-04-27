@@ -32,7 +32,7 @@ public class PeopleBuilder {
 					.setLastname("qwer")
 					.setWeight(i * 2f)
 					.setEmail( i % 2 == 0 ? "email" + Integer.toString(i) + "@mail.com" : null)
-					.setNicknames(Arrays.asList(new String[] {"bob", "sue"}))
+					.setNicknames(Arrays.asList("bob", "sue"))
 					.setBellybuttons(1)
 					.setPassports(createPassports(3))
 					.build()

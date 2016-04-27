@@ -40,12 +40,11 @@ public class IllegalCharacterConstraint extends AbstractStringConstraint {
 
 	};
 	
-	private static final boolean[] asBooleanMap(char[] theChars) {
+	private static boolean[] asBooleanMap(char[] theChars) {
 		
 		boolean[] map = new boolean[128];
-		for (int i=0; i<theChars.length; i++) {
-			char ch = theChars[i];
-			map[(int)ch] = true;
+		for (char ch : theChars) {
+			map[(int) ch] = true;
 		}
 		return map;
 	}

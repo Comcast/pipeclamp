@@ -10,7 +10,6 @@ import com.jayway.jsonpath.ReadContext;
  *
  * Adapted from https://github.com/jayway/JsonPath
  *
- * @param <T>
  * @param <V>
  */
 public class JsonPath<V extends Object> implements Path<ReadContext, V> {

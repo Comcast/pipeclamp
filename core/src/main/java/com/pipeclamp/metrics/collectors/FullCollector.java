@@ -19,7 +19,7 @@ public class FullCollector<I extends Object> extends AbstractCollector<I> {
 	public FullCollector(Predicate<I> aPredicate) {
 		super(aPredicate);
 
-		items = new ArrayList<I>();
+		items = new ArrayList<>();
 	}
 
 	@Override

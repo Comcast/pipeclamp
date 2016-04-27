@@ -7,7 +7,7 @@ public abstract class AbstractFunctionTest {
 
 	protected static List<Integer> intsOf(String[] nums) {
 
-		List<Integer> ints = new ArrayList<Integer>(nums.length - 1);
+		List<Integer> ints = new ArrayList<>(nums.length - 1);
 
 		for (int i = 1; i < nums.length; i++) {
 			ints.add(Integer.parseInt(nums[i]));
@@ -17,7 +17,7 @@ public abstract class AbstractFunctionTest {
 
 	protected static List<Long> longsOf(String[] nums) {
 
-		List<Long> longs = new ArrayList<Long>(nums.length - 1);
+		List<Long> longs = new ArrayList<>(nums.length - 1);
 
 		for (int i = 1; i < nums.length; i++) {
 			longs.add(Long.parseLong(nums[i]));
@@ -27,7 +27,7 @@ public abstract class AbstractFunctionTest {
 
 	protected static List<Float> floatsOf(String[] nums) {
 
-		List<Float> floats = new ArrayList<Float>(nums.length - 1);
+		List<Float> floats = new ArrayList<>(nums.length - 1);
 
 		for (int i = 1; i < nums.length; i++) {
 			floats.add(Float.parseFloat(nums[i]));
@@ -37,7 +37,7 @@ public abstract class AbstractFunctionTest {
 
 	protected static List<Double> doublesOf(String[] nums) {
 
-		List<Double> doubles = new ArrayList<Double>(nums.length - 1);
+		List<Double> doubles = new ArrayList<>(nums.length - 1);
 
 		for (int i = 1; i < nums.length; i++) {
 			doubles.add(Double.parseDouble(nums[i]));

@@ -10,7 +10,7 @@ public class ByteUtil {
 
 	/**
 	 *
-	 * @param data
+	 * @param source
 	 * @param prefix
 	 *
 	 * @return boolean
@@ -30,7 +30,7 @@ public class ByteUtil {
 
 	/**
 	 *
-	 * @param data
+	 * @param source
 	 * @param prefix
 	 * @param offset
 	 *

@@ -52,7 +52,7 @@ public abstract class AbstractMapConstraint extends AbstractValueConstraint<Map<
 	@Override
 	public Violation typedErrorFor(Map<?,?> values) {
 		
-		Violation v = null;
+		Violation v;
 		for (Object value : valuesIn(values)) {
 			v = constraint.errorFor(value);
 			if (v != null) return v;

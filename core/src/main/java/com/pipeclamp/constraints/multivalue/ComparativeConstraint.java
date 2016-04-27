@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.PathBuilder;
@@ -42,7 +43,7 @@ public class ComparativeConstraint<T extends Object> extends AbstractMultivalueC
 		return new BasicConstraintBuilder<Object[]>("theid", ComparativeConstraint.class, "", Path1, Path2, CompParam) {
 
 			@Override
-			public Collection constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
+			public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
 				Path p1 = pathIn(values, Path1, regexDelimiter, builder);
 				Path p2 = pathIn(values, Path2, regexDelimiter, builder);
@@ -51,7 +52,7 @@ public class ComparativeConstraint<T extends Object> extends AbstractMultivalueC
 				Comparison comp = comparisonIn(values, CompParam);
 				if (comp == null) return null;
 
-				return Arrays.<MultiValueConstraint<?>>asList(
+				return Arrays.<Constraint<?>>asList(
 						new ComparativeConstraint("asdf", p1, p2, comp)
 						);
 			}

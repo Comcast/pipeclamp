@@ -82,5 +82,5 @@ public class TimestampRangeConstraintTest extends AbstractConstraintTest {
 	protected ConstraintBuilder<?> sampleBuilder() { return TimestampRangeConstraint.Builder; }
 
 	@Override
-	protected ValueConstraint<?> sampleConstraint() { return new TimestampRangeConstraint("", false, 1000l, 2000l); }
+	protected ValueConstraint<?> sampleConstraint() { return new TimestampRangeConstraint("", false, 1000L, 2000L); }
 }

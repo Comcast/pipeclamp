@@ -24,7 +24,7 @@ public class ByteArraySizeConstraintTest extends AbstractConstraintTest {
 	public void testBuilder() {
 
 		Map<String,String> paramsByKey = asParams(ByteArraySizeConstraint.MIN_SIZE, 2, ByteArraySizeConstraint.MAX_SIZE, 4);
-		Map<String,String> paramsCopy = new HashMap<String, String>();
+		Map<String,String> paramsCopy = new HashMap<>();
 		paramsCopy.putAll(paramsByKey);
 		
 		Collection<Constraint<?>> vcs = ByteArraySizeConstraint.Builder.constraintsFrom(Schema.Type.BYTES, false, paramsByKey);

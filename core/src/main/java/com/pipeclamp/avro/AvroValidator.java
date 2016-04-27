@@ -90,7 +90,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 
 		validationStarting();
 
-		Map<Path<GenericRecord, ?>, Collection<Violation>> issues = new HashMap<Path<GenericRecord, ?>, Collection<Violation>>();
+		Map<Path<GenericRecord, ?>, Collection<Violation>> issues = new HashMap<>();
 
 		for (Entry<Path<GenericRecord, ?>, Collection<ValueConstraint<?>>> entry : valueConstraints()) {
 
@@ -152,7 +152,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 				if (violation != null) {
 					Collection<Violation> vios = issues.get(entry.getKey());
 					if (vios == null) {
-						vios = new ArrayList<Violation>();
+						vios = new ArrayList<>();
 						issues.put(entry.getKey(), vios);
 					}
 					vios.add(violation);

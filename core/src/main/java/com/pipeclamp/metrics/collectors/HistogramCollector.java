@@ -25,7 +25,7 @@ public class HistogramCollector<I extends Object> extends AbstractCollector<I> {
 		if (!super.add(item)) return false;
 
 		Integer count = countsPerItem.get(item);
-		if (count == null) count = Integer.valueOf(0);
+		if (count == null) count = 0;
 		countsPerItem.put(item, count+1);
 		return true;
 	}

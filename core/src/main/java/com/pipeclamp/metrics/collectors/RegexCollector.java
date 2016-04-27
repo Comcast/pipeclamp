@@ -47,7 +47,7 @@ public class RegexCollector extends AbstractCollector<String> {
 		if (itemKey == null) return false;
 
 		Integer count = countsPerItem.get(itemKey);
-		if (count == null) count = Integer.valueOf(0);
+		if (count == null) count = 0;
 		countsPerItem.put(itemKey, count+1);
 		return true;
 	}

@@ -32,9 +32,9 @@ public abstract class AbstractReceiver<D extends Object> implements Receiver<D>{
 	}
 
 	/**
-	 * @param int
-	 * @param int
-	 * @param Runnable
+	 * @param periodSeconds
+	 * @param delaySeconds
+	 * @param action
 	 */
 	public void schedule(int periodSeconds, int delaySeconds, Runnable action) {
 

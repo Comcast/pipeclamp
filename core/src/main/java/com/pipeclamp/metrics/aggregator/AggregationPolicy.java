@@ -21,8 +21,8 @@ public class AggregationPolicy<T extends Object> {
 	/**
 	 *
 	 * @param theMaxItems
-	 * @param aMaxTime
-	 * @param theCallback
+	 * @param aPeriodSeconds
+	 * @param clearFlag
 	 */
 	public AggregationPolicy(Integer theMaxItems, Integer aPeriodSeconds, boolean clearFlag) {
 		maxItems = theMaxItems;

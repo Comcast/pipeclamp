@@ -115,7 +115,7 @@ public abstract class AbstractValueConstraint<V extends Object> extends Abstract
 				new Violation(this, "Missing value");
 		}
 
-		V typed = null;
+		V typed;
 
 		try {
 			typed = value == null ? null : cast(value);

@@ -22,5 +22,5 @@ public class Counter<I extends Object> extends AbstractCollectionFunction<I,Inte
 	}
 
 	@Override
-	public Collector<I> createCollector() { return new CounterCollector<I>(predicate()); }
+	public Collector<I> createCollector() { return new CounterCollector<>(predicate()); }
 }

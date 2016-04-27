@@ -19,7 +19,7 @@ public interface Add<I extends Number> {
     I subtract(I lhs, I rhs);
 
     Add<Integer> IntegerAdd = new Add<Integer>() {
-		public Integer zero() { return Integer.valueOf(0); }
+		public Integer zero() { return 0; }
 		public Integer add(Integer lhs, Integer rhs) { return lhs + rhs; }
 		public Integer subtract(Integer lhs, Integer rhs) { return lhs - rhs; }
 
@@ -27,7 +27,7 @@ public interface Add<I extends Number> {
     };
 
     Add<Long> LongAdd = new Add<Long>() {
-		public Long zero() { return Long.valueOf(0); }
+		public Long zero() { return 0L; }
 		public Long add(Long lhs, Long rhs) { return lhs + rhs; }
 		public Long subtract(Long lhs, Long rhs) { return lhs - rhs; }
 
@@ -35,7 +35,7 @@ public interface Add<I extends Number> {
     };
 
     Add<Float> FloatAdd = new Add<Float>() {
-		public Float zero() { return Float.valueOf(0); }
+		public Float zero() { return 0f; }
 		public Float add(Float lhs, Float rhs) { return lhs + rhs; }
 		public Float subtract(Float lhs, Float rhs) { return lhs - rhs; }
 
@@ -43,7 +43,7 @@ public interface Add<I extends Number> {
     };
 
     Add<Double> DoubleAdd = new Add<Double>() {
-		public Double zero() { return Double.valueOf(0); }
+		public Double zero() { return 0d; }
 		public Double add(Double lhs, Double rhs) { return lhs + rhs; }
 		public Double subtract(Double lhs, Double rhs) { return lhs - rhs; }
 

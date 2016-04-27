@@ -60,14 +60,14 @@ public abstract class AbstractConstraintTest {
 
 	protected static Map<String,String> asParams(Parameter<?> param, Object value) {
 
-		Map<String,String> paramsByKey = new HashMap<String,String>(1);
+		Map<String,String> paramsByKey = new HashMap<>(1);
 		paramsByKey.put(param.id(), String.valueOf(value));
 		return paramsByKey;
 	}
 	
 	protected static Map<String,String> asParams(Parameter<?> param1, Object value1, Parameter<?> param2, Object value2) {
 
-		Map<String,String> paramsByKey = new HashMap<String,String>(2);
+		Map<String,String> paramsByKey = new HashMap<>(2);
 		paramsByKey.put(param1.id(), String.valueOf(value1));
 		paramsByKey.put(param2.id(), String.valueOf(value2));
 		return paramsByKey;
@@ -75,7 +75,7 @@ public abstract class AbstractConstraintTest {
 	
 	protected static Map<String,String> asParams(Parameter<?> param1, Object value1, Parameter<?> param2, Object value2, Parameter<?> param3, Object value3) {
 
-		Map<String,String> paramsByKey = new HashMap<String,String>(3);
+		Map<String,String> paramsByKey = new HashMap<>(3);
 		paramsByKey.put(param1.id(), String.valueOf(value1));
 		paramsByKey.put(param2.id(), String.valueOf(value2));
 		paramsByKey.put(param3.id(), String.valueOf(value3));

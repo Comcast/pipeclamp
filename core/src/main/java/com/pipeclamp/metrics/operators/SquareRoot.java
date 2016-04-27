@@ -25,7 +25,7 @@ public interface SquareRoot<I extends Number> {
     };
 
     SquareRoot<Double> DoubleSqrt = new SquareRoot<Double>() {
-    	public Double squareRoot(Double value) { return (double)Math.sqrt(value); }
+    	public Double squareRoot(Double value) { return Math.sqrt(value); }
     };
 
     SquareRoot<BigDecimal> BigDecimalSqrt = new SquareRoot<BigDecimal>() {

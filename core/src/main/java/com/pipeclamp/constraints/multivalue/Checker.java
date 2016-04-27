@@ -4,7 +4,6 @@ package com.pipeclamp.constraints.multivalue;
  *
  * @author Brian Remedios
  *
- * @param <T>
  */
 public interface Checker {
 

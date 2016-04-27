@@ -32,8 +32,9 @@ public interface Receiver<D extends Object> {
 
 	/**
 	 *
-	 * @param expression
-	 * @param jobType
+	 * @param seconds
+	 * @param start
+	 * @param runnable
 	 *
 	 */
 	void schedule(int seconds, int start, Runnable runnable);

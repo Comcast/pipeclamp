@@ -85,7 +85,7 @@ public class BasicAggregator<D extends Object> extends AbstractReceiver<D> imple
 	@Override
 	public Map<String, Object> compute(PrintStream debugOut) {
 
-		Map<String, Object> computedValuesById = new HashMap<String, Object>(collectorsById.size());
+		Map<String, Object> computedValuesById = new HashMap<>(collectorsById.size());
 		Collector collector;
 
 		for (Entry<String, PathFunction> entry : pathsById.entrySet()) {

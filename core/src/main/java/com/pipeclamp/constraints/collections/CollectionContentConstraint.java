@@ -41,7 +41,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 			if (restriction == null) return null;
 			String[] opts = CHOICES.valueIn(values.remove(CHOICES.id()), null);
 
-			Set<String> optSet = opts == null ? null : new HashSet<String>(Arrays.asList(opts));
+			Set<String> optSet = opts == null ? null : new HashSet<>(Arrays.asList(opts));
 			
 			return Arrays.<Constraint<?>>asList(
 					new CollectionContentConstraint("", nullsAllowed, restriction, optSet)
@@ -60,7 +60,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 	public String typeTag() { return TypeTag; }
 
 	private Violation checkRequired(Object[] values) {
-		Set<Object> valueSet = new HashSet<Object>(Arrays.asList(values));
+		Set<Object> valueSet = new HashSet<>(Arrays.asList(values));
 		for (String option : options) {
 			if (!valueSet.contains(option)) {
 				return new Violation(this, "missing: " + option);
@@ -94,7 +94,7 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 	private Violation checkAllUnique(Object[] values) {
 
-		Set<Object> set = new HashSet<Object>(Arrays.asList(values));
+		Set<Object> set = new HashSet<>(Arrays.asList(values));
 		if (set.size() == values.length) return null;
 
 		// TODO better error reporting (show dupes)

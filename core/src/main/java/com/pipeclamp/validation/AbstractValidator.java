@@ -25,7 +25,7 @@ public abstract class AbstractValidator<T extends Object> {
 	
 	protected static Collection<Violation> violationsFor(Collection<ValueConstraint<?>> constraints, Object value) {
 
-		Collection<Violation> violations = new ArrayList<Violation>(constraints.size());
+		Collection<Violation> violations = new ArrayList<>(constraints.size());
 
 		for (ValueConstraint<?> constraint : constraints) {
 			Violation violation = constraint.errorFor(value);
@@ -85,7 +85,7 @@ public abstract class AbstractValidator<T extends Object> {
 
 		Collection<ValueConstraint<?>> constraints = constraintsByPath.get(path);
 		if (constraints == null) {
-			constraints = new ArrayList<ValueConstraint<?>>();
+			constraints = new ArrayList<>();
 			constraintsByPath.put(path, constraints);
 		}
 		constraints.add(constraint);
@@ -101,7 +101,7 @@ public abstract class AbstractValidator<T extends Object> {
 
 		Collection<MultiValueConstraint<T>> constraints = multivalueConstraints.get(path);
 		if (constraints == null) {
-			constraints = new ArrayList<MultiValueConstraint<T>>();
+			constraints = new ArrayList<>();
 			multivalueConstraints.put(path, constraints);
 		}
 		constraints.add(constraint);

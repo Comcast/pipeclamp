@@ -151,8 +151,9 @@ public class AvroConstraintUtil extends QAUtil {
 	 * Recursive descent through the tree via the field list to collect the constraint parameters.
 	 *
 	 * @param path
-	 * @param fields
+	 * @param schema
 	 * @param constraintsByPath
+	 * @param factory
 	 */
 	private static void collectConstraints(Stack<String> path, Schema schema, Map<Path<GenericRecord,?>, Collection<Constraint<?>>> constraintsByPath, ConstraintFactory<Schema.Type> factory) {
 

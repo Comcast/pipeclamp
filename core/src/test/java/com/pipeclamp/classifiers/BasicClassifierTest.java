@@ -12,7 +12,7 @@ public class BasicClassifierTest {
   @Test
   public void classify() {
    
-	  BasicClassifier<String> bc = new BasicClassifier<String>("a", "b");
+	  BasicClassifier<String> bc = new BasicClassifier<>("a", "b");
 	  
 	  try {
 		  String clasz = bc.classify("hello world");
@@ -24,7 +24,7 @@ public class BasicClassifierTest {
   @Test
   public void description() {
     
-	  BasicClassifier<String> bc = new BasicClassifier<String>("a", "b");
+	  BasicClassifier<String> bc = new BasicClassifier<>("a", "b");
 	  assertEquals("b", bc.description());
 	  assertFalse("a".equals( bc.description() ));
   }
@@ -32,8 +32,8 @@ public class BasicClassifierTest {
   @Test
   public void equals() {
     
-	  BasicClassifier<String> bc1 = new BasicClassifier<String>("a", "b");
-	  BasicClassifier<String> bc2 = new BasicClassifier<String>("a", "b");
+	  BasicClassifier<String> bc1 = new BasicClassifier<>("a", "b");
+	  BasicClassifier<String> bc2 = new BasicClassifier<>("a", "b");
 	  
 	  assertTrue(bc1.equals(bc2));
 	  assertTrue(bc2.equals(bc1));
@@ -42,8 +42,8 @@ public class BasicClassifierTest {
   @Test
   public void hashCodeTest() {
 	  
-	  BasicClassifier<String> bc1 = new BasicClassifier<String>("a", "b");
-	  BasicClassifier<String> bc2 = new BasicClassifier<String>("a", "b");
+	  BasicClassifier<String> bc1 = new BasicClassifier<>("a", "b");
+	  BasicClassifier<String> bc2 = new BasicClassifier<>("a", "b");
 	  
 	  assertEquals(bc1.hashCode(), bc2.hashCode());
   }

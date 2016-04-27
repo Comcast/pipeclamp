@@ -52,7 +52,7 @@ public abstract class AbstractCollectionFunction<I,O extends Object> implements 
 
 		if (predicate == null) return values;
 
-		Collection<I> filtered = new ArrayList<I>(values.size());
+		Collection<I> filtered = new ArrayList<>(values.size());
 
 		for (I value : values) {
 			if (predicate.apply(value)) filtered.add(value);

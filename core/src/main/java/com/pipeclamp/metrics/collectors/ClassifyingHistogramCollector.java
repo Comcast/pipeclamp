@@ -33,7 +33,7 @@ public class ClassifyingHistogramCollector<I extends Object> extends AbstractCol
 		String classification = classifier.classify(item);
 
 		Integer count = countsPerClass.get(classification);
-		if (count == null) count = Integer.valueOf(0);
+		if (count == null) count = 0;
 		countsPerClass.put(classification, count+1);
 		return true;
 	}

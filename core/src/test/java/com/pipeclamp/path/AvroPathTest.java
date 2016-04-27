@@ -20,13 +20,13 @@ public class AvroPathTest {
 	  
 	  Person person = PeopleBuilder.newPerson("brian", "remedios", 123, new Date(), "a", "br");
 
-	  Path<GenericRecord, Country> path = new SimpleAvroPath<Country>("passports[]", "country");
+	  Path<GenericRecord, Country> path = new SimpleAvroPath<>("passports[]", "country");
 	  Collection<Country> results = path.valuesVia(person);
 	  for (Object item : results) {
 		  Assert.assertTrue(item instanceof Country);
 	  }
 	  
-	  Path<GenericRecord, String> path2 = new SimpleAvroPath<String>("passports[]", "pages[]", "contents");
+	  Path<GenericRecord, String> path2 = new SimpleAvroPath<>("passports[]", "pages[]", "contents");
 	  Collection<String> contents = path2.valuesVia(person);
 	  for (String item : contents) {
 		  Assert.assertTrue(item instanceof String);

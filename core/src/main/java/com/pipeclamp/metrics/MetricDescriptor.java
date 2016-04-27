@@ -19,9 +19,9 @@ public class MetricDescriptor extends AbstractRegisteredItem {
 	 *
 	 * @param theId
 	 * @param theLabel
-	 * @param thePath
 	 * @param theFunction
 	 * @param aUnitLabel
+	 * @param theDescription
 	 */
 	public MetricDescriptor(String theId, String theLabel, Function<? extends Object, ? extends Object> theFunction, String aUnitLabel, String theDescription) {
 		super(theId, theDescription);

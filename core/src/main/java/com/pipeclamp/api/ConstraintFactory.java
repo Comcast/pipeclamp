@@ -27,7 +27,7 @@ public interface ConstraintFactory<T extends Object> {
 
 	/**
 	 * 
-	 * @param type
+	 * @param rawType
 	 * @param id
 	 * @return
 	 */

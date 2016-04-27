@@ -86,7 +86,7 @@ public abstract class AbstractPath<T extends Object, V extends Object> implement
 	public Collection<V> valuesVia(T source) {
 
 		if (hasLoop()) {
-			Collection<V> items = new ArrayList<V>();
+			Collection<V> items = new ArrayList<>();
 			collectItemsFor(source, items, 0);
 			return items;
 		} else {

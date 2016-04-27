@@ -33,6 +33,6 @@ public abstract class AbstractMultivalueConstraint<T extends Object> extends Abs
 		String op = values.remove(compParam.id());
 		if (op == null) return null;
 		
-		return Comparison.forOperator(op);
+		return compParam.valueIn(op, null);
 	}
 }

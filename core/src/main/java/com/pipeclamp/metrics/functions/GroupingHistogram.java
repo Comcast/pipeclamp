@@ -34,7 +34,7 @@ public class GroupingHistogram<I extends Object> extends AbstractCollectionFunct
 
 	@Override
 	public Collector<I> createCollector() {
-		return new ClassifyingHistogramCollector<I>(predicate(), classifier);
+		return new ClassifyingHistogramCollector<>(predicate(), classifier);
 	}
 
 	@Override

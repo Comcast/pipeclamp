@@ -37,11 +37,11 @@ public class Averager<I extends Number> extends AbstractCollectionFunction<I,I> 
 		return multiplier.divide(sum, collector.collected());
 	}
 
-	public static final Averager<Integer>	IntAvg = new Averager<Integer>(Summer.IntegerSum, Multiply.IntMult);
-	public static final Averager<Long>		LongAvg = new Averager<Long>(Summer.LongSum, Multiply.LongMult);
-	public static final Averager<Float>		FloatAvg = new Averager<Float>(Summer.FloatSum, Multiply.FloatMult);
-	public static final Averager<Double>	DoubleAvg = new Averager<Double>(Summer.DoubleSum, Multiply.DoubleMult);
-	public static final Averager<BigDecimal> BigDecimalAvg = new Averager<BigDecimal>(Summer.BigDecimalSum, Multiply.BigDecimalMult);
+	public static final Averager<Integer>	IntAvg = new Averager<>(Summer.IntegerSum, Multiply.IntMult);
+	public static final Averager<Long>		LongAvg = new Averager<>(Summer.LongSum, Multiply.LongMult);
+	public static final Averager<Float>		FloatAvg = new Averager<>(Summer.FloatSum, Multiply.FloatMult);
+	public static final Averager<Double>	DoubleAvg = new Averager<>(Summer.DoubleSum, Multiply.DoubleMult);
+	public static final Averager<BigDecimal> BigDecimalAvg = new Averager<>(Summer.BigDecimalSum, Multiply.BigDecimalMult);
 
 	public static final Map<Class<?>, Function<?,?>> AveragersByType = ImmutableMap.<Class<?>, Function<?,?>>builder().
 		      put(Integer.class, IntAvg).
@@ -52,7 +52,7 @@ public class Averager<I extends Number> extends AbstractCollectionFunction<I,I> 
 		      build();
 
 	@Override
-	public Collector<I> createCollector() { return new FullCollector<I>(predicate()); }
+	public Collector<I> createCollector() { return new FullCollector<>(predicate()); }
 
 //	public static void main(String[] args) {
 //
