@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.apache.avro.Schema;
 import org.testng.annotations.Test;
@@ -24,7 +25,7 @@ public class NotNullConstraintTest {
 	@Test
 	public void typedErrorFor() {
 
-		Collection<Constraint<?>> vcs = NotNullConstraint.Builder.constraintsFrom(Schema.Type.RECORD, false, null);
+		Collection<Constraint<?>> vcs = NotNullConstraint.Builder.constraintsFrom(Schema.Type.RECORD, false, Collections.<String,String>emptyMap());
 
 		assertFalse(vcs.isEmpty());
 

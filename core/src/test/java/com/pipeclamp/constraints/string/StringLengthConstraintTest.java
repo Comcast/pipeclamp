@@ -1,10 +1,12 @@
 package com.pipeclamp.constraints.string;
 
+
+import static org.junit.Assert.*;
+
 import java.util.Collection;
 import java.util.Map;
 
 import org.apache.avro.Schema;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.pipeclamp.api.Constraint;
@@ -23,15 +25,15 @@ public class StringLengthConstraintTest extends AbstractConstraintTest {
 
 		Collection<Constraint<?>> vc = StringLengthConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
-		Assert.assertNotNull(vc);
-		Assert.assertTrue(paramsByKey.isEmpty());
+		assertNotNull(vc);
+		assertTrue(paramsByKey.isEmpty());
 
 		paramsByKey = asParams(StringLengthConstraint.MAX_LENGTH, 3);
 
 		vc = NumericConstraint.Builder.constraintsFrom(Schema.Type.INT, false, paramsByKey);
 
-		Assert.assertNotNull(vc);
-		Assert.assertEquals(0, paramsByKey.size());
+		assertNotNull(vc);
+		assertEquals(0, paramsByKey.size());
 	}
 
 	@Test
@@ -40,16 +42,39 @@ public class StringLengthConstraintTest extends AbstractConstraintTest {
 		StringLengthConstraint slc = new StringLengthConstraint("", true, 5, 10);
 
 		Violation v = slc.errorFor(null);	// nulls ok
-		Assert.assertNull(v);
+		assertNull(v);
 
 		v = slc.errorFor("billy");
-		Assert.assertNull(v);
+		assertNull(v);
 
 		v = slc.errorFor("bill");
-		Assert.assertNotNull(v);
+		assertNotNull(v);
 
 		v = slc.errorFor("bill bill bill bill");
-		Assert.assertNotNull(v);
+		assertNotNull(v);
+	}
+	
+	@Test
+	public void testEquals() {
+		
+		StringLengthConstraint c1 = new StringLengthConstraint("", true, 5, 10);
+		StringLengthConstraint c2 = new StringLengthConstraint("", true, 5, 10);
+		
+		assertEquals(c1, c1);
+		assertEquals(c1, c2);
+		assertEquals(c1.hashCode(), c2.hashCode());
+		
+		c2.description("asdf");
+		assertFalse(c1.equals(c2));
+		assertFalse(c1.equals(""));
+		assertFalse(c1.equals(null));
+		
+		c1 = new StringLengthConstraint("asdf", true, 5, 10);
+		assertFalse(c1.equals(c2));
+		assertFalse(c1.hashCode() == c2.hashCode());
+		c1 = new StringLengthConstraint("", false, 5, 10);
+		assertFalse(c1.equals(c2));
+		assertFalse(c1.hashCode() == c2.hashCode());
 	}
 	
 	@Override
