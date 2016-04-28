@@ -1,9 +1,11 @@
 package com.pipeclamp.constraints;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
 import org.apache.avro.Schema.Type;
+import org.apache.commons.lang.StringUtils;
 
 import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
@@ -21,6 +23,18 @@ public class BasicConstraintBuilder<V extends Object> implements ConstraintBuild
 	public final Class<?> executionType;
 	public final Parameter<?>[] parameters;
 	public final String documentation;
+	
+	public static final String LocalDocKey = "__docs";
+	
+	public static Collection<Constraint<?>> withExtras(Constraint<?> constraint, Map<String, String> values) {
+		
+		String desc = values.get(LocalDocKey);
+		if (StringUtils.isNotEmpty(desc)) {
+			constraint.description(desc);
+		}
+		
+		return Arrays.<Constraint<?>>asList(constraint);
+	}
 	
 	/**
 	 * 

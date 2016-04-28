@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.bytes;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +39,8 @@ public class ByteArraySizeConstraint extends AbstractValueConstraint<byte[]> {
 			Integer maxValue = intValueIn(values, MAX_SIZE);
 
 			if (minValue != null || maxValue != null) {
-				return Arrays.<Constraint<?>>asList(
-						new ByteArraySizeConstraint("", nullsAllowed, minValue, maxValue)
+				return withExtras(
+						new ByteArraySizeConstraint("", nullsAllowed, minValue, maxValue), values
 						);
 			}
 

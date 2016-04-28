@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.bytes;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +45,8 @@ public class BytePrefixConstraint extends AbstractValueConstraint<byte[]> {
 
 			if (matchers == null) return null;
 
-			return Arrays.<Constraint<?>>asList(
-					new BytePrefixConstraint("", nullsAllowed, matchers)
+			return withExtras(
+					new BytePrefixConstraint("", nullsAllowed, matchers), values
 					);
 		}
 	};

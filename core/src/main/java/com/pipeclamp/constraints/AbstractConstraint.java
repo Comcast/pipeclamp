@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.pipeclamp.AbstractRegisteredItem;
 import com.pipeclamp.api.Parameter;
+import com.pipeclamp.api.RegisteredItem;
 import com.pipeclamp.api.TaggedItem;
 import com.pipeclamp.avro.AvroConstraintUtil;
 
@@ -13,7 +14,7 @@ import com.pipeclamp.avro.AvroConstraintUtil;
  *
  * @author Brian Remedios
  */
-public abstract class AbstractConstraint extends AbstractRegisteredItem implements TaggedItem {
+public abstract class AbstractConstraint extends AbstractRegisteredItem implements RegisteredItem, TaggedItem {
 
 	public final boolean nullsAllowed;
 
@@ -27,13 +28,14 @@ public abstract class AbstractConstraint extends AbstractRegisteredItem implemen
 		nullsAllowed = nullsAllowedFlag;
 	}
 
+	public void description(String aDescription) { pDescription(aDescription); }
+	
 	public Map<Parameter<?>, Object> parameters() { return Collections.emptyMap(); }
 	
 	@Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (other == null) return false;
+		if (!super.equals(other)) return false;
 		
 		if (!(other instanceof AbstractConstraint)) return false;
 		

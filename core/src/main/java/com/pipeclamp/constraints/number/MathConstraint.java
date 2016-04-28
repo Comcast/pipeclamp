@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.number;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class MathConstraint extends AbstractNumericConstraint {
 
 			if (factor == null) return null;
 
-			return Arrays.<Constraint<?>>asList(new MathConstraint("", nullsAllowed, factor));
+			return withExtras(new MathConstraint("", nullsAllowed, factor), values);
 		}
 	};
 

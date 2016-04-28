@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.string;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class WhitespaceConstraint extends AbstractStringConstraint {
 			
 			if (noLead == null && noTrail == null) return null;
 
-			return Arrays.<Constraint<?>>asList(new WhitespaceConstraint("", nullsAllowed, noLead, noTrail));
+			return withExtras(new WhitespaceConstraint("", nullsAllowed, noLead, noTrail), values);
 		}
 	};
 	

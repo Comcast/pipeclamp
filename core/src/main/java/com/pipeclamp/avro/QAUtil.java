@@ -22,8 +22,8 @@ public class QAUtil {
 	private static final String ArgNameKey = "name";
 	private static final String ArgValueKey = "value";
 
-	protected static final String IdKey = "id";
-	protected static final String DocKey = "doc";
+	public static final String IdKey = "id";
+	public static final String DocKey = "doc";
 
 	protected QAUtil() {
 		super();
@@ -31,18 +31,19 @@ public class QAUtil {
 
 	protected static Map<String, String> argumentsOn(JsonNode node) {
 
+		Map<String, String> argValues = new HashMap<>();
+		
 		JsonNode argsNode = node.get(ArgsKey);
-		if (argsNode == null) return null;
+		if (argsNode == null) return argValues;
 
 		if (!argsNode.isArray()) {
 			System.err.println("invalid argument node, must be an array");
-			return null;
+			return argValues;
 		}
 
 		ArrayNode args = (ArrayNode)argsNode;
 
 		final int argCount = args.size();
-		Map<String, String> argValues = new HashMap<>(argCount);
 
 		for (int i=0; i<argCount; i++) {
 			String[] tuple = getArgs(args.get(i));

@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.string;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class IllegalCharacterConstraint extends AbstractStringConstraint {
 
 			if (baddies == null) return null;
 
-			return Arrays.<Constraint<?>>asList(new IllegalCharacterConstraint("", nullsAllowed, baddies));
+			return withExtras(new IllegalCharacterConstraint("", nullsAllowed, baddies), values);
 		}
 
 	};

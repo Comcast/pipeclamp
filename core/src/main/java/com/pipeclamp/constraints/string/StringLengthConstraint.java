@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.string;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class StringLengthConstraint extends AbstractStringConstraint {
 
 			if (minLen == null && maxLen == null) return null;
 
-			return Arrays.<Constraint<?>>asList(new StringLengthConstraint("", nullsAllowed, minLen, maxLen));
+			return withExtras(new StringLengthConstraint("", nullsAllowed, minLen, maxLen), values);
 		}
 	};
 

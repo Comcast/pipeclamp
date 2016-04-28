@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.string;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.params.StringParameter;
@@ -42,8 +40,8 @@ public class RegexConstraint extends AbstractStringConstraint {
 			String regex = stringValueIn(values, PATTERN);
 
 			if (StringUtils.isNotEmpty(regex))
-				return Arrays.<Constraint<?>>asList(
-						new RegexConstraint("", nullsAllowed, regex)
+				return withExtras(
+						new RegexConstraint("", nullsAllowed, regex), values
 						);
 
 			String id = stringValueIn(values, PATTERN_ID);
@@ -52,11 +50,12 @@ public class RegexConstraint extends AbstractStringConstraint {
 				RegexDescriptor rd = RegexDescriptor.ALL.get(id);
 				if (rd == null) throw new IllegalArgumentException("Unknown pattern id: " + id);
 
-				return Arrays.<Constraint<?>>asList(new RegexConstraint(rd.id(), nullsAllowed, rd.regex));
+				return withExtras(new RegexConstraint(rd.id(), nullsAllowed, rd.regex), values);
 			}
 
 			return null;
 		}
+
 	};
 
 	public RegexConstraint(RegexDescriptor desc) {

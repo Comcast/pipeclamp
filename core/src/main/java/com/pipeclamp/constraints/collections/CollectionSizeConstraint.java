@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.collections;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class CollectionSizeConstraint extends AbstractCollectionConstraint {
 
 			if (min== null && max == null) return null;
 
-			return Arrays.<Constraint<?>>asList(new CollectionSizeConstraint("", nullsAllowed, min, max));
+			return withExtras(new CollectionSizeConstraint("", nullsAllowed, min, max), values);
 		}
 	};
 

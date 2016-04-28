@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.collections;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -38,7 +37,7 @@ public class MapKeyConstraint extends AbstractMapConstraint {
 				Collection<Constraint<?>> constraints = cb.constraintsFrom(null, nullsAllowed, values);
 				if (constraints == null || constraints.isEmpty()) return null;
 			
-				return Arrays.<Constraint<?>>asList(new MapKeyConstraint("", nullsAllowed, (ValueConstraint<?>)constraints.iterator().next()));
+				return withExtras(new MapKeyConstraint("", nullsAllowed, (ValueConstraint<?>)constraints.iterator().next()), values);
 			}
 		};
 	};

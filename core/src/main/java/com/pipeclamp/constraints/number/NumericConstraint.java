@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.number;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,8 +48,8 @@ public class NumericConstraint extends AbstractNumericConstraint {
 			Boolean includeMax = booleanValueIn(values, MAX_INCLUSIVE);
 			
 			if (minValue != null || maxValue != null) {
-				return Arrays.<Constraint<?>>asList(
-						new NumericConstraint("", nullsAllowed, minValue, includeMin, maxValue, includeMax)
+				return withExtras(
+						new NumericConstraint("", nullsAllowed, minValue, includeMin, maxValue, includeMax), values
 						);
 			}
 
@@ -58,8 +57,8 @@ public class NumericConstraint extends AbstractNumericConstraint {
 			if (rangeId != null) {
 				NamedRange range = NamedRange.ALL.get(rangeId);
 				if (range != null) {
-					return Arrays.<Constraint<?>>asList(
-							new NumericConstraint(range.id(), nullsAllowed, range.min, true, range.max, true)
+					return withExtras(
+							new NumericConstraint(range.id(), nullsAllowed, range.min, true, range.max, true), values
 							);
 				} else {
 					throw new IllegalArgumentException("Unrecognized range: " + rangeId);

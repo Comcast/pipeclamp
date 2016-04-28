@@ -25,6 +25,7 @@ import com.pipeclamp.api.ConstraintFactory;
 import com.pipeclamp.api.Parameter;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.path.Path;
 
 /**
@@ -144,9 +145,19 @@ public class AvroConstraintUtil extends QAUtil {
 
 		Map<String, String> args = argumentsOn(node);
 
+		addDocsTo(args, node);	// include any doc as a value under a reserved key
+		
 		return cb.constraintsFrom(type, allowsNulls, args);
 	}
 
+	private static void addDocsTo(Map<String, String> args, JsonNode node) {
+		
+		if (!node.has(DocKey)) return;
+
+		String docs = node.get(DocKey).asText();
+		args.put(BasicConstraintBuilder.LocalDocKey, docs);
+	}
+	
 	/**
 	 * Recursive descent through the tree via the field list to collect the constraint parameters.
 	 *

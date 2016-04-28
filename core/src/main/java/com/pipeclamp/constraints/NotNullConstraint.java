@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public class NotNullConstraint extends AbstractValueConstraint<Object> {
 
 		public Collection<Constraint<?>> constraintsFrom(Type type, boolean nullsAllowed, Map<String, String> values) {
 
-			return Arrays.<Constraint<?>>asList( new NotNullConstraint("") );
+			return withExtras( new NotNullConstraint(""), values);
 		}
 	};
 	

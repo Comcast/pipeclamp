@@ -43,8 +43,8 @@ public class CollectionContentConstraint extends AbstractCollectionConstraint {
 
 			Set<String> optSet = opts == null ? null : new HashSet<>(Arrays.asList(opts));
 			
-			return Arrays.<Constraint<?>>asList(
-					new CollectionContentConstraint("", nullsAllowed, restriction, optSet)
+			return withExtras(
+					new CollectionContentConstraint("", nullsAllowed, restriction, optSet), values
 					);
 		}
 	};

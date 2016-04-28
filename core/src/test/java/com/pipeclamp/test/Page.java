@@ -7,7 +7,7 @@ package com.pipeclamp.test;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Page extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Page\",\"namespace\":\"com.pipeclamp.test\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}]}]},{\"name\":\"contents\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"page contents\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Page\",\"namespace\":\"com.pipeclamp.test\",\"fields\":[{\"name\":\"index\",\"type\":\"int\",\"doc\":\"page number\",\"constraints\":[{\"function\":\"range\",\"args\":[{\"name\":\"min\",\"value\":\"1\"},{\"name\":\"max\",\"value\":\"100\"}],\"doc\":\"todo\"}]},{\"name\":\"contents\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"page contents\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   /** page number */
    private int index;

@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.multivalue;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import org.apache.avro.Schema.Type;
 
 import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintBuilder;
-import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.PathBuilder;
 import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
@@ -52,8 +50,8 @@ public class ComparativeConstraint<T extends Object> extends AbstractMultivalueC
 				Comparison comp = comparisonIn(values, CompParam);
 				if (comp == null) return null;
 
-				return Arrays.<Constraint<?>>asList(
-						new ComparativeConstraint("asdf", p1, p2, comp)
+				return withExtras(
+						new ComparativeConstraint("asdf", p1, p2, comp), values
 						);
 			}
 		};

@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.timestamp;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +36,8 @@ public class TimestampEraConstraint extends AbstractValueConstraint<Long> {
 			String restrictionId = values.remove(Era.id());
 			TimestampRestriction tr = TimestampRestriction.fromKeyword(restrictionId);
 			if (tr != null)
-					return Arrays.<Constraint<?>>asList(
-							new TimestampEraConstraint("", nullsAllowed, tr)
+					return withExtras(
+							new TimestampEraConstraint("", nullsAllowed, tr), values
 							);
 
 			return null;

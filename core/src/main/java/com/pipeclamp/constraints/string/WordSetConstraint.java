@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.string;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,7 +40,7 @@ public class WordSetConstraint extends AbstractStringConstraint {
 			String[] words = WORDS.valueIn(values.remove(WORDS.id()), null);
 			if (restriction == null || words == null || words.length == 0) return null;
 
-			return Arrays.<Constraint<?>>asList( new WordSetConstraint("", nullsAllowed, words, restriction) );
+			return withExtras( new WordSetConstraint("", nullsAllowed, words, restriction), values);
 		}
 	};
 

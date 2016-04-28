@@ -1,6 +1,5 @@
 package com.pipeclamp.constraints.timestamp;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +37,8 @@ public class TimestampRangeConstraint extends AbstractValueConstraint<Long> {
 			Long maxValue = timestampValueIn(values, MAX_TIMESTAMP);
 
 			if (minValue != null || maxValue != null) {
-				return Arrays.<Constraint<?>>asList(
-						new TimestampRangeConstraint("", nullsAllowed, minValue, maxValue)
+				return withExtras(
+						new TimestampRangeConstraint("", nullsAllowed, minValue, maxValue), values
 						);
 			}
 

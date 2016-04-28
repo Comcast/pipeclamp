@@ -13,7 +13,7 @@
 			},
 			"doc": "aliases used",
 			"constraints" : [	
-								{  "function" : "size", "args" : [ 	{ "name" : "min", "value" : "2"},	{ "name" : "max", "value" : "4"} ] }
+								{  "function" : "size", "args" : [ 	{ "name" : "min", "value" : "2"},	{ "name" : "max", "value" : "4"} ], "doc": "todo"}
 				      		]
 		},
 		{
@@ -28,7 +28,7 @@
 			            {
 			              "name": "number",  "type": "string",  "doc": "unique identifier",
 			              "constraints" : [	
-								{   "function" : "size", "args" : [ { "name" : "min", "value" : "1"},	{ "name" : "max", "value" : "3"} ] }
+								{   "function" : "size", "args" : [ { "name" : "min", "value" : "1"},	{ "name" : "max", "value" : "3"} ], "doc": "todo" }
 				      			]
 			            },
 			            {
@@ -49,7 +49,7 @@
 			              			{
 			              			"name" : "index", 	"type" : "int", "doc" : "page number",
 			              			"constraints" : [	
-											{  "function" : "range",   "args" : [ { "name" : "min", "value" : "1"},  { "name" : "max", "value" : "100"} ] }
+											{  "function" : "range",   "args" : [ { "name" : "min", "value" : "1"},  { "name" : "max", "value" : "100"} ], "doc": "todo" }
 					      				]
 			              			},
 			              			{
@@ -74,7 +74,7 @@
 			"name": "deathdate",	"type": ["null", "long"],	"default": null
 		},
 		{
-			"name": "bellybuttons",	"type": "int",	"default": 1,  "metrics" : [   { "function" : "average", "id" : "bellybuttonAvg" }  ]
+			"name": "bellybuttons",	"type": "int",	"default": 1,  "metrics" : [   { "function" : "average", "id" : "bellybuttonAvg", "doc": "todo" }  ]
 		},
 		{
 			"name": "firstname",	"type": "string",

@@ -26,8 +26,8 @@ public abstract class AbstractRegisteredItem implements RegisteredItem {
 
 	@Override
 	public String description() { return description; }
-
-	protected void description(String aDescription) { description = aDescription; }
+	
+	protected void pDescription(String theDescription) { description = theDescription; }
 	
 	@Override
 	public boolean equals(Object other) {
