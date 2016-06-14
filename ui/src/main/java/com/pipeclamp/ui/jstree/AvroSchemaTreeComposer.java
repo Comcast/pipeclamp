@@ -18,9 +18,9 @@ import org.apache.avro.Schema;
 import org.apache.avro.Schema.Field;
 import org.apache.avro.Schema.Type;
 
+import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintFactory;
 import com.pipeclamp.api.Parameter;
-import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.avro.AvroConfiguration;
 import com.pipeclamp.avro.AvroConstraintUtil;
 import com.pipeclamp.avro.AvroMetricUtil;
@@ -260,7 +260,7 @@ public class AvroSchemaTreeComposer extends AbstractJsTreeComposer {
 		endLine();
 	}
 	
-	private void renderConstraint(String id, ValueConstraint<?> constraint, String parentId) {
+	private void renderConstraint(String id, Constraint<?> constraint, String parentId) {
 		
 		String constraintId = id + rowCount++;
 		
@@ -304,15 +304,15 @@ public class AvroSchemaTreeComposer extends AbstractJsTreeComposer {
 	private void showConstraints(Schema schema, String childId) {
 		
 		if (AvroConstraintUtil.hasLocalConstraints(schema)) {
-			Collection<ValueConstraint<?>> constraints = AvroConstraintUtil.localConstraintsIn(schema, Factory);
+			Collection<Constraint<?>> constraints = AvroConstraintUtil.localConstraintsIn(schema, Factory);
 			show(childId, constraints);
 		}
 	}
 
-	private void show(String childId, Collection<ValueConstraint<?>> constraints) {
+	private void show(String childId, Collection<Constraint<?>> constraints) {
 
 		incrementDepth();
-		for (ValueConstraint<?> vc : constraints) {
+		for (Constraint<?> vc : constraints) {
 			renderConstraint(vc.id(), vc, childId);
 		}
 		decrementDepth();
@@ -321,7 +321,7 @@ public class AvroSchemaTreeComposer extends AbstractJsTreeComposer {
 	private void showConstraints(Field field, String childId) {
 		
 		if (AvroConstraintUtil.hasLocalConstraints(field)) {
-			Collection<ValueConstraint<?>> constraints = AvroConstraintUtil.localConstraintsIn(field, Factory);
+			Collection<Constraint<?>> constraints = AvroConstraintUtil.localConstraintsIn(field, Factory);
 			show(childId, constraints);
 		}
 	}

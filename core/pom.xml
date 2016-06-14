@@ -24,11 +24,11 @@
 	<packaging>jar</packaging>
 		
 	<dependencies>
-	<dependency>
-		<groupId>org.jibx.schema.org.docbook</groupId>
-		<artifactId>org.jibx.schema.org.docbook.xml._5_0.xsd.docbook</artifactId>
-		<version>1.1.4</version>
-	</dependency>
+		<dependency>
+		    <groupId>com.j2html</groupId>
+		    <artifactId>j2html</artifactId>
+		    <version>0.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>

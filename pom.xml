@@ -15,11 +15,13 @@
 	<version>1.0-SNAPSHOT</version>
 	
 	<name>Pipeclamp</name>
-	<description>Pipeclamp</description>
-	
-	<url>https://github.com/Comcast/pipeclamp</url>
+	<description>Provides field value constraint and metrics collection.</description>
 
 	<packaging>pom</packaging>
+	
+	<organization>
+		<name>Comcast</name>
+	</organization>
 	
 	<licenses>
 		<license>
@@ -51,7 +53,8 @@
 
     <modules>
        <module>core</module>
-       <module>ui</module>
+<!--       <module>ui</module>
+  <module>xml</module>   -->   
     </modules>
     
 	<dependencies>
