@@ -14,7 +14,10 @@ public abstract class AbstractStringConstraint extends AbstractValueConstraint<S
 
 	@Override
 	public String cast(Object value) {
-		return (String)value;
+		
+		return value instanceof String ?
+			(String)value :
+			value.toString();	// handles Avro UTF8 string types
 	}
 
 }
