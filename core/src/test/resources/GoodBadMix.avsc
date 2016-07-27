@@ -1,0 +1,43 @@
+{
+  "type" : "record",
+  "name" : "TuneEvent",
+  "namespace" : "watermark.xre",
+  "doc" : "Whenever a device performs a tune despite the mode of playback (VOD, DVR, Linear, etc.) a tune event is created.",
+  "fields" : [ {
+    "name" : "namepickedbyvalidator",
+    "type" : [ "null", "string" ],
+    "doc" : "The name of the event type (i.e. \"tune\" in this case).",
+    "default" : null,
+    "constraints" : [
+              { "function" : "length", "args" : [ { "name" : "min", "value" : "11"}, { "name" : "max", "value" : "19"} ], "doc": "todo" }
+                ]
+  }, {
+    "name" : "device",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "DeviceInfo",
+      "doc" : "Information related to a set-top box.",
+      "fields" : [ {
+        "name" : "receiverId",
+        "type" : [ "null", "string" ],
+        "doc" : "Unique device ID provided by XBO.",
+        "default" : null,
+        "constraints" : [
+					{ "function" : "length", "args" : [ { "name" : "min", "value" : "2"}, { "name" : "max", "value" : "10"} ], "doc": "todo" }
+				     ]
+      }, {
+        "name" : "deviceId",
+        "type" : [ "null", "string" ],
+        "doc" : "The X1 platform Back Office (XBO) device identifier.",
+        "default" : null,
+        "constraints" : [
+					{ "function" : "length", "args" : [ { "name" : "min", "value" : "10"}, { "name" : "max", "value" : "20"} ], "doc": "todo" }
+				     ]
+      } ]
+
+    } ],
+    "doc" : "Information related to a set-top box.",
+    "default" : null,
+    "businessLogic" : "This record will always be present in tune events."
+  }]
+}

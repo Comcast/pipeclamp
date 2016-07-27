@@ -28,6 +28,9 @@ import com.pipeclamp.api.Violation;
 import com.pipeclamp.constraints.BasicConstraintBuilder;
 import com.pipeclamp.path.Path;
 
+import static com.pipeclamp.avro.AvroUtil.nullableSingleTypeIn;
+import static com.pipeclamp.avro.AvroUtil.isNullableSingleType;
+
 /**
  *
  * @author Brian Remedios
@@ -208,7 +211,14 @@ public class AvroConstraintUtil extends QAUtil {
 					break;
 				}
 				case UNION : {
-					// TODO
+					path.push(fld.name());
+					List<Schema> kidTypes = childSchema.getTypes();
+					if (isNullableSingleType(kidTypes)) {
+						Schema realType = nullableSingleTypeIn(kidTypes);
+						collectConstraints(path, realType, constraintsByPath, factory);
+					}
+					path.pop();
+					break;
 				}
 			}
 		}

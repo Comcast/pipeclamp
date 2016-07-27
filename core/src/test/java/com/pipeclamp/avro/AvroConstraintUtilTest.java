@@ -24,4 +24,14 @@ public class AvroConstraintUtilTest {
 	  Map<Path<GenericRecord, ?>, Collection<Constraint<?>>> constraints = AvroConstraintUtil.constraintsIn(sc, true, AvroConfiguration.ConstraintFactory);
 	  assertEquals(10, constraints.size());
   }
+  
+  @Test
+  public void constraintsIn2() {
+    
+	  byte[] schemaBytes = AbstractConstraintTest.readResource("GoodBadMix.avsc");
+	  Schema sc = AvroUtil.parseSchema(new String(schemaBytes));
+	  
+	  Map<Path<GenericRecord, ?>, Collection<Constraint<?>>> constraints = AvroConstraintUtil.constraintsIn(sc, true, AvroConfiguration.ConstraintFactory);
+	  assertEquals(3, constraints.size());
+  }
 }

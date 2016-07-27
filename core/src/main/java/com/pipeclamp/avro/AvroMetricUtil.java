@@ -1,5 +1,8 @@
 package com.pipeclamp.avro;
 
+import static com.pipeclamp.avro.AvroUtil.isNullableSingleType;
+import static com.pipeclamp.avro.AvroUtil.nullableSingleTypeIn;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -164,7 +167,14 @@ public class AvroMetricUtil extends QAUtil {
 					break;
 				}
 				case UNION : {
-					// TODO
+					path.push(fld.name());
+					List<Schema> kidTypes = childSchema.getTypes();
+					if (isNullableSingleType(kidTypes)) {
+						Schema realType = nullableSingleTypeIn(kidTypes);
+						collectMetrics(path, realType, metricsByPath);
+					}
+					path.pop();
+					break;
 				}
 			}
 		}
