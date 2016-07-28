@@ -38,7 +38,7 @@ import static com.pipeclamp.avro.AvroUtil.isNullableSingleType;
 public class AvroConstraintUtil extends QAUtil {
 
 	public static final String TypeKey = "_type";
-	public static final String AllowsNullKey = "_allowsNull";
+	public static final String AllowNullKey = "allowNull";
 
 	private static final String ConstraintKey = "constraints";
 	private static final String ConstraintFunctionKey = "function";
@@ -135,6 +135,23 @@ public class AvroConstraintUtil extends QAUtil {
 		return constraints;
 	}
 
+	/**
+	 * Returns whether nulls are permitted per the datatype definition (i.e. Long -> yes, long -> no)
+	 * or if yes, whether the arguments has an explicit allowance for it.
+	 * 
+	 * @param typeCanBeNull
+	 * @param arguments
+	 * 
+	 * @return boolean
+	 */
+	private static boolean nullsPermitted(boolean typeCanBeNull, Map<String, String> arguments) {
+		
+		String explicitNullAllowance = arguments.get(AllowNullKey);
+		if (explicitNullAllowance == null) return typeCanBeNull;
+		
+		return Boolean.valueOf(explicitNullAllowance);
+	}
+	
 	private static Collection<Constraint<?>> constraintsIn(JsonNode node, Type type, boolean allowsNulls, ConstraintFactory<Schema.Type> factory) {
 
 		if (!node.has(ConstraintFunctionKey)) return null;
@@ -148,9 +165,11 @@ public class AvroConstraintUtil extends QAUtil {
 
 		Map<String, String> args = argumentsOn(node);
 
+		boolean valueCanBeNull = nullsPermitted(allowsNulls, args);
+		
 		addDocsTo(args, node);	// include any doc as a value under a reserved key
 		
-		return cb.constraintsFrom(type, allowsNulls, args);
+		return cb.constraintsFrom(type, valueCanBeNull, args);
 	}
 
 	private static void addDocsTo(Map<String, String> args, JsonNode node) {

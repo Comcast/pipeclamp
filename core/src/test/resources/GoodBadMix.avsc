@@ -23,7 +23,7 @@
         "doc" : "Unique device ID provided by XBO.",
         "default" : null,
         "constraints" : [
-					{ "function" : "length", "args" : [ { "name" : "min", "value" : "2"}, { "name" : "max", "value" : "10"} ], "doc": "todo" }
+					{ "function" : "length", "args" : [ { "name" : "allowNull", "value" : "false"}, { "name" : "min", "value" : "2"}, { "name" : "max", "value" : "10"} ], "doc": "todo" }
 				     ]
       }, {
         "name" : "deviceId",

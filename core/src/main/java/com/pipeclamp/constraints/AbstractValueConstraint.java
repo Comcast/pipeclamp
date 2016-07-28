@@ -2,6 +2,7 @@ package com.pipeclamp.constraints;
 
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.params.BooleanParameter;
 
 /**
  *
@@ -27,6 +28,10 @@ public abstract class AbstractValueConstraint<V extends Object> extends Abstract
 //		return null;
 //	}
 
+	public static final String MissingValueMessage = "Missing value";
+	
+	public static final BooleanParameter ALLOW_NULLS = new BooleanParameter("allowNull", "(Optional)  Override any null value derivation and enforce null checking");
+	
 	protected AbstractValueConstraint(String theId, boolean nullAllowed) {
 		super(theId, nullAllowed);
 	}
@@ -39,7 +44,7 @@ public abstract class AbstractValueConstraint<V extends Object> extends Abstract
 		if (value == null) {
 			return nullsAllowed ?
 				null :
-				new Violation(this, "Missing value");
+				new Violation(this, MissingValueMessage);
 		}
 
 		V typed;

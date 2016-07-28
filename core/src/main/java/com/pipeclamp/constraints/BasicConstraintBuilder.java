@@ -36,6 +36,14 @@ public class BasicConstraintBuilder<V extends Object> implements ConstraintBuild
 		return Arrays.<Constraint<?>>asList(constraint);
 	}
 	
+	private static Parameter<?>[] paramsWith(Parameter<?>[] params, Parameter<?> newParam) {
+		
+		Parameter<?>[] plusOne = new Parameter<?>[params.length+1];
+		System.arraycopy(params, 0, plusOne, 0, params.length);
+		plusOne[params.length] = newParam;
+		return plusOne;
+	}
+	
 	/**
 	 * 
 	 * @param theId
@@ -46,7 +54,7 @@ public class BasicConstraintBuilder<V extends Object> implements ConstraintBuild
 		id = theId;
 		executionType = theExecutionType;
 		documentation = theDocs;
-		parameters = theParams;
+		parameters = paramsWith(theParams, AbstractValueConstraint.ALLOW_NULLS);
 	}
 
 	@Override
