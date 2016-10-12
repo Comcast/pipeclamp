@@ -12,6 +12,7 @@ import org.apache.avro.generic.GenericRecord;
 
 import com.pipeclamp.api.Constraint;
 import com.pipeclamp.api.ConstraintFactory;
+import com.pipeclamp.api.ConstraintFilter;
 import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
@@ -67,7 +68,6 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 		super(theConstraintsByPath);
 	}
 
-
 	public void register(ValueConstraint<?> constraint, String... thePath) {
 		register(constraint, new SimpleAvroPath(thePath));
 	}
@@ -82,11 +82,12 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 	 * that denotes the path.
 	 *
 	 * @param record
+	 * @param predicate
 	 *
 	 * @return Map<Path<GenericRecord, ?>, Collection<Violation>>
 	 */
 	@Override
-	public Map<Path<GenericRecord, ?>, Collection<Violation>> validate(GenericRecord record) {
+	public Map<Path<GenericRecord, ?>, Collection<Violation>> validate(GenericRecord record, ConstraintFilter predicate) {
 
 		validationStarting();
 
@@ -94,6 +95,8 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 
 		for (Entry<Path<GenericRecord, ?>, Collection<ValueConstraint<?>>> entry : valueConstraints()) {
 
+			Collection<ValueConstraint<?>> constraints = filter(entry.getValue(), predicate);
+			
 			final Path<GenericRecord, ?> path = entry.getKey();
 
 			if (path.hasLoop()) {
@@ -102,14 +105,14 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 				cache(path, values);
 				
 				if (path.denotesCollection()) {
-					Collection<Violation> violations = violationsFor(entry.getValue(), values);
+					Collection<Violation> violations = violationsFor(constraints, values);
 					if (violations.isEmpty()) continue;
 					issues.put(path, violations);
 					continue;
 				}
 
 				for (int i=0; i<values.size(); i++) {
-					Collection<Violation> violations = violationsFor(entry.getValue(), values.get(i));
+					Collection<Violation> violations = violationsFor(constraints, values.get(i));
 					if (violations.isEmpty()) continue;
 					Path<GenericRecord, ?> errorPath = path.withIndex(path.depth()-1, Integer.toString(i));
 					issues.put(errorPath, violations);
@@ -117,7 +120,7 @@ public class AvroValidator extends AbstractValidator<GenericRecord> {
 				} else {
 					Object value = path.valueVia(record);
 					cache(path, value);
-					Collection<Violation> violations = violationsFor(entry.getValue(), value);
+					Collection<Violation> violations = violationsFor(constraints, value);
 					if (violations.isEmpty()) continue;
 					issues.put(path, violations);
 					}

@@ -5,12 +5,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Set;
 
 import com.pipeclamp.api.Constraint;
+import com.pipeclamp.api.ConstraintFilter;
 import com.pipeclamp.api.MultiValueConstraint;
 import com.pipeclamp.api.ValueConstraint;
 import com.pipeclamp.api.Violation;
+import com.pipeclamp.avro.SimpleAvroPath;
 import com.pipeclamp.path.Path;
 
 /**
@@ -34,9 +37,18 @@ public abstract class AbstractValidator<T extends Object> {
 		return violations;
 	}
 
-	protected AbstractValidator() {
-
+	protected static Collection<ValueConstraint<?>> filter(Collection<ValueConstraint<?>> existing, ConstraintFilter predicate) {
+		
+		if (predicate == null) return existing;
+		
+		Collection<ValueConstraint<?>> filtered = new ArrayList<>(existing.size());
+		for (ValueConstraint<?> vc : existing) {
+			if (predicate.accept(vc)) filtered.add(vc);
+		}
+		return filtered;
 	}
+	
+	protected AbstractValidator() { }
 
 	protected AbstractValidator(Map<Path<T, ?>, Collection<Constraint<?>>> theConstraintsByPath) {
 		
@@ -56,7 +68,34 @@ public abstract class AbstractValidator<T extends Object> {
 	//	multivalueConstraints = theMultivalues;
 	}
 
-	public abstract Map<Path<T, ?>, Collection<Violation>> validate(T record);
+	public void register(ValueConstraint<?> constraint, String... thePath) {
+		register(constraint, new SimpleAvroPath(thePath));
+	}
+	
+	/**
+	 * Walks the path for every registered constraint to extract the value
+	 * and evaluates them. Any violations are held and returned in a map
+	 * that denotes the path.  All available constraints are applied.
+	 *
+	 * @param record
+	 *
+	 * @return Map<Path<T, ?>, Collection<Violation>>
+	 */
+	public Map<Path<T, ?>, Collection<Violation>> validate(T record) {
+		return validate(record, null);
+	}
+	
+	/**
+	 * Walks the path for every acceptable constraint to extract the value
+	 * and evaluates them. Any violations are held and returned in a map
+	 * that denotes the path.
+	 *
+	 * @param record
+	 * @param filter
+	 *
+	 * @return Map<Path<T, ?>, Collection<Violation>>
+	 */
+	public abstract Map<Path<T, ?>, Collection<Violation>> validate(T record, ConstraintFilter filter);
 
 	protected Set<Entry<Path<T, ?>, Collection<ValueConstraint<?>>>> valueConstraints() {
 		return constraintsByPath.entrySet();
