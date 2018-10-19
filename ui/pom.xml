@@ -23,7 +23,7 @@
 	<packaging>jar</packaging>
 	
 	<properties>
-		<undertow.version>1.4</undertow.version>
+		<undertow.version>1.4.26.Final</undertow.version>
 	</properties>
 
 	<dependencies>
